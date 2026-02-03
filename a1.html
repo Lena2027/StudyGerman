@@ -75,31 +75,91 @@
                         <main className="flex-grow p-6 lg:p-12 max-w-4xl mx-auto w-full">
                             {lektion === 1 ? (
                                 <div className="space-y-16">
-                                    {/* 1. 회화 영역 */}
-                                    <section>
+                                   <section>
                                         <h2 className="text-3xl font-black serif-font mb-2">Lektion 1: 어학원 첫날</h2>
-                                        <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-8 border-b pb-4">Dialogue: Der erste Tag im Sprachkurs</p>
+                                        <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-8">Dialogue: Der erste Tag im Sprachkurs</p>
                                         
-                                        <div className="space-y-2">
-                                            <div className="bubble teacher">
-                                                <span className="text-[10px] font-bold text-yellow-600 block mb-1 uppercase">Frau Bauer</span>
+                                        <div className="dialogue-box space-y-6">
+                                            <div>
+                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
                                                 Guten Morgen! Willkommen im Deutschkurs. Ich bin Frau Bauer. Wie heißen Sie?
+                                                <span className="translation">좋은 아침입니다! 독일어 코스에 오신 걸 환영해요. 저는 바우어 선생님입니다. 성함이 어떻게 되시죠?</span>
                                             </div>
-                                            <div className="bubble student-a">
-                                                <span className="text-[10px] font-bold text-blue-600 block mb-1 uppercase">Minjun</span>
+                                            <div>
+                                                <span className="speaker speaker-Minjun">Minjun:</span>
                                                 Guten Morgen, Frau Bauer. Mein Name ist Minjun Kim.
+                                                <span className="translation">좋은 아침이에요, 바우어 선생님. 제 이름은 김민준입니다.</span>
                                             </div>
-                                            <div className="bubble teacher">
-                                                <span className="text-[10px] font-bold text-yellow-600 block mb-1 uppercase">Frau Bauer</span>
+                                            <div>
+                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
                                                 Entschuldigung, wie buchstabieren Sie Ihren Nachnamen?
+                                                <span className="translation">(실례지만, 성의 철자가 어떻게 되나요?)</span>
                                             </div>
-                                            <div className="bubble student-a">
-                                                <span className="text-[10px] font-bold text-blue-600 block mb-1 uppercase">Minjun</span>
+                                            <div>
+                                                <span className="speaker speaker-Minjun">Minjun:</span>
                                                 K-I-M. Genau.
+                                                <span className="translation">K-I-M입니다. 맞아요.</span>
                                             </div>
-                                            <div className="bubble student-b">
-                                                <span className="text-[10px] font-bold text-green-600 block mb-1 uppercase">Elena</span>
-                                                Hallo, ich heiße Elena. Ich bin Spanierin, ledig und 21 Jahre alt.
+                                            <div>
+                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
+                                                Danke, Minjun. Woher kommen Sie?
+                                                <span className="translation">고마워요, 민준 씨. 어디서 오셨나요?</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Minjun">Minjun:</span>
+                                                Ich komme aus Korea. Ich lebe jetzt in Berlin.
+                                                <span className="translation">한국에서 왔습니다. 지금은 베를린에 살고 있어요.</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
+                                                Und wer bist du?
+                                                <span className="translation">그리고 너는 누구니?</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Elena">Elena:</span>
+                                                Hallo, ich heiße Elena. Ich bin ledig und einundzwanzig (21) Jahre alt.
+                                                <span className="translation">안녕하세요, 저는 엘레나라고 해요. 저는 미혼이고 21살입니다.</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Minjun">Minjun:</span>
+                                                Elena, welche Sprachen sprichst du?
+                                                <span className="translation">엘레나, 너는 어떤 언어들을 하니?</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Elena">Elena:</span>
+                                                Ich spreche Spanisch, Englisch und ein bisschen Deutsch. Und du?
+                                                <span className="translation">나는 스페인어, 영어 그리고 독일어를 조금 해. 너는?</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Minjun">Minjun:</span>
+                                                Ich spreche Koreanisch und Englisch. Ich lerne jetzt Deutsch.
+                                                <span className="translation">나는 한국어와 영어를 해. 지금은 독일어를 배우고 있어.</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Elena">Elena:</span>
+                                                Wie ist deine Telefonnummer? Wir können zusammen lernen.
+                                                <span className="translation">네 전화번호가 뭐니? 우리 같이 공부할 수 있겠다.</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Minjun">Minjun:</span>
+                                                Ja, meine Nummer ist null-eins-sieben... (017...). Schreib bitte!
+                                                <span className="translation">응, 내 번호는 017...이야. 적어줘!</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
+                                                Gut. Bitte lesen Sie jetzt das Beispiel auf Seite zehn (10).
+                                                <span className="translation">좋아요. 이제 10페이지에 있는 예시를 읽어보세요.</span>
+                                            </div>
+                                            {/* --- 추가된 대화 내용 --- */}
+                                            <div>
+                                                <span className="speaker speaker-Minjun">Minjun:</span>
+                                                Frau Bauer, noch einmal, bitte. Sprechen Sie bitte langsam. Ich verstehe nicht.
+                                                <span className="translation">바우어 선생님, 한 번 더 부탁드려요. 천천히 말씀해 주세요. 이해를 못 했어요.</span>
+                                            </div>
+                                            <div>
+                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
+                                                Kein Problem, Minjun. Wir machen die Übung zusammen.
+                                                <span className="translation">문제없어요, 민준 씨. 우리 연습문제를 같이 해봐요.</span>
                                             </div>
                                         </div>
                                     </section>
