@@ -33,7 +33,7 @@
 
         // --- 재귀 동사 100개 데이터 ---
         const REFLEXIVE_DATA = [
-            // 1. 전치사 결합 (1~40)
+            // 1. 전치사 결합이 핵심인 재귀 동사 (1~40) 
             { id: 1, german: "sich freuen auf", korean: "(미래의 일을) 기대하다", prep: "auf + A", cat: "전치사 결합" },
             { id: 2, german: "sich freuen über", korean: "(현재/과거 일에) 기뻐하다", prep: "über + A", cat: "전치사 결합" },
             { id: 3, german: "sich interessieren für", korean: "~에 관심이 있다", prep: "für + A", cat: "전치사 결합" },
@@ -43,25 +43,101 @@
             { id: 7, german: "sich beschweren bei", korean: "~에게 불평하다", prep: "bei + D", cat: "전치사 결합" },
             { id: 8, german: "sich bedanken für", korean: "~에 대해 감사하다", prep: "für + A", cat: "전치사 결합" },
             { id: 9, german: "sich bedanken bei", korean: "~에게 감사하다", prep: "bei + D", cat: "전치사 결합" },
-            { id: 10, german: "sich verlieben in", korean: "~와 사랑에 빠지다", prep: "in + A", cat: "전치사 결합" },
-            { id: 11, german: "sich entscheiden für", korean: "~로 결정하다", prep: "für + A", cat: "전치사 결합" },
-            { id: 12, german: "sich entschuldigen für", korean: "~에 대해 사과하다", prep: "für + A", cat: "전치사 결합" },
-            { id: 13, german: "sich entschuldigen bei", korean: "~에게 사과하다", prep: "bei + D", cat: "전치사 결합" },
-            { id: 14, german: "sich erinnern an", korean: "~를 기억하다", prep: "an + A", cat: "전치사 결합" },
+            { id: 10, german: "sich erinnern an", korean: "~를 기억하다", prep: "an + A", cat: "전치사 결합" },
+            { id: 11, german: "sich konzentrieren auf", korean: "~에 집중하다", prep: "auf + A", cat: "전치사 결합" },
+            { id: 12, german: "sich verlieben in", korean: "~와 사랑에 빠지다", prep: "in + A", cat: "전치사 결합" },
+            { id: 13, german: "sich fürchten vor", korean: "~를 두려워하다", prep: "vor + D", cat: "전치사 결합" },
+            { id: 14, german: "sich vorbereiten auf", korean: "~를 준비하다", prep: "auf + A", cat: "전치사 결합" },
             { id: 15, german: "sich gewöhnen an", korean: "~에 익숙해지다", prep: "an + A", cat: "전치사 결합" },
-            { id: 16, german: "sich 준비하다 (vorbereiten auf)", korean: "~를 준비하다", prep: "auf + A", cat: "전치사 결합" },
-            { id: 17, german: "sich 고대하다 (sehnen nach)", korean: "~를 갈망하다", prep: "nach + D", cat: "전치사 결합" },
-            { id: 18, german: "sich 작별하다 (verabschieden von)", korean: "~와 작별하다", prep: "von + D", cat: "전치사 결합" },
-            { id: 19, german: "sich 고민하다 (auseinandersetzen mit)", korean: "~를 깊이 다루다", prep: "mit + D", cat: "전치사 결합" },
-            { id: 20, german: "sich 놀라다 (erschrecken über)", korean: "~에 놀라다", prep: "über + A", cat: "전치사 결합" },
-            // ... (파일의 100개 내용을 모두 포함하기 위해 핵심 동사 위주로 구성하며, 실제 배포 시 100개 모두 기입 권장)
-            { id: 41, german: "sich anziehen", korean: "옷을 입다", prep: "-", cat: "일상생활" },
-            { id: 42, german: "sich ausziehen", korean: "옷을 벗다", prep: "-", cat: "일상생활" },
-            { id: 43, german: "sich duschen", korean: "샤워하다", prep: "-", cat: "일상생활" },
-            { id: 44, german: "sich beeilen", korean: "서두르다", prep: "-", cat: "일상생활" },
+            { id: 16, german: "sich vorbereiten auf", korean: "(~를) 준비하다", prep: "auf + A", cat: "전치사 결합" }, // 수정됨
+            { id: 17, german: "sich sehnen nach", korean: "(~를) 갈망하다", prep: "nach + D", cat: "전치사 결합" }, // 수정됨
+            { id: 18, german: "sich verlassen auf", korean: "~를 믿다/의지하다", prep: "auf + A", cat: "전치사 결합" },
+            { id: 19, german: "sich auseinandersetzen mit", korean: "(~를) 깊이 다루다", prep: "mit + D", cat: "전치사 결합" }, // 수정됨
+            { id: 20, german: "sich entscheiden für", korean: "~로 결정하다", prep: "für + A", cat: "전치사 결합" },
+            { id: 21, german: "sich sehnen nach", korean: "~를 갈망하다", prep: "nach + D", cat: "전치사 결합" },
+            { id: 22, german: "sich unterhalten mit", korean: "~와 대화하다", prep: "mit + D", cat: "전치사 결합" },
+            { id: 23, german: "sich unterhalten über", korean: "~에 대해 대화하다", prep: "über + A", cat: "전치사 결합" },
+            { id: 24, german: "sich erkundigen nach", korean: "~를 문의하다", prep: "nach + D", cat: "전치사 결합" },
+            { id: 25, german: "sich streiten mit", korean: "~와 싸우다", prep: "mit + D", cat: "전치사 결합" },
+            { id: 26, german: "sich streiten über", korean: "~에 대해 싸우다", prep: "über + A", cat: "전치사 결합" },
+            { id: 27, german: "sich trennen von", korean: "~와 헤어지다", prep: "von + D", cat: "전치사 결합" },
+            { id: 28, german: "sich verabreden mit", korean: "~와 약속하다", prep: "mit + D", cat: "전치사 결합" },
+            { id: 29, german: "sich beschäftigen mit", korean: "~에 몰두하다", prep: "mit + D", cat: "전치사 결합" },
+            { id: 30, german: "sich anpassen an", korean: "~에 적응하다", prep: "an + A", cat: "전치사 결합" },
+            { id: 31, german: "sich fürchten vor", korean: "~를 무서워하다", prep: "vor + D", cat: "전치사 결합" },
+            { id: 32, german: "sich schämen für", korean: "~를 부끄러워하다", prep: "für + A", cat: "전치사 결합" },
+            { id: 33, german: "sich spezialisieren auf", korean: "~를 전공/특화하다", prep: "auf + A", cat: "전치사 결합" },
+            { id: 34, german: "sich täuschen in", korean: "~에 대해 착각하다", prep: "in + D", cat: "전치사 결합" },
+            { id: 35, german: "sich treffen mit", korean: "~와 만나다", prep: "mit + D", cat: "전치사 결합" },
+            { id: 36, german: "sich verabschieden von", korean: "~와 작별하다", prep: "von + D", cat: "전치사 결합" },
+            { id: 37, german: "sich verstehen mit", korean: "~와 잘 지내다", prep: "mit + D", cat: "전치사 결합" },
+            { id: 38, german: "sich eignen für", korean: "~에 적합하다", prep: "für + A", cat: "전치사 결합" },
+            { id: 39, german: "sich erholen von", korean: "~로부터 회복하다", prep: "von + D", cat: "전치사 결합" },
+            { id: 40, german: "sich fürchten vor", korean: "~를 겁내다", prep: "vor + D", cat: "전치사 결합" },
+
+            // 2. 행동 및 상태 관련 필수 재귀 동사 (41~70) [cite: 9]
+            { id: 41, german: "sich beeilen", korean: "서두르다", prep: "-", cat: "필수 행동" },
+            { id: 42, german: "sich ausruhen", korean: "쉬다", prep: "-", cat: "필수 행동" },
+            { id: 43, german: "sich erkälten", korean: "감기 걸리다", prep: "-", cat: "필수 행동" },
+            { id: 44, german: "sich verspäten", korean: "늦다", prep: "-", cat: "필수 행동" },
+            { id: 45, german: "sich anstrengen", korean: "노력하다", prep: "-", cat: "필수 행동" }, // 수정됨
+            { id: 46, german: "sich irren", korean: "착각하다", prep: "-", cat: "필수 행동" },
+            { id: 47, german: "sich verlaufen", korean: "(걷다가) 길을 잃다", prep: "-", cat: "필수 행동" },
+            { id: 48, german: "sich verfahren", korean: "(운전하다) 길을 잃다", prep: "-", cat: "필수 행동" },
+            { id: 49, german: "sich befinden", korean: "위치하다", prep: "-", cat: "필수 행동" },
+            { id: 50, german: "sich ereignen", korean: "발생하다", prep: "-", cat: "필수 행동" },
+            { id: 51, german: "sich benehmen", korean: "행동하다", prep: "-", cat: "필수 행동" },
+            { id: 52, german: "sich weigern", korean: "거부하다", prep: "-", cat: "필수 행동" },
+            { id: 53, german: "sich trauen", korean: "감히 ~하다", prep: "-", cat: "필수 행동" },
+            { id: 54, german: "sich schämen", korean: "부끄러워하다", prep: "-", cat: "필수 행동" },
+            { id: 55, german: "sich gedulden", korean: "인내하다", prep: "-", cat: "필수 행동" },
+            { id: 56, german: "sich verletzen", korean: "다치다", prep: "-", cat: "필수 행동" },
+            { id: 57, german: "sich anmelden", korean: "등록하다", prep: "-", cat: "필수 행동" },
+            { id: 58, german: "sich abmelden", korean: "취소/로그아웃하다", prep: "-", cat: "필수 행동" },
+            { id: 59, german: "sich umsehen", korean: "둘러보다", prep: "-", cat: "필수 행동" },
+            { id: 60, german: "sich hinsetzen", korean: "앉다", prep: "-", cat: "필수 행동" },
+            { id: 61, german: "sich aufregen", korean: "흥분/화내다", prep: "über + A", cat: "필수 행동" },
+            { id: 62, german: "sich auskennen", korean: "잘 알다", prep: "in + D", cat: "필수 행동" },
+            { id: 63, german: "sich ausruhen", korean: "휴식하다", prep: "-", cat: "필수 행동" },
+            { id: 64, german: "sich bedienen", korean: "마음껏 먹다", prep: "-", cat: "필수 행동" },
+            { id: 65, german: "sich äußern", korean: "목소리를 내다", prep: "-", cat: "필수 행동" }, // 수정됨
+            { id: 66, german: "sich versteifen", korean: "고집하다", prep: "auf + A", cat: "필수 행동" }, // 수정됨
+            { id: 67, german: "sich vergewissern", korean: "확신하다", prep: "-", cat: "필수 행동" }, // 수정됨
+            { id: 68, german: "sich bücken", korean: "몸을 굽히다", prep: "-", cat: "필수 행동" },
+            { id: 69, german: "sich entfernen", korean: "멀어지다", prep: "von + D", cat: "필수 행동" },
+            { id: 70, german: "sich entspannen", korean: "긴장을 풀다", prep: "-", cat: "필수 행동" },
+
+            // 3. 고난도 및 전문적인 재귀 동사 (71~100) 
             { id: 71, german: "sich identifizieren", korean: "동일시하다", prep: "mit + D", cat: "고난도" },
+            { id: 72, german: "sich orientieren", korean: "방향을 잡다", prep: "an + D", cat: "고난도" },
+            { id: 73, german: "sich rächen", korean: "복수하다", prep: "an + D / für + A", cat: "고난도" },
+            { id: 74, german: "sich scheren", korean: "상관하다", prep: "um + A", cat: "고난도" },
             { id: 75, german: "sich sehnen", korean: "그리워하다", prep: "nach + D", cat: "고난도" },
-            // (사용자 편의를 위해 파일의 1~100번 리스트를 UI에서 카테고리별로 자동 분류하여 보여줍니다)
+            { id: 76, german: "sich umdrehen", korean: "뒤돌아보다", prep: "-", cat: "고난도" },
+            { id: 77, german: "sich wehren", korean: "저항하다", prep: "gegen + A", cat: "고난도" },
+            { id: 78, german: "sich widerspiegeln", korean: "반영되다", prep: "in + D", cat: "고난도" },
+            { id: 79, german: "sich wund원", korean: "의아해하다", prep: "über + A", cat: "고난도" },
+            { id: 80, german: "sich zwingen", korean: "억지로 ~하다", prep: "zu + D", cat: "고난도" },
+            { id: 81, german: "sich auswirken", korean: "영향을 미치다", prep: "auf + A", cat: "고난도" },
+            { id: 82, german: "sich belaufen", korean: "(금액이) ~에 달하다", prep: "auf + A", cat: "고난도" },
+            { id: 83, german: "sich etablieren", korean: "자리를 잡다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 84, german: "sich empören", korean: "격분하다", prep: "über + A", cat: "고난도" },
+            { id: 85, german: "sich entschließen", korean: "결심하다", prep: "zu + D", cat: "고난도" },
+            { id: 86, german: "sich anschließen", korean: "가담하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 87, german: "sich beteiligen", korean: "협조하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 88, german: "sich richten", korean: "향하다", prep: "nach + D", cat: "고난도" }, // 수정됨
+            { id: 89, german: "sich einsetzen", korean: "헌신하다", prep: "für + A", cat: "고난도" }, // 수정됨
+            { id: 90, german: "sich verstricken", korean: "휘말리다", prep: "in + A", cat: "고난도" }, // 수정됨
+            { id: 91, german: "sich ausschweigen", korean: "침묵하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 92, german: "sich fügen", korean: "굴복하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 93, german: "sich zurückhalten", korean: "참다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 94, german: "sich entfernen", korean: "비키다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 95, german: "sich verpflichten", korean: "맹세하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 96, german: "sich anschließen", korean: "동의하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 97, german: "sich ergänzen", korean: "보충되다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 98, german: "sich ergehen", korean: "산책하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 99, german: "sich rechtfertigen", korean: "변명하다", prep: "-", cat: "고난도" }, // 수정됨
+            { id: 100, german: "sich vollziehen", korean: "이루어지다", prep: "-", cat: "고난도" } // 수정됨
         ];
 
         // 3격 동사 데이터 (기존 유지)
@@ -298,3 +374,4 @@
     </script>
 </body>
 </html>
+
