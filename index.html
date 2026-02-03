@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Deutsch Lernen - Notable Theme</title>
+    <title>Deutsch Lernen - Notable Theme Portal</title>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
 
     <style>
@@ -20,7 +20,7 @@
         .notable-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         .notable-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .nav-link.active { color: #DD0000; font-weight: 700; border-bottom: 2px solid #DD0000; }
-        /* 플래시 카드 스타일 */
+        /* 퀴즈 카드 효과 */
         .perspective-1000 { perspective: 1000px; }
         .preserve-3d { transform-style: preserve-3d; }
         .backface-hidden { backface-visibility: hidden; }
@@ -33,19 +33,6 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
-        const VERB_DATA = [
-            { id: 1, german: "antworten", korean: "대답하다", category: "의사소통" },
-            { id: 2, german: "danken", korean: "감사하다", category: "의사소통" },
-            { id: 3, german: "helfen", korean: "돕다", category: "의사소통" },
-            { id: 4, german: "gratulieren", korean: "축하하다", category: "의사소통" },
-            { id: 5, german: "glauben", korean: "믿다", category: "의사소통" },
-            { id: 6, german: "vertrauen", korean: "신뢰하다", category: "의사소통" },
-            { id: 7, german: "absagen", korean: "거절/취소하다", category: "의사소통" },
-            { id: 8, german: "zusagen", korean: "수락하다", category: "의사소통" },
-            { id: 9, german: "drohen", korean: "협박하다", category: "의사소통" },
-            { id: 10, german: "dienen", korean: "봉사/도움되다", category: "의사소통" }
-        ];
-
         function App() {
             const [view, setView] = useState('All'); // All, A1, A2, B1, B2, C1, Quiz
             const [quizTab, setQuizTab] = useState('list');
@@ -54,9 +41,16 @@
 
             useEffect(() => { if (window.lucide) window.lucide.createIcons(); }, [view, quizTab]);
 
+            // 데이터 예시
+            const VERB_DATA = [
+                { id: 1, german: "antworten", korean: "대답하다" },
+                { id: 2, german: "danken", korean: "감사하다" },
+                { id: 3, german: "helfen", korean: "돕다" }
+            ];
+
             return (
                 <div className="flex flex-col min-h-screen">
-                    {/* 내비게이션 바 (GNB) */}
+                    {/* 1. 헤더 (Notable 스타일) */}
                     <header className="bg-white shadow-sm sticky top-0 z-40">
                         <div className="german-line w-full"></div>
                         <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
@@ -64,110 +58,118 @@
                                 <div className="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
                                 <div>
                                     <h1 className="text-2xl font-bold text-gray-800 tracking-tight">Deutsch Lernen</h1>
-                                    <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold">학습 포털</p>
+                                    <p className="text-xs text-gray-500 uppercase tracking-widest font-semibold">A1 bis C1 Blog</p>
                                 </div>
                             </div>
-                            {/* 등급별 내비게이션 버튼들 */}
-                            <nav className="flex flex-wrap justify-center gap-5 text-sm font-medium text-gray-600">
-                                <button onClick={() => setView('All')} className={`pb-1 transition-colors hover:text-black ${view === 'All' ? 'active nav-link' : ''}`}>Alle</button>
-                                <button onClick={() => setView('A1')} className={`pb-1 transition-colors hover:text-black ${view === 'A1' ? 'active nav-link' : ''}`}>A1</button>
-                                <button onClick={() => setView('A2')} className={`pb-1 transition-colors hover:text-black ${view === 'A2' ? 'active nav-link' : ''}`}>A2</button>
-                                <button onClick={() => setView('B1')} className={`pb-1 transition-colors hover:text-black ${view === 'B1' ? 'active nav-link' : ''}`}>B1</button>
-                                <button onClick={() => setView('B2')} className={`pb-1 transition-colors hover:text-black ${view === 'B2' ? 'active nav-link' : ''}`}>B2</button>
-                                <button onClick={() => setView('C1')} className={`pb-1 transition-colors hover:text-black ${view === 'C1' ? 'active nav-link' : ''}`}>C1</button>
+                            <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium text-gray-600">
+                                {['All', 'A1', 'A2', 'B1', 'B2', 'C1'].map(lvl => (
+                                    <button key={lvl} onClick={() => setView(lvl)} className={`pb-1 transition-colors hover:text-black ${view === lvl ? 'active nav-link' : ''}`}>{lvl === 'All' ? 'Alle' : lvl}</button>
+                                ))}
                                 <button onClick={() => setView('Quiz')} className={`pb-1 transition-colors hover:text-black ${view === 'Quiz' ? 'active nav-link' : ''}`}>3격 퀴즈</button>
                             </nav>
                         </div>
                     </header>
 
+                    {/* 2. 메인 바디 (2/3 콘텐츠, 1/3 사이드바) */}
                     <div className="container mx-auto px-4 py-8 flex flex-col lg:flex-row gap-8 flex-grow">
+                        
+                        {/* 콘텐츠 영역 */}
                         <main className="w-full lg:w-2/3">
                             {view === 'Quiz' ? (
-                                /* 퀴즈 도구 */
                                 <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
-                                    <div className="flex justify-between items-center mb-8 border-b pb-4">
-                                        <h2 className="text-xl font-bold serif-font text-gray-800">독일어 3격 동사 마스터</h2>
-                                        <div className="flex bg-gray-100 p-1 rounded-lg">
-                                            <button onClick={() => setQuizTab('list')} className={`px-4 py-1.5 rounded-md text-sm font-bold ${quizTab === 'list' ? 'bg-white text-black shadow-sm' : 'text-gray-500'}`}>목록</button>
-                                            <button onClick={() => setQuizTab('cards')} className={`px-4 py-1.5 rounded-md text-sm font-bold ${quizTab === 'cards' ? 'bg-white text-black shadow-sm' : 'text-gray-500'}`}>카드</button>
-                                        </div>
+                                    <h2 className="text-2xl font-bold serif-font mb-6 border-b pb-4">Dativ-Verben Quiz</h2>
+                                    <div className="flex gap-4 mb-6">
+                                        <button onClick={() => setQuizTab('list')} className={`px-4 py-2 rounded-md ${quizTab === 'list' ? 'bg-gray-900 text-white' : 'bg-gray-100'}`}>목록</button>
+                                        <button onClick={() => setQuizTab('cards')} className={`px-4 py-2 rounded-md ${quizTab === 'cards' ? 'bg-gray-900 text-white' : 'bg-gray-100'}`}>카드</button>
                                     </div>
-
                                     {quizTab === 'list' ? (
-                                        <div className="grid grid-cols-1 gap-3">
+                                        <div className="space-y-3">
                                             {VERB_DATA.map(v => (
-                                                <div key={v.id} className="p-4 bg-gray-50 rounded-lg flex justify-between items-center border border-transparent hover:border-red-500">
-                                                    <div>
-                                                        <div className="font-extrabold text-gray-800 text-lg">{v.german}</div>
-                                                        <div className="text-sm text-gray-600">{v.korean}</div>
-                                                    </div>
+                                                <div key={v.id} className="p-4 bg-gray-50 rounded-lg flex justify-between border-l-4 border-yellow-500">
+                                                    <span className="font-bold">{v.german}</span>
+                                                    <span className="text-gray-500">{v.korean}</span>
                                                 </div>
                                             ))}
                                         </div>
                                     ) : (
                                         <div className="flex flex-col items-center">
-                                            <div className="w-full max-w-sm h-80 perspective-1000 cursor-pointer" onClick={() => setShowAnswer(!showAnswer)}>
-                                                <div className={`relative w-full h-full transition-all duration-500 preserve-3d shadow-2xl rounded-2xl ${showAnswer ? 'rotate-y-180' : ''}`}>
-                                                    <div className="absolute inset-0 bg-white rounded-2xl flex items-center justify-center backface-hidden border-2">
-                                                        <h2 className="text-5xl font-black">{VERB_DATA[currentIndex].german}</h2>
+                                            <div className="w-full max-w-sm h-64 perspective-1000 cursor-pointer" onClick={() => setShowAnswer(!showAnswer)}>
+                                                <div className={`relative w-full h-full transition-all duration-500 preserve-3d shadow-xl rounded-2xl ${showAnswer ? 'rotate-y-180' : ''}`}>
+                                                    <div className="absolute inset-0 bg-white rounded-2xl flex items-center justify-center backface-hidden border">
+                                                        <h2 className="text-4xl font-black">{VERB_DATA[currentIndex].german}</h2>
                                                     </div>
                                                     <div className="absolute inset-0 bg-gray-900 text-white rounded-2xl flex items-center justify-center backface-hidden rotate-y-180">
-                                                        <h2 className="text-4xl font-bold">{VERB_DATA[currentIndex].korean}</h2>
+                                                        <h2 className="text-3xl font-bold">{VERB_DATA[currentIndex].korean}</h2>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="flex gap-4 mt-10">
-                                                <button onClick={() => setCurrentIndex(prev => Math.max(0, prev-1))} className="px-6 py-2 bg-white border rounded-full font-bold">이전</button>
-                                                <button onClick={() => setCurrentIndex(prev => Math.min(VERB_DATA.length-1, prev+1))} className="px-8 py-2 bg-gray-900 text-white rounded-full font-bold">다음</button>
                                             </div>
                                         </div>
                                     )}
                                 </div>
                             ) : (
-                                /* 홈 및 등급별 섹션 */
                                 <div className="space-y-8">
-                                    <div className="bg-gray-900 text-white rounded-lg p-10 text-center border-b-4 border-red-600">
-                                        <h2 className="text-4xl font-bold serif-font mb-4 text-yellow-400">{view === 'All' ? 'Willkommen!' : view + ' Niveau'}</h2>
-                                        <p className="text-lg opacity-90 mb-8">{view} 등급의 학습 내용을 확인해보세요.</p>
-                                        <button onClick={() => setView('Quiz')} className="bg-yellow-500 text-black px-10 py-4 rounded-full font-extrabold transition-transform hover:scale-105 shadow-xl">퀴즈 풀기</button>
+                                    {/* 히어로 카드 */}
+                                    <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+                                        <div className="h-48 md:h-64 overflow-hidden relative">
+                                            <img alt="German Desk" className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1024" />
+                                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center text-center text-white p-4">
+                                                <div>
+                                                    <h2 className="text-3xl md:text-4xl font-bold serif-font mb-2">Willkommen!</h2>
+                                                    <p className="text-lg opacity-90">당신의 독일어 학습 여정을 위한 완벽한 가이드</p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    {/* 포스트 카드 레이아웃 */}
+                                    <h3 className="text-xl font-bold text-gray-800 border-l-4 border-yellow-500 pl-3">Neueste Beiträge ({view})</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                        <article className="notable-card bg-white p-6 rounded-lg border border-gray-100 shadow-sm opacity-50">
-                                            <h3 className="font-bold text-xl serif-font mb-2">{view} 필수 단어장</h3>
-                                            <p className="text-gray-500 text-sm">해당 등급의 필수 어휘 리스트입니다 (준비 중).</p>
-                                        </article>
-                                        <article className="notable-card bg-white p-6 rounded-lg border border-gray-100 shadow-sm opacity-50">
-                                            <h3 className="font-bold text-xl serif-font mb-2">{view} 문법 가이드</h3>
-                                            <p className="text-gray-500 text-sm">주요 문법 개념 정리 (준비 중).</p>
+                                        <article className="notable-card bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden flex flex-col p-6">
+                                            <div className="text-xs text-gray-400 mb-2 font-semibold">24. OKT 2023</div>
+                                            <h4 className="text-lg font-bold serif-font mb-2">{view} 학습 자료</h4>
+                                            <p className="text-sm text-gray-600 mb-4 flex-grow">{view} 등급을 위한 필수 어휘와 문법을 정리한 포스팅입니다.</p>
+                                            <span className="text-[#DD0000] text-sm font-bold flex items-center">Weiterlesen →</span>
                                         </article>
                                     </div>
                                 </div>
                             )}
                         </main>
 
-                        {/* 사이드바 위젯 */}
+                        {/* 사이드바 영역 (Notable 스타일 위젯들) */}
                         <aside className="w-full lg:w-1/3 space-y-8">
                             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                                 <h4 className="font-bold text-gray-800 mb-4 uppercase tracking-wider text-xs">Suche</h4>
-                                <input className="w-full px-4 py-3 bg-gray-50 border rounded focus:outline-none" placeholder="검색..." type="text" />
+                                <div className="relative">
+                                    <input className="w-full pl-4 pr-10 py-3 bg-gray-50 border rounded text-sm focus:outline-none focus:border-gray-400" placeholder="Suchbegriff..." type="text" />
+                                    <span className="material-symbols-outlined absolute right-3 top-2.5 text-gray-400">search</span>
+                                </div>
+                            </div>
+                            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 text-center">
+                                <h4 className="font-bold text-gray-800 mb-6 uppercase tracking-wider text-xs">Über Mich</h4>
+                                <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-gray-100 p-1">
+                                    <img alt="Profile" className="w-full h-full object-cover rounded-full" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" />
+                                </div>
+                                <p className="text-gray-600 text-sm leading-relaxed">독일어를 공부하고 가르치는 블로거입니다. A1부터 C1까지 함께 성장해봅시다!</p>
                             </div>
                             <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
-                                <h4 className="font-bold text-gray-800 mb-4 uppercase tracking-wider text-xs">Levels</h4>
+                                <h4 className="font-bold text-gray-800 mb-4 uppercase tracking-wider text-xs">Niveau (Levels)</h4>
                                 <ul className="space-y-2 text-sm text-gray-600">
                                     {['A1', 'A2', 'B1', 'B2', 'C1'].map(lvl => (
-                                        <li key={lvl} onClick={() => setView(lvl)} className="flex justify-between cursor-pointer hover:text-[#DD0000]">
+                                        <li key={lvl} onClick={() => setView(lvl)} className="flex justify-between cursor-pointer hover:text-[#DD0000] group">
                                             <span>{lvl} (Anfänger)</span>
-                                            <span className="bg-gray-100 px-2 rounded text-xs">12</span>
+                                            <span className="bg-gray-100 px-2 rounded group-hover:bg-[#DD0000] group-hover:text-white transition-colors">12</span>
                                         </li>
                                     ))}
                                 </ul>
+                            </div>
+                            <div className="bg-gray-900 p-6 rounded-lg text-white shadow-lg">
+                                <h4 className="font-bold mb-2 uppercase tracking-wider text-xs text-yellow-500">Newsletter</h4>
+                                <p className="text-xs text-gray-300 mb-4">매주 독일어 팁을 이메일로 받아보세요.</p>
+                                <button className="w-full bg-yellow-500 text-black font-bold py-2 rounded text-sm hover:bg-yellow-400 transition-colors">구독하기</button>
                             </div>
                         </aside>
                     </div>
 
                     <footer className="bg-white border-t py-8 text-center text-xs text-gray-400 tracking-widest uppercase">
-                        © 2024 Deutsch Lernen Blog.
+                        © 2024 Deutsch Lernen Blog. Notable Theme Adaptation.
                     </footer>
                 </div>
             );
