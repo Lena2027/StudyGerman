@@ -3,66 +3,54 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Deutsch Lernen - Grammatik Center</title>
+    <title>Grammatik Center - Deutsch Lernen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <style>
-        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; color: #333; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; }
         .serif-font { font-family: 'Merriweather', serif; }
-        .german-line { height: 4px; background: linear-gradient(90deg, #000 33%, #d00 33%, #d00 66%, #fc0 66%); }
-        .notable-card { transition: all 0.2s; cursor: pointer; border: 1px solid #eee; }
-        .notable-card:hover { transform: translateY(-5px); border-color: #d00; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
+        .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
+        .nav-link:hover { color: #d00; }
+        .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
+        .gram-btn { transition: all 0.2s; background: white; border: 1px solid #eee; border-radius: 1.5rem; padding: 2.5rem; text-align: center; }
+        .gram-btn:hover { transform: translateY(-5px); border-color: #d00; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body>
-<header class="bg-white shadow-sm sticky top-0 z-50">
-    <div class="german-line w-full"></div>
-    
-    <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-        <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
-            <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded shadow-sm">D</div>
-            <div>
-                <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">A1-C1 Study Portal</p>
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="german-line w-full"></div>
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
+                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
+                <h1 class="text-2xl font-bold text-gray-800 serif-font">Deutsch Lernen</h1>
             </div>
+            <nav class="flex flex-wrap justify-center gap-6 text-sm">
+                <a href="index.html" class="nav-link">Alle</a>
+                <a href="a1.html" class="nav-link">A1</a>
+                <a href="a2.html" class="nav-link">A2</a>
+                <a href="b1.html" class="nav-link">B1</a>
+                <a href="b2.html" class="nav-link">B2</a>
+                <a href="c1.html" class="nav-link">C1</a>
+                <a href="grammatik.html" class="nav-link active">Grammatik</a>
+                <a href="notification.html" class="nav-link">Notification</a>
+            </nav>
         </div>
+    </header>
 
-        <nav class="flex flex-wrap justify-center gap-6 text-sm font-bold text-gray-500">
-            <a href="index.html" class="nav-link" id="nav-home">Alle</a>
-            <a href="a1.html" class="nav-link" id="nav-a1">A1</a>
-            <a href="a2.html" class="nav-link" id="nav-a2">A2</a>
-            <a href="b1.html" class="nav-link" id="nav-b1">B1</a>
-            <a href="b2.html" class="nav-link" id="nav-b2">B2</a>
-            <a href="c1.html" class="nav-link" id="nav-c1">C1</a>
-            <a href="grammatik.html" class="nav-link" id="nav-grammatik">Grammatik</a>
-            <a href="notification.html" class="nav-link" id="nav-notification">Notification</a>
-        </nav>
-    </div>
-</header>
-    <main class="container mx-auto px-4 py-12 max-w-5xl">
-        <div class="mb-12">
-            <h2 class="text-4xl font-black serif-font mb-2">Deutsche Grammatik</h2>
-            <p class="text-gray-400 uppercase tracking-widest text-xs font-bold">원하는 문법 주제를 선택하여 학습하세요.</p>
-        </div>
-
+    <main class="container mx-auto px-4 py-16 max-w-5xl">
+        <h2 class="text-4xl font-black serif-font mb-10 border-l-8 border-yellow-400 pl-6">Grammatik Master</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <a href="reflexive.html" class="notable-card bg-white p-10 rounded-3xl flex flex-col items-center text-center">
-                <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-3xl">sync_alt</span>
-                </div>
-                <h3 class="text-2xl font-bold serif-font mb-3">재귀 동사 100개</h3>
-                <p class="text-gray-500 text-sm mb-6 leading-relaxed">sich와 함께 쓰이는 필수 동사 100개를 전치사와 격 정보를 포함하여 완벽하게 정리했습니다.</p>
-                <span class="bg-gray-900 text-white px-6 py-2 rounded-full text-xs font-bold">학습 시작 →</span>
+            <a href="reflexive.html" class="gram-btn flex flex-col items-center">
+                <span class="material-symbols-outlined text-4xl text-indigo-600 mb-4">sync_alt</span>
+                <h3 class="text-2xl font-bold serif-font mb-2">재귀 동사 100개</h3>
+                <p class="text-gray-400 text-sm">전치사와 함께 외우는 필수 재귀 동사</p>
             </a>
-
-            <a href="dativ.html" class="notable-card bg-white p-10 rounded-3xl flex flex-col items-center text-center">
-                <div class="w-16 h-16 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center mb-6">
-                    <span class="material-symbols-outlined text-3xl">menu_book</span>
-                </div>
-                <h3 class="text-2xl font-bold serif-font mb-3">3격 지배 동사 50개</h3>
-                <p class="text-gray-500 text-sm mb-6 leading-relaxed">목적어로 항상 3격(Dativ)을 취하는 동사 50개와 실제 활용 예문을 수록했습니다.</p>
-                <span class="bg-gray-900 text-white px-6 py-2 rounded-full text-xs font-bold">학습 시작 →</span>
+            <a href="dativ.html" class="gram-btn flex flex-col items-center">
+                <span class="material-symbols-outlined text-4xl text-red-600 mb-4">menu_book</span>
+                <h3 class="text-2xl font-bold serif-font mb-2">3격 지배 동사 50개</h3>
+                <p class="text-gray-400 text-sm">항상 3격을 취하는 동사와 예문 학습</p>
             </a>
         </div>
     </main>
