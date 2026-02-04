@@ -31,22 +31,24 @@
         .quick-btn {
             background: #fff;
             border: 1px solid #ddd;
-            padding: 12px 15px;
+            padding: 25px 15px;
             border-radius: 12px;
-            font-size: 11px;
+            font-size: 14px;
             font-weight: 800;
             color: #333;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
             transition: all 0.2s;
-            width: 100px;
+            width: 150px;
+            line-height: 1.4;
         }
         .quick-btn:hover {
             background: #000;
             color: #fff;
             border-color: #000;
         }
-
+#next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
+        #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
         .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; }
         .dativ-obj { color: #d00; font-weight: 800; text-decoration: underline; }
         
@@ -60,7 +62,7 @@
 
     <div class="quick-nav">
         <a href="#dativ-list-anchor" class="quick-btn">3격 지배 동사<br>50개 리스트</a>
-        <a href="#quiz-section-anchor" class="quick-btn">복습 퀴즈<br>(10문제)</a>
+        <a href="#quiz-section-anchor" class="quick-btn">복습 퀴즈</a>
     </div>
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
@@ -69,10 +71,15 @@
             <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
                 <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
                 <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Study Portal</p>
             </div>
             <nav class="flex flex-wrap justify-center gap-6 text-sm">
                 <a href="index.html" class="nav-link">Alle</a>
                 <a href="a1.html" class="nav-link">A1</a>
+                <a href="a2.html" class="nav-link">A2</a>
+                <a href="b1.html" class="nav-link">B1</a>
+                <a href="b2.html" class="nav-link">B2</a>
+                <a href="c1.html" class="nav-link">C1</a>
                 <a href="grammatik.html" class="nav-link active">Grammatik</a>
                 <a href="notification.html" class="nav-link">Notification</a>
             </nav>
