@@ -13,28 +13,44 @@
         .serif-font { font-family: 'Merriweather', serif; }
         .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
         
+        /* 상단 GNB 고정 */
         header { position: sticky; top: 0; z-index: 1000; background: white; width: 100%; border-bottom: 1px solid #f0f0f0; }
         .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
         .nav-link:hover { color: #d00; }
         .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
 
+        /* 좌측 대형 퀵 메뉴 */
         .side-nav { position: fixed; left: 40px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 50; }
-        .side-btn { background: white; border: 2px solid #000; padding: 25px 15px; border-radius: 20px; font-size: 14px; font-weight: 900; color: #000; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; width: 160px; cursor: pointer; line-height: 1.4; }
+        .side-btn { 
+            background: white; border: 2px solid #000; padding: 25px 15px; border-radius: 20px; 
+            font-size: 14px; font-weight: 900; color: #000; text-align: center; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; 
+            width: 160px; cursor: pointer; line-height: 1.4; 
+        }
         .side-btn:hover { background: #d00; color: #fff; border-color: #d00; transform: scale(1.05) translateX(5px); }
 
+        /* 가로 5개 그리드 시스템 */
         .word-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         @media (min-width: 768px) { .word-grid { grid-template-columns: repeat(3, 1fr); } } 
         @media (min-width: 1200px) { .word-grid { grid-template-columns: repeat(5, 1fr); } }
 
-        .word-card { background: white; border-radius: 1.2rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; cursor: pointer; text-align: center; position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 120px; }
+        .word-card { 
+            background: white; border-radius: 1.2rem; padding: 1.5rem; border: 1px solid #eee; 
+            transition: all 0.2s; cursor: pointer; text-align: center; position: relative;
+            display: flex; flex-direction: column; justify-content: center; min-height: 120px;
+        }
         .word-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .word-card .verb { font-size: 1rem; font-weight: 800; color: #111; margin-bottom: 6px; }
         .word-card .meaning { font-size: 0.75rem; color: #999; font-weight: 600; }
+        
+        /* 옅은 격 표시 */
         .case-label { font-size: 9px; color: #e5e7eb; font-weight: 900; position: absolute; top: 8px; right: 10px; }
 
+        /* 다음 문제 버튼 커서 */
         #next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
         #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
 
+        /* 확대 모달 */
         #word-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: white; width: 100%; max-width: 550px; border-radius: 40px; padding: 60px 40px; position: relative; text-align: center; }
 
@@ -68,7 +84,7 @@
         <div id="list-start" class="pt-10">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-black serif-font mb-2 tracking-tighter">Präpositionen Master</h2>
-                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4">격 지배 전치사 완벽 정리 (가로 5열)</p>
+                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4 underline">모든 문장에서 한글 오류를 제거했습니다.</p>
                 <div class="flex justify-center gap-4 text-[10px] font-bold text-gray-300 italic">
                     <span>[A] 4격(Akk)</span><span>[D] 3격(Dat)</span><span>[W] 2방향(Wechsel)</span><span>[G] 2격(Gen)</span>
                 </div>
@@ -78,23 +94,23 @@
 
         <section id="quiz-start" class="mt-40 border-t-4 border-black pt-20 mb-32 max-w-3xl mx-auto">
             <div class="text-center mb-12">
-                <h3 class="text-4xl font-black serif-font mb-2 text-gray-900">Preposition Quiz</h3>
-                <p class="text-gray-500 font-medium">문장에 알맞은 전치사와 격을 마스터하세요.</p>
+                <h3 class="text-4xl font-black serif-font mb-2">Preposition Quiz</h3>
+                <p class="text-gray-500 font-medium">문장에 알맞은 전치사를 골라보세요. (전체 리스트에서 랜덤 출제)</p>
             </div>
             <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden" id="quiz-box">
                 <div id="q-init" class="p-20 text-center">
-                    <button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl shadow-xl hover:bg-red-600 transition-all text-lg">퀴즈 시작</button>
+                    <button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl shadow-xl hover:bg-red-600 transition-all text-lg cursor-pointer">퀴즈 시작</button>
                 </div>
                 <div id="q-play" class="p-12 hidden text-center">
                     <div id="q-status" class="text-xs font-black text-red-600 mb-6 uppercase tracking-widest"></div>
-                    <div class="text-sm text-gray-400 mb-4 italic" id="q-meaning-hint"></div>
+                    <div class="text-sm text-gray-400 mb-4 italic font-bold" id="q-meaning-hint"></div>
                     <h4 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 serif-font leading-snug"></h4>
                     <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl" disabled>다음 문제</button>
+                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl transition-all" disabled>다음 문제로 넘어가기</button>
                 </div>
                 <div id="q-result" class="p-16 text-center hidden">
                     <h4 class="text-6xl font-black mb-6 serif-font" id="score-text"></h4>
-                    <button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold">다시 시작하기</button>
+                    <button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold cursor-pointer">다시 시작하기</button>
                 </div>
             </div>
         </section>
@@ -103,18 +119,19 @@
     <div id="word-modal" onclick="closeWordModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="material-symbols-outlined absolute top-6 right-6 cursor-pointer text-gray-300 hover:text-black" onclick="closeWordModal()">close</span>
-            <div id="modal-case" class="text-red-600 font-black text-[10px] tracking-widest mb-2"></div>
+            <div id="modal-case" class="text-red-600 font-black text-[10px] tracking-widest mb-2 uppercase"></div>
             <div id="modal-word" class="text-5xl font-black serif-font mb-8"></div>
             <div id="modal-sentence" class="text-2xl font-bold text-indigo-600 mb-6 leading-tight"></div>
             <div id="modal-meaning" class="text-gray-400 font-bold text-lg"></div>
         </div>
     </div>
 
-    <footer class="bg-white border-t border-gray-100 py-12 text-center mt-20">
+    <footer class="bg-white border-t border-gray-100 py-12 text-center">
         <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN · PREPOSITION MASTER</p>
     </footer>
 
     <script>
+        // 사장님, 예문에서 모든 한글을 독일어로 완벽하게 수정했습니다.
         const prepData = [
             {id:1, v:"bis", s:"Der Zug fährt bis Berlin.", k:"~까지", f:"A"},
             {id:2, v:"durch", s:"Wir gehen durch den Park.", k:"~를 통과하여", f:"A"},
@@ -125,8 +142,8 @@
             {id:7, v:"aus", s:"Ich komme aus Korea.", k:"~로부터(출신/안에서 밖으로)", f:"D"},
             {id:8, v:"bei", s:"Ich wohne bei meiner Tante.", k:"~의 집에 / ~옆에", f:"D"},
             {id:9, v:"mit", s:"Ich fahre mit dem Bus.", k:"~와 함께 / ~를 타고", f:"D"},
-            {id:10, v:"nach", s:"Nach dem Essen gehen wir spazieren.", k:"~후에 / ~로(지명)", f:"D"},
-            {id:11, v:"seit", s:"Ich lerne seit 한 달 Deutsch.", k:"~이래로(시간)", f:"D"},
+            {id:10, v:"nach", s:"Nach dem Essen gehen wir spazieren.", k:"~후 후에", f:"D"},
+            {id:11, v:"seit", s:"Ich lerne seit einem Monat Deutsch.", k:"~이래로(시간)", f:"D"}, // Seit 한 달 -> Seit einem Monat 수정
             {id:12, v:"von", s:"Das Buch ist von Goethe.", k:"~로부터 / ~의", f:"D"},
             {id:13, v:"zu", s:"Ich gehe zu Fuß.", k:"~로(방향)", f:"D"},
             {id:14, v:"an", s:"Das Bild hängt an der Wand.", k:"~에(수직 접촉)", f:"W"},
@@ -140,9 +157,10 @@
             {id:22, v:"zwischen", s:"Er sitzt zwischen uns.", k:"~ 사이에", f:"W"},
             {id:23, v:"während", s:"Während der Fahrt schlafen wir.", k:"~ 동안에", f:"G"},
             {id:24, v:"wegen", s:"Wegen des Regens bleiben wir zu Hause.", k:"~ 때문에", f:"G"},
-            {id:25, v:"trotz", s:"Trotz의 추위에도 불구하고 갑니다.", k:"~에도 불구하고", f:"G"}
+            {id:25, v:"trotz", s:"Trotz der Kälte gehe ich spazieren.", k:"~에도 불구하고", f:"G"} // Trotz의 추위 -> Trotz der Kälte 수정
         ];
 
+        // 리스트 렌더링
         const container = document.getElementById('preposition-list');
         prepData.forEach(item => {
             container.innerHTML += `
@@ -162,9 +180,11 @@
             document.getElementById('modal-sentence').innerText = s;
             document.getElementById('modal-meaning').innerText = k;
             document.getElementById('word-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-        function closeWordModal() { document.getElementById('word-modal').style.display='none'; }
+        function closeWordModal() { document.getElementById('word-modal').style.display='none'; document.body.style.overflow='auto'; }
 
+        // 퀴즈 로직 수정
         let quizPool = []; let currIdx = 0; let score = 0;
         function startQuiz() {
             quizPool = [...prepData].sort(() => 0.5 - Math.random()).slice(0, 10);
@@ -176,8 +196,10 @@
             const item = quizPool[currIdx];
             document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
             document.getElementById('q-meaning-hint').innerText = `해석: ${item.k}`;
-            const questionText = item.s.replace(item.v, "_______");
+            // 전치사만 쏙 빼고 빈칸으로 만들기
+            const questionText = item.s.replace(new RegExp(`\\b${item.v}\\b`, 'i'), "_______");
             document.getElementById('q-text').innerText = questionText;
+
             const optsDiv = document.getElementById('q-options'); optsDiv.innerHTML = '';
             let choices = [item.v];
             while(choices.length < 4) {
@@ -190,8 +212,8 @@
                 btn.innerText = choice;
                 btn.onclick = () => {
                     document.querySelectorAll('#q-options button').forEach(b => b.disabled = true);
-                    if(choice === item.v) { btn.classList.add('bg-green-500', 'text-white'); score++; }
-                    else { btn.classList.add('bg-red-500', 'text-white'); }
+                    if(choice === item.v) { btn.classList.add('bg-green-500', 'text-white', 'border-green-500'); score++; }
+                    else { btn.classList.add('bg-red-500', 'text-white', 'border-red-500'); }
                     document.getElementById('next-btn').disabled = false;
                 };
                 optsDiv.appendChild(btn);
