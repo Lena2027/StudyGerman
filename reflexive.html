@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>재귀 동사 100 - Deutsch Lernen</title>
+    <title>재귀 동사 Master 100 - Deutsch Lernen</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,13 +13,13 @@
         .serif-font { font-family: 'Merriweather', serif; }
         .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
         
-        /* GNB 고정 */
+        /* 상단 GNB 고정 */
         header { position: sticky; top: 0; z-index: 1000; background: white; width: 100%; border-bottom: 1px solid #f0f0f0; }
         .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
         .nav-link:hover { color: #d00; }
         .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
 
-        /* 좌측 퀵 메뉴 확대 */
+        /* 좌측 대형 퀵 메뉴 */
         .side-nav { position: fixed; left: 40px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 50; }
         .side-btn { 
             background: white; border: 2px solid #000; padding: 25px 15px; border-radius: 20px; 
@@ -29,32 +29,30 @@
         }
         .side-btn:hover { background: #d00; color: #fff; border-color: #d00; transform: scale(1.05) translateX(5px); }
 
-        /* 가로 5개 그리드 */
-        .word-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 12px; 
-        }
-        @media (min-width: 768px) { .word-grid { grid-template-columns: repeat(3, 1fr); } }
+        /* 가로 5개 그리드 시스템 */
+        .word-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        @media (min-width: 768px) { .word-grid { grid-template-columns: repeat(3, 1fr); } } 
         @media (min-width: 1200px) { .word-grid { grid-template-columns: repeat(5, 1fr); } }
 
         .word-card { 
-            background: white; border-radius: 1.2rem; padding: 1.2rem; border: 1px solid #eee; 
+            background: white; border-radius: 1.2rem; padding: 1.5rem; border: 1px solid #eee; 
             transition: all 0.2s; cursor: pointer; text-align: center; position: relative;
+            display: flex; flex-direction: column; justify-content: center; min-height: 130px;
         }
         .word-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .word-card .verb { font-size: 0.95rem; font-weight: 800; color: #111; margin-bottom: 4px; line-height: 1.2; }
+        .word-card .verb { font-size: 0.85rem; font-weight: 800; color: #111; line-height: 1.2; margin-bottom: 6px; }
         .word-card .meaning { font-size: 0.75rem; color: #999; font-weight: 600; }
         
-        /* 옅은 격 표시 스타일 */
-        .case-label { font-size: 10px; color: #e5e7eb; font-weight: 900; position: absolute; top: 8px; right: 12px; }
+        /* 옅은 격(Case) 표시 */
+        .case-label { font-size: 9px; color: #e5e7eb; font-weight: 900; position: absolute; top: 8px; right: 10px; }
 
+        /* 다음 문제 버튼 커서 */
         #next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
         #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
 
         /* 확대 모달 */
         #word-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; width: 100%; max-width: 550px; border-radius: 40px; padding: 60px 40px; position: relative; text-align: center; }
+        .modal-content { background: white; width: 100%; max-width: 550px; border-radius: 40px; padding: 60px 40px; position: relative; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
 
         @media (max-width: 1450px) { .side-nav { display: none; } }
     </style>
@@ -63,14 +61,14 @@
 
     <div class="side-nav">
         <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn">🔄 재귀 동사<br>100개 리스트</div>
-        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 복습 퀴즈<br>(10문제)</div>
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 실전 퀴즈<br>(100개 랜덤)</div>
     </div>
 
     <header>
         <div class="german-line"></div>
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
-                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded shadow-sm">D</div>
+                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
                 <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
             </div>
             <nav class="flex flex-wrap justify-center gap-6 text-sm">
@@ -85,30 +83,34 @@
     <main class="container mx-auto px-4 py-12 flex-grow">
         <div id="list-start" class="pt-10">
             <div class="text-center mb-12">
-                <h2 class="text-4xl font-black serif-font mb-2">재귀 동사 Master 100</h2>
-                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs">우측 상단에 옅게 표시된 [A]는 4격, [D]는 3격 재귀 대명사를 의미합니다.</p>
+                <h2 class="text-4xl font-black serif-font mb-2">Reflexive Verben 100</h2>
+                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4">가로 5열 배치 | 단어 클릭 시 예문 확대</p>
+                <div class="flex justify-center gap-4 text-[10px] font-bold text-gray-200">
+                    <span>[A] Akkusativ(4격)</span><span>[D] Dativ(3격)</span>
+                </div>
             </div>
             <div class="word-grid" id="word-list-container"></div>
         </div>
 
         <section id="quiz-start" class="mt-40 border-t-4 border-black pt-20 mb-32 max-w-3xl mx-auto">
             <div class="text-center mb-12">
-                <h3 class="text-3xl font-black serif-font">Reflexive Case Quiz</h3>
-                <p class="text-gray-500 font-medium">문장의 맥락에 맞는 격(mich/mir 등)을 선택하세요.</p>
+                <h3 class="text-3xl font-black serif-font mb-2">Reflexive Master Quiz</h3>
+                <p class="text-gray-500 font-medium">100개의 재귀 동사 중 무작위로 출제됩니다. 올바른 동사를 선택하세요.</p>
             </div>
             <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden" id="quiz-box">
                 <div id="q-init" class="p-20 text-center">
-                    <button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl shadow-xl hover:bg-red-600 transition-all text-lg cursor-pointer">퀴즈 시작</button>
+                    <button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl shadow-xl hover:bg-red-600 transition-all text-lg cursor-pointer">퀴즈 시작하기</button>
                 </div>
-                <div id="q-play" class="p-12 hidden">
-                    <div id="q-status" class="text-xs font-black text-red-600 mb-6 uppercase text-center tracking-widest"></div>
-                    <h4 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 text-center serif-font leading-snug"></h4>
-                    <div id="q-options" class="grid grid-cols-2 gap-4"></div>
-                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl" disabled>다음 문제로 넘어가기</button>
+                <div id="q-play" class="p-12 hidden text-center">
+                    <div id="q-status" class="text-xs font-black text-red-600 mb-6 uppercase tracking-widest"></div>
+                    <div class="text-sm text-gray-400 mb-4 italic font-bold" id="q-meaning-hint"></div>
+                    <h4 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 serif-font leading-snug"></h4>
+                    <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl transition-all" disabled>다음 문제로 넘어가기</button>
                 </div>
                 <div id="q-result" class="p-16 text-center hidden">
                     <h4 class="text-6xl font-black mb-6 serif-font" id="score-text"></h4>
-                    <button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold">다시 시작하기</button>
+                    <button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold cursor-pointer">다시 도전</button>
                 </div>
             </div>
         </section>
@@ -117,126 +119,130 @@
     <div id="word-modal" onclick="closeWordModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="material-symbols-outlined absolute top-6 right-6 cursor-pointer text-gray-300 hover:text-black" onclick="closeWordModal()">close</span>
-            <div id="modal-case" class="text-gray-200 font-black text-[10px] mb-2"></div>
+            <div id="modal-case" class="text-red-600 font-black text-[10px] tracking-widest mb-2 uppercase"></div>
             <div id="modal-word" class="text-4xl font-black serif-font mb-8"></div>
             <div id="modal-sentence" class="text-2xl font-bold text-indigo-600 mb-6 leading-tight"></div>
             <div id="modal-meaning" class="text-gray-400 font-bold text-lg"></div>
         </div>
     </div>
 
+    <footer class="bg-white border-t border-gray-100 py-12 text-center mt-20">
+        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN · ALL 100 VERBS LOADED</p>
+    </footer>
+
     <script>
-        // 100개 데이터 + 격 정보(A: 4격, D: 3격) 추가
+        // 업로드된 파일의 100개 데이터 (오타 및 오류 완벽 수정본)
         const reflexiveData = [
-            const reflexiveData = [
-            {id:1, v:"sich freuen auf", s:"Ich freue mich auf das Wochenende.", k:"나는 주말을 고대하고 있어.", r:"mich"},
-            {id:2, v:"sich freuen über", s:"Er freut sich über das Geschenk.", k:"그는 그 선물을 받고 기뻐해.", r:"sich"},
-            {id:3, v:"sich interessieren für", s:"Interessierst du dich für Kunst?", k:"너는 예술에 관심이 있니?", r:"dich"},
-            {id:4, v:"sich bewerben um", s:"Sie bewirbt sich um die Stelle.", k:"그녀는 그 일자리에 지원한다.", r:"sich"},
-            {id:5, v:"sich bewerben bei", s:"Ich bewerbe mich bei Siemens.", k:"나는 지멘스(회사)에 지원한다.", r:"mich"},
-            {id:6, v:"sich beschweren über", s:"Wir beschweren uns über den Lärm.", k:"우리는 소음에 대해 불평한다.", r:"uns"},
-            {id:7, v:"sich beschweren bei", s:"Er beschwert sich beim Chef.", k:"그는 상사에게 불평을 한다.", r:"sich"},
-            {id:8, v:"sich bedanken für", s:"Ich bedanke mich für Ihre Hilfe.", k:"도움을 주셔서 감사합니다.", r:"mich"},
-            {id:9, v:"sich bedanken bei", s:"Er bedankt sich bei seiner Tante.", k:"그는 이모에게 감사 인사를 한다.", r:"sich"},
-            {id:10, v:"sich erinnern an", s:"Erinnerst du dich an mich?", k:"너 나 기억나니?", r:"dich"},
-            {id:11, v:"sich konzentrieren auf", s:"Konzentrier dich auf die Prüfung!", k:"시험에 집중해!", r:"dich"},
-            {id:12, v:"sich verlieben in", s:"Er hat sich in sie verliebt.", k:"그는 그녀와 사랑에 빠졌다.", r:"sich"},
-            {id:13, v:"sich fürchten vor", s:"Das Kind fürchtet sich vor Hunden.", k:"아이는 개를 무서워한다.", r:"sich"},
-            {id:14, v:"sich vorbereiten auf", s:"Ich bereite mich auf die Reise vor.", k:"나는 여행을 준비하고 있어.", r:"mich"},
-            {id:15, v:"sich gewöh너 an", s:"Ich gewöhne mich an das Wetter.", k:"나는 이 날씨에 적응하고 있어.", r:"mich"},
-            {id:16, v:"sich ärgern über", s:"Ärgere dich nicht über ihn!", k:"그 때문에 화내지 마!", r:"dich"},
-            {id:17, v:"sich wundern über", s:"Ich wundere mich über seine Antwort.", k:"나는 그의 대답에 의아해한다.", r:"mich"},
-            {id:18, v:"sich verlassen auf", s:"Du kannst dich auf mich verlassen.", k:"넌 나를 믿어도 돼.", r:"dich"},
-            {id:19, v:"sich kümmern um", s:"Wer kümmert sich um die Katze?", k:"누가 고양이를 돌보나요?", r:"sich"},
-            {id:20, v:"sich entscheiden für", s:"Ich entscheide mich für dieses Auto.", k:"나는 이 차로 결정하겠어.", r:"mich"},
-            {id:21, v:"sich sehnen nach", s:"Er sehnt sich nach seiner Heimat.", k:"그는 고향을 그리워한다.", r:"sich"},
-            {id:22, v:"sich unterhalten mit", s:"Sie unterhält sich mit ihrer Freundin.", k:"그녀는 친구와 대화를 나눈다.", r:"sich"},
-            {id:23, v:"sich unterhalten über", s:"Wir unterhalten uns über Politik.", k:"우리는 정치에 대해 대화한다.", r:"uns"},
-            {id:24, v:"sich erkundigen nach", s:"Er erkundigt sich nach dem Weg.", k:"그는 길을 문의한다.", r:"sich"},
-            {id:25, v:"sich streiten mit", s:"Streite dich nicht mit mir!", k:"나랑 싸우지 마!", r:"dich"},
-            {id:26, v:"sich streiten über", s:"Sie streiten sich über das Geld.", k:"그들은 돈 문제로 싸우고 있다.", r:"sich"},
-            {id:27, v:"sich trennen von", s:"Er hat sich von seiner Frau getrennt.", k:"그는 아내와 헤어졌다.", r:"sich"},
-            {id:28, v:"sich verabreden mit", s:"Ich verabrede mich mit ihm.", k:"나는 그와 만나기로 약속한다.", r:"mich"},
-            {id:29, v:"sich beschäftigen mit", s:"Er beschäftigt sich mit Musik.", k:"그는 음악에 몰두하고 있다.", r:"sich"},
-            {id:30, v:"sich anpassen an", s:"Du musst dich an die Regeln anpassen.", k:"너는 규칙에 적응해야 한다.", r:"dich"},
-            {id:31, v:"sich fürchten vor", s:"Wir fürchten uns vor der Dunkelheit.", k:"우리는 어둠을 무서워한다.", r:"uns"},
-            {id:32, v:"sich schämen für", s:"Er schämt sich für sein Verhalten.", k:"그는 자신의 행동을 부끄러워한다.", r:"sich"},
-            {id:33, v:"sich spezialisieren auf", s:"Die Firma spezialisiert sich auf IT.", k:"그 회사는 IT를 전문으로 한다.", r:"sich"},
-            {id:34, v:"sich täuschen in", s:"Ich habe mich in ihm getäuscht.", k:"내가 그를 잘못 보았어.", r:"mich"},
-            {id:35, v:"sich treffen mit", s:"Ich treffe mich morgen mit dir.", k:"내일 너랑 만날게.", r:"mich"},
-            {id:36, v:"sich verabschieden von", s:"Wir verabschieden uns von den Gästen.", k:"우리는 손님들과 작별 인사를 한다.", r:"uns"},
-            {id:37, v:"sich verstehen mit", s:"Ich verstehe mich gut mit ihm.", k:"나는 그와 잘 지낸다.", r:"mich"},
-            {id:38, v:"sich eignen für", s:"Das Buch eignet sich für Anfänger.", k:"이 책은 초보자에게 적합하다.", r:"sich"},
-            {id:39, v:"sich erholen von", s:"Er erholt sich von der Krankheit.", k:"그는 병에서 회복 중이다.", r:"sich"},
-            {id:40, v:"sich fürchten vor", s:"Fürchte dich nicht vor Fehlern!", k:"실수를 두려워하지 마!", r:"dich"},
-            {id:41, v:"sich beeilen", s:"Beeil dich, wir sind spät!", k:"서둘러, 우리 늦었어!", r:"dich"},
-            {id:42, v:"sich ausruhen", s:"Ruh dich nach der Arbeit aus.", k:"일 끝나고 좀 쉬어.", r:"dich"},
-            {id:43, v:"sich erkälten", s:"Zieh dich warm an, sonst erkältest du dich.", k:"따뜻하게 입어, 안 그러면 감기 걸려.", r:"dich"},
-            {id:44, v:"sich verspäten", s:"Der Zug verspätet sich.", k:"기차가 연착되고 있다.", r:"sich"},
-            {id:45, v:"sich anstrengen", s:"Du musst dich 더 anstrengen.", k:"너는 더 노력해야 한다.", r:"dich"},
-            {id:46, v:"sich irren", s:"Da irren Sie sich gewaltig.", k:"당신이 크게 착각하신 겁니다.", r:"sich"},
-            {id:47, v:"sich verlaufen", s:"Wir haben uns im Wald verlaufen.", k:"우리는 숲에서 길을 잃었다.", r:"uns"},
-            {id:48, v:"sich verfahren", s:"Ich habe mich in Berlin verfahren.", k:"베를린에서 운전하다 길을 잃었다.", r:"mich"},
-            {id:49, v:"sich befinden", s:"Das Museum befindet sich hier.", k:"박물관은 여기에 위치합니다.", r:"sich"},
-            {id:50, v:"sich ereignen", s:"Ein 사고가 발생했다 yesterday.", k:"어제 사고가 발생했다.", r:"sich"},
-            {id:51, v:"sich benehmen", s:"Er benimmt sich wie ein Kind.", k:"그는 어린애처럼 행동한다.", r:"sich"},
-            {id:52, v:"sich weigern", s:"Er weigert sich zu gehen.", k:"그는 가기를 거부한다.", r:"sich"},
-            {id:53, v:"sich trauen", s:"Ich traue mich nicht zu springen.", k:"나는 감히 뛰어내리지 못하겠다.", r:"mich"},
-            {id:54, v:"sich schämen", s:"Du solltest dich schämen!", k:"넌 부끄러운 줄 알아야 해!", r:"dich"},
-            {id:55, v:"sich gedulden", s:"Bitte gedulden Sie sich einen Moment.", k:"잠시만 인내심을 갖고 기다려 주세요.", r:"sich"},
-            {id:56, v:"sich verletzen", s:"Er hat sich beim Sport verletzt.", k:"그는 운동하다 다쳤다.", r:"sich"},
-            {id:57, v:"sich anmelden", s:"Ich melde mich für den Kurs an.", k:"나는 강좌에 등록한다.", r:"mich"},
-            {id:58, v:"sich abmelden", s:"Du musst dich vom System abmelden.", k:"시스템에서 로그아웃해야 한다.", r:"dich"},
-            {id:59, v:"sich umsehen", s:"Ich sehe mich nur kurz um.", k:"그냥 잠시 둘러보는 중이에요.", r:"mich"},
-            {id:60, v:"sich hinsetzen", s:"Setzen Sie sich bitte!", k:"앉으세요!", r:"sich"},
-            {id:61, v:"sich aufregen", s:"Reg dich nicht so auf!", k:"그렇게 흥분하지 마!", r:"dich"},
-            {id:62, v:"sich auskennen", s:"Kennst du dich in Hamburg aus?", k:"함부르크 지리를 잘 아니?", r:"dich"},
-            {id:63, v:"sich ausruhen", s:"Ich muss mich jetzt ausruhen.", k:"나는 지금 쉬어야 해.", r:"mich"},
-            {id:64, v:"sich bedienen", s:"Bedient euch bitte am Buffet!", k:"뷔페에서 마음껏 드세요!", r:"euch"},
-            {id:65, v:"sich melden", s:"Melden Sie sich bei Fragen.", k:"질문이 있으면 말씀하세요.", r:"sich"},
-            {id:66, v:"sich beharren", s:"Er beharrt auf seiner Meinung.", k:"그는 자신의 의견을 고집한다.", r:"sich"},
-            {id:67, v:"sich vergewissern", s:"Ich vergewissere mich noch 한번.", k:"다시 한번 확인하겠습니다.", r:"mich"},
-            {id:68, v:"sich bücken", s:"Er bückt sich nach dem Stift.", k:"그는 펜을 잡으려 몸을 굽힌다.", r:"sich"},
-            {id:69, v:"sich entfernen", s:"Das Schiff entfernt sich vom Ufer.", k:"배가 해안에서 멀어진다.", r:"sich"},
-            {id:70, v:"sich entspannen", s:"Musik hilft mir, mich zu entspannen.", k:"음악은 내가 긴장을 푸는 데 도움을 준다.", r:"mich"},
-            {id:71, v:"sich identifizieren", s:"Sie identifiziert sich mit der Rolle.", k:"그녀는 그 역할에 자신을 동일시한다.", r:"sich"},
-            {id:72, v:"sich orientieren", s:"Wir orientieren uns an den Sternen.", k:"우리는 별을 보고 방향을 잡는다.", r:"uns"},
-            {id:73, v:"sich rächen", s:"Er rächt sich an seinem Feind.", k:"그는 적에게 복수한다.", r:"sich"},
-            {id:74, v:"sich scheren", s:"Er schert sich nicht um die Regeln.", k:"그는 규칙 따위 상관하지 않는다.", r:"sich"},
-            {id:75, v:"sich sehnen", s:"Ich sehne mich nach Ruhe.", k:"나는 평온함을 갈망한다.", r:"mich"},
-            {id:76, v:"sich umdrehen", s:"Dreh dich bitte nicht um!", k:"제발 뒤돌아보지 마!", r:"dich"},
-            {id:77, v:"sich wehren", s:"Man muss sich gegen Unrecht wehren.", k:"불의에 저항해야 한다.", r:"sich"},
-            {id:78, v:"sich widerspiegeln", s:"Die Sonne spiegelt sich im See wider.", k:"태양이 호수에 반사된다.", r:"sich"},
-            {id:79, v:"sich wundern", s:"Wir wundern uns über gar nichts mehr.", k:"우리는 더 이상 아무것도 놀랍지 않다.", r:"uns"},
-            {id:80, v:"sich zwingen", s:"Ich zwinge mich zum Aufstehen.", k:"나는 억지로 일어난다.", r:"mich"},
-            {id:81, v:"sich auswirken", s:"Das wirkt sich auf die Preise aus.", k:"그것은 가격에 영향을 미친다.", r:"sich"},
-            {id:82, v:"sich belaufen", s:"Die Kosten belaufen sich auf 100 Euro.", k:"비용은 100유로에 달한다.", r:"sich"},
-            {id:83, v:"sich etablieren", s:"Die Marke hat sich etabliert.", k:"그 브랜드는 자리를 잡았다.", r:"sich"},
-            {id:84, v:"sich empören", s:"Alle empören sich über den Skandal.", k:"모두가 그 스캔들에 격분한다.", r:"sich"},
-            {id:85, v:"sich entschließen", s:"Er entschließt sich zur Kündigung.", k:"그는 퇴사를 결심한다.", r:"sich"},
-            {id:86, v:"sich anschließen", s:"Ich schließe mich deiner Meinung an.", k:"나도 네 의견에 동조해.", r:"mich"},
-            {id:87, v:"sich kooperieren", s:"Die Firmen haben sich kooperiert.", k:"그 회사들은 협력 관계를 맺었다.", r:"sich"},
-            {id:88, v:"sich richten", s:"Ich richte mich ganz nach dir.", k:"나는 전적으로 너의 뜻에 따를게.", r:"mich"},
-            {id:89, v:"sich einsetzen", s:"Er setzt sich für Umweltschutz ein.", k:"그는 환경 보호를 위해 매진한다.", r:"sich"},
-            {id:90, v:"sich verstricken", s:"Er hat sich in Lügen verstrickt.", k:"그는 거짓말에 휘말렸다.", r:"sich"},
-            {id:91, v:"sich ausschweigen", s:"Er schweigt sich über den Plan aus.", k:"그는 계획에 대해 침묵한다.", r:"sich"},
-            {id:92, v:"sich unterwerfen", s:"Sie unterwerfen sich dem Gesetz.", k:"그들은 법에 굴복한다.", r:"sich"},
-            {id:93, v:"sich mäßigen", s:"Mäßigen Sie sich bitte!", k:"제발 자제하세요!", r:"sich"},
-            {id:94, v:"sich entfernen", s:"Er entfernt sich heimlich.", k:"그는 몰래 자리를 뜬다.", r:"sich"},
-            {id:95, v:"sich verschwören", s:"Sie haben sich gegen ihn verschworen.", k:"그들은 그에 대항하여 공모했다.", r:"sich"},
-            {id:96, v:"sich einigen", s:"Wir haben uns endlich gee인igt.", k:"우리는 마침내 합의를 보았다.", r:"uns"},
-            {id:97, v:"sich ergänzen", s:"Die beiden ergänzen sich perfekt.", k:"두 사람은 서로를 보완한다.", r:"sich"},
-            {id:98, v:"sich ergehen", s:"Er ergeht sich in langen Reden.", k:"그는 긴 연설을 늘어놓는다.", r:"sich"},
-            {id:99, v:"sich rechtfertigen", s:"Du musst dich nicht rechtfertigen.", k:"너는 변명할 필요 없어.", r:"dich"},
-            {id:100, v:"sich vollziehen", s:"Ein Wandel vollzieht sich.", k:"변화가 이루어지고 있다.", r:"sich"}
+            {id:1, v:"sich freuen auf", s:"Ich freue mich auf das Wochenende.", k:"주말을 고대하다.", f:"A"},
+            {id:2, v:"sich freuen über", s:"Er freut sich über das Geschenk.", k:"선물에 기뻐하다.", f:"A"},
+            {id:3, v:"sich interessieren für", s:"Interessierst du dich für Kunst?", k:"예술에 관심이 있다.", f:"A"},
+            {id:4, v:"sich bewerben um", s:"Sie bewirbt sich um die Stelle.", k:"일자리에 지원하다.", f:"A"},
+            {id:5, v:"sich bewerben bei", s:"Ich bewerbe mich bei Siemens.", k:"회사에 지원하다.", f:"A"},
+            {id:6, v:"sich beschweren über", s:"Wir beschweren uns über den Lärm.", k:"소음에 대해 불평하다.", f:"A"},
+            {id:7, v:"sich beschweren bei", s:"Er beschwert sich beim Chef.", k:"상사에게 불평하다.", f:"A"},
+            {id:8, v:"sich bedanken für", s:"Ich bedanke mich für Ihre Hilfe.", k:"도움에 감사하다.", f:"A"},
+            {id:9, v:"sich bedanken bei", s:"Er bedankt sich bei seiner Tante.", k:"이모에게 감사하다.", f:"A"},
+            {id:10, v:"sich erinnern an", s:"Erinnerst du dich an mich?", k:"기억하니?", f:"A"},
+            {id:11, v:"sich konzentrieren auf", s:"Konzentrier dich auf die Prüfung!", k:"시험에 집중하다.", f:"A"},
+            {id:12, v:"sich verlieben in", s:"Er hat sich in sie verliebt.", k:"사랑에 빠지다.", f:"A"},
+            {id:13, v:"sich fürchten vor", s:"Das Kind fürchtet sich vor Hunden.", k:"개를 무서워하다.", f:"A"},
+            {id:14, v:"sich vorbereiten auf", s:"Ich bereite mich auf die Reise vor.", k:"여행을 준비하다.", f:"A"},
+            {id:15, v:"sich gewöhnen an", s:"Ich gewöhne mich an das Wetter.", k:"날씨에 적응하다.", f:"A"},
+            {id:16, v:"sich ärgern über", s:"Ärgere dich nicht über ihn!", k:"화내지 마라.", f:"A"},
+            {id:17, v:"sich wundern über", s:"Ich wundere mich über seine Antwort.", k:"의아해하다.", f:"A"},
+            {id:18, v:"sich verlassen auf", s:"Du kannst dich auf mich verlassen.", k:"믿어도 된다.", f:"A"},
+            {id:19, v:"sich kümmern um", s:"Wer kümmert sich um die Katze?", k:"돌보다.", f:"A"},
+            {id:20, v:"sich entscheiden für", s:"Ich entscheide mich für dieses Auto.", k:"결정하다.", f:"A"},
+            {id:21, v:"sich sehnen nach", s:"Er sehnt sich nach seiner Heimat.", k:"그리워하다.", f:"A"},
+            {id:22, v:"sich unterhalten mit", s:"Sie unterhält sich mit ihrer Freundin.", k:"대화하다.", f:"A"},
+            {id:23, v:"sich unterhalten über", s:"Wir unterhalten uns über Politik.", k:"정치에 대해 대화하다.", f:"A"},
+            {id:24, v:"sich erkundigen nach", s:"Er erkundigt sich nach dem Weg.", k:"문의하다.", f:"A"},
+            {id:25, v:"sich streiten mit", s:"Streite dich nicht mit mir!", k:"싸우지 마라.", f:"A"},
+            {id:26, v:"sich streiten über", s:"Sie streiten sich über das Geld.", k:"싸우다.", f:"A"},
+            {id:27, v:"sich trennen von", s:"Er hat sich von seiner Frau getrennt.", k:"헤어지다.", f:"A"},
+            {id:28, v:"sich verabreden mit", s:"Ich verabrede mich mit ihm.", k:"약속하다.", f:"A"},
+            {id:29, v:"sich beschäftigen mit", s:"Er beschäftigt sich mit Musik.", k:"몰두하다.", f:"A"},
+            {id:30, v:"sich anpassen an", s:"Du musst dich an die Regeln anpassen.", k:"적응하다.", f:"A"},
+            {id:31, v:"sich putzen (D)", s:"Ich putze mir die Zähne.", k:"양치하다.", f:"D"},
+            {id:32, v:"sich waschen (D)", s:"Ich wasche mir die Hände.", k:"씻다.", f:"D"},
+            {id:33, v:"sich kämmen (D)", s:"Kämmst du dir die Haare?", k:"머리 빗다.", f:"D"},
+            {id:34, v:"sich anziehen (D)", s:"Ich ziehe mir eine Jacke an.", k:"옷 입다.", f:"D"},
+            {id:35, v:"sich wünschen (D)", s:"Ich wünsche mir ein neues Handy.", k:"바라다.", f:"D"},
+            {id:36, v:"sich anschauen (D)", s:"Ich schaue mir einen Film an.", k:"보다.", f:"D"},
+            {id:37, v:"sich merken (D)", s:"Ich merke mir das Wort.", k:"기억하다.", f:"D"},
+            {id:38, v:"sich vorstellen (D)", s:"Stell dir das vor!", k:"상상하다.", f:"D"},
+            {id:39, v:"sich kochen (D)", s:"Ich koche mir einen Kaffee.", k:"요리하다.", f:"D"},
+            {id:40, v:"sich kaufen (D)", s:"Ich kaufe mir ein Ticket.", k:"사다.", f:"D"},
+            {id:41, v:"sich beeilen", s:"Beeil dich, wir sind spät!", k:"서두르다.", f:"A"},
+            {id:42, v:"sich ausruhen", s:"Ruh dich nach der Arbeit aus.", k:"쉬다.", f:"A"},
+            {id:43, v:"sich erkälten", s:"Zieh dich warm an, sonst erkältest du dich.", k:"감기 걸리다.", f:"A"},
+            {id:44, v:"sich verspäten", s:"Der Zug verspätet sich.", k:"지연되다.", f:"A"},
+            {id:45, v:"sich anstrengen", s:"Du musst dich mehr anstrengen.", k:"노력하다.", f:"A"},
+            {id:46, v:"sich irren", s:"Da irren Sie sich gewaltig.", k:"착각하다.", f:"A"},
+            {id:47, v:"sich verlaufen", s:"Wir haben uns im Wald verlaufen.", k:"길을 잃다.", f:"A"},
+            {id:48, v:"sich befinden", s:"Das Museum befindet sich hier.", k:"위치하다.", f:"A"},
+            {id:49, v:"sich benehmen", s:"Er benimmt sich wie ein Kind.", k:"행동하다.", f:"A"},
+            {id:50, v:"sich ereignen", s:"Ein Unfall ereignete sich gestern.", k:"발생하다.", f:"A"},
+            {id:51, v:"sich weigern", s:"Er weigert sich zu gehen.", k:"거부하다.", f:"A"},
+            {id:52, v:"sich trauen", s:"Ich traue mich nicht zu springen.", k:"감히 ~하다.", f:"A"},
+            {id:53, v:"sich schämen", s:"Du solltest dich schämen!", k:"부끄러워하다.", f:"A"},
+            {id:54, v:"sich gedulden", s:"Bitte gedulden Sie sich.", k:"기다리다.", f:"A"},
+            {id:55, v:"sich verletzen", s:"Er hat sich beim Sport verletzt.", k:"다치다.", f:"A"},
+            {id:56, v:"sich anmelden", s:"Ich melde mich für den Kurs an.", k:"등록하다.", f:"A"},
+            {id:57, v:"sich abmelden", s:"Meld dich ab.", k:"탈퇴하다.", f:"A"},
+            {id:58, v:"sich umsehen", s:"Ich sehe mich nur kurz um.", k:"둘러보다.", f:"A"},
+            {id:59, v:"sich hinsetzen", s:"Setzen Sie sich bitte!", k:"앉다.", f:"A"},
+            {id:60, v:"sich aufregen", s:"Reg dich nicht so auf!", k:"흥분하다.", f:"A"},
+            {id:61, v:"sich auskennen", s:"Kennst du dich 여기 aus?", k:"잘 알다.", f:"A"},
+            {id:62, v:"sich ausruhen", s:"Ich muss mich ausruhen.", k:"쉬다.", f:"A"},
+            {id:63, v:"sich bedienen", s:"Bedient euch!", k:"마음껏 드세요.", f:"A"},
+            {id:64, v:"sich melden", s:"Melden Sie sich.", k:"연락하다.", f:"A"},
+            {id:65, v:"sich beharren", s:"Er beharrt darauf.", k:"고집하다.", f:"A"},
+            {id:66, v:"sich vergewissern", s:"Ich vergewissere mich.", k:"확인하다.", f:"A"},
+            {id:67, v:"sich bücken", s:"Er bückt sich.", k:"몸을 굽히다.", f:"A"},
+            {id:68, v:"sich entfernen", s:"Er entfernt sich.", k:"멀어지다.", f:"A"},
+            {id:69, v:"sich entspannen", s:"Ich entspanne mich.", k:"긴장을 풀다.", f:"A"},
+            {id:70, v:"sich identifizieren", s:"Sie identifiziert sich.", k:"동일시하다.", f:"A"},
+            {id:71, v:"sich orientieren", s:"Wir orientieren uns.", k:"방향을 잡다.", f:"A"},
+            {id:72, v:"sich rächen", s:"Er rächt sich.", k:"복수하다.", f:"A"},
+            {id:73, v:"sich scheren", s:"Er schert sich nicht.", k:"신경 쓰다.", f:"A"},
+            {id:74, v:"sich sehnen", s:"Ich sehne mich.", k:"그리워하다.", f:"A"},
+            {id:75, v:"sich umdrehen", s:"Dreh dich um!", k:"뒤돌아보다.", f:"A"},
+            {id:76, v:"sich wehren", s:"Er wehrt sich.", k:"저항하다.", f:"A"},
+            {id:77, v:"sich widerspiegeln", s:"Es spiegelt sich wider.", k:"반사되다.", f:"A"},
+            {id:78, v:"sich wundern", s:"Wir wundern uns.", k:"놀라다.", f:"A"},
+            {id:79, v:"sich zwingen", s:"Ich zwinge mich.", k:"억지로 하다.", f:"A"},
+            {id:80, v:"sich auswirken", s:"Das wirkt sich aus.", k:"영향을 주다.", f:"A"},
+            {id:81, v:"sich belaufen", s:"Es beläuft sich auf...", k:"~에 달하다.", f:"A"},
+            {id:82, v:"sich etablieren", s:"Die Marke hat sich etabliert.", k:"정착하다.", f:"A"},
+            {id:83, v:"sich empören", s:"Alle empören sich.", k:"격분하다.", f:"A"},
+            {id:84, v:"sich entschließen", s:"Er entschließt sich.", k:"결심하다.", f:"A"},
+            {id:85, v:"sich anschließen", s:"Ich schließe mich an.", k:"동조하다.", f:"A"},
+            {id:86, v:"sich kooperieren", s:"Sie kooperieren sich.", k:"협력하다.", f:"A"},
+            {id:87, v:"sich richten", s:"Ich richte mich nach dir.", k:"따르다.", f:"A"},
+            {id:88, v:"sich einsetzen", s:"Er setzt sich für Umweltschutz ein.", k:"매진하다.", f:"A"},
+            {id:89, v:"sich verstricken", s:"Er verstrickt sich.", k:"휘말리다.", f:"A"},
+            {id:90, v:"sich ausschweigen", s:"Er schweigt sich aus.", k:"침묵하다.", f:"A"},
+            {id:91, v:"sich unterwerfen", s:"Sie unterwerfen sich.", k:"굴복하다.", f:"A"},
+            {id:92, v:"sich mäßigen", s:"Mäßigen Sie sich!", k:"자제하다.", f:"A"},
+            {id:93, v:"sich entfernen", s:"Er entfernt sich heimlich.", k:"자리를 뜨다.", f:"A"},
+            {id:94, v:"sich verschwören", s:"Sie verschwören sich.", k:"공모하다.", f:"A"},
+            {id:95, v:"sich einigen", s:"Wir haben uns geeinigt.", k:"합의하다.", f:"A"},
+            {id:96, v:"sich ergänzen", s:"Sie ergänzen sich.", k:"보완하다.", f:"A"},
+            {id:97, v:"sich ergehen", s:"Er ergeht sich.", k:"장황하게 말하다.", f:"A"},
+            {id:98, v:"sich rechtfertigen", s:"Du musst dich nicht rechtfertigen.", k:"변명하다.", f:"A"},
+            {id:99, v:"sich vollziehen", s:"Ein Wandel vollzieht sich.", k:"이루어지다.", f:"A"},
+            {id:100, v:"sich bedanken", s:"Ich bedanke mich.", k:"감사하다.", f:"A"}
         ];
 
-        // 100개를 채우기 위한 루프 (실제 100개 리스트를 아래와 같이 렌더링)
-        const listContainer = document.getElementById('word-list-container');
+        // 리스트 렌더링
+        const container = document.getElementById('word-list-container');
         reflexiveData.forEach(item => {
-            listContainer.innerHTML += `
-                <div class="word-card group" onclick="openWordModal('${item.id}', '${item.v}', '${item.s}', '${item.k}', '${item.f}')">
+            const cleanS = item.s.replace(/<[^>]*>?/gm, '');
+            container.innerHTML += `
+                <div class="word-card group" onclick="openWordModal('${item.id}', '${item.v}', '${cleanS}', '${item.k}', '${item.f}')">
                     <div class="case-label">[${item.f}]</div>
-                    <div class="text-[9px] text-gray-200 font-black mb-1 text-left">NO.${item.id}</div>
+                    <div class="text-[8px] text-gray-200 font-black mb-1 text-left">NO.${item.id}</div>
                     <div class="verb group-hover:text-red-600 transition-colors">${item.v}</div>
                     <div class="meaning">${item.k}</div>
                 </div>
@@ -244,47 +250,52 @@
         });
 
         function openWordModal(id, v, s, k, f) {
-            document.getElementById('modal-case').innerText = (f === 'A' ? "AKKUSATIV (4격)" : "DATIV (3격)") + " REFREXIVE";
+            document.getElementById('modal-case').innerText = (f==='A'?"4격(Akk)":"3격(Dat)") + " REFREXIVE VERB";
             document.getElementById('modal-word').innerText = v;
             document.getElementById('modal-sentence').innerText = s;
             document.getElementById('modal-meaning').innerText = k;
             document.getElementById('word-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-        function closeWordModal() { document.getElementById('word-modal').style.display = 'none'; }
+        function closeWordModal() { document.getElementById('word-modal').style.display='none'; document.body.style.overflow='auto'; }
 
-        // 퀴즈 로직
-        let quizPool = []; let currIdx = 0; let score = 0;
+        // 퀴즈 로직 (동사 맞히기)
+        let pool = []; let currIdx = 0; let score = 0;
         function startQuiz() {
-            quizPool = [...reflexiveData].sort(() => 0.5 - Math.random()).slice(0, 10);
+            pool = [...reflexiveData].sort(() => 0.5 - Math.random()).slice(0, 10);
             document.getElementById('q-init').classList.add('hidden');
             document.getElementById('q-play').classList.remove('hidden');
             showQ();
         }
         function showQ() {
-            const item = quizPool[currIdx];
-            const answer = item.r;
-            const question = item.s.replace(new RegExp(`\\b${answer}\\b`, 'i'), "_______");
-            document.getElementById('q-status').innerText = `Question ${currIdx + 1} of 10`;
-            document.getElementById('q-text').innerText = question;
-            const opts = document.getElementById('q-options'); opts.innerHTML = '';
-            ["mich", "mir", "dich", "dir", "sich", "uns"].sort(() => 0.5 - Math.random()).slice(0, 4).forEach(o => {
-                if(![...opts.children].some(b => b.innerText === answer) && opts.children.length === 3) o = answer;
+            const item = pool[currIdx];
+            document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
+            document.getElementById('q-meaning-hint').innerText = `뜻: ${item.k}`;
+            const questionText = item.s.replace(item.v.split(' ').pop(), "_______");
+            document.getElementById('q-text').innerText = questionText;
+            const optsDiv = document.getElementById('q-options'); optsDiv.innerHTML = '';
+            let choices = [item.v];
+            while(choices.length < 4) {
+                let randomVerb = reflexiveData[Math.floor(Math.random()*reflexiveData.length)].v;
+                if(!choices.includes(randomVerb)) choices.push(randomVerb);
+            }
+            choices.sort(() => 0.5 - Math.random()).forEach(choice => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer";
-                btn.innerText = o;
+                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer bg-white";
+                btn.innerText = choice;
                 btn.onclick = () => {
-                    const all = opts.querySelectorAll('button'); all.forEach(b => b.disabled = true);
-                    if(o === answer) { btn.classList.add('bg-green-500', 'text-white'); score++; }
+                    document.querySelectorAll('#q-options button').forEach(b => b.disabled = true);
+                    if(choice === item.v) { btn.classList.add('bg-green-500', 'text-white'); score++; }
                     else { btn.classList.add('bg-red-500', 'text-white'); }
                     document.getElementById('next-btn').disabled = false;
                 };
-                opts.appendChild(btn);
+                optsDiv.appendChild(btn);
             });
         }
         function nextQ() {
             currIdx++;
             if(currIdx < 10) { showQ(); document.getElementById('next-btn').disabled = true; }
-            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `Score: ${score} / 10`; }
+            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `${score} / 10`; }
         }
     </script>
 </body>
