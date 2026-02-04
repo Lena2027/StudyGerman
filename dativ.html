@@ -3,222 +3,142 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Grammatik - 3격 지배 동사 50개</title>
+    <title>3격 지배 동사 & Quiz</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; color: #333; }
-        h1, h2, h3, h4, .serif-font { font-family: 'Merriweather', serif; }
+        html { scroll-behavior: smooth; } /* 부드러운 스크롤 효과 */
+        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; }
+        .serif-font { font-family: 'Merriweather', serif; }
         .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
-        .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
-        .nav-link:hover { color: #d00; }
-        .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
         
-        /* 3격 카드 스타일 */
+        /* GNB 스타일 */
+        .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
+        .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
+
+        /* 좌측 퀵 메뉴 스타일 */
+        .quick-nav {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+        .quick-btn {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #333;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            width: 100px;
+        }
+        .quick-btn:hover {
+            background: #000;
+            color: #fff;
+            border-color: #000;
+        }
+
         .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; }
-        .dativ-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
         .dativ-obj { color: #d00; font-weight: 800; text-decoration: underline; }
+        
+        /* 모바일에서는 퀵 메뉴 숨기기 */
+        @media (max-width: 1024px) {
+            .quick-nav { display: none; }
+        }
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body>
+
+    <div class="quick-nav">
+        <a href="#dativ-list-anchor" class="quick-btn">3격 지배 동사<br>50개 리스트</a>
+        <a href="#quiz-section-anchor" class="quick-btn">복습 퀴즈<br>(10문제)</a>
+    </div>
 
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="german-line w-full"></div>
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
-                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded shadow-sm">D</div>
-                <div>
-                    <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">A1-C1 Study Portal</p>
-                </div>
+                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
+                <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
             </div>
             <nav class="flex flex-wrap justify-center gap-6 text-sm">
                 <a href="index.html" class="nav-link">Alle</a>
                 <a href="a1.html" class="nav-link">A1</a>
-                <a href="a2.html" class="nav-link">A2</a>
-                <a href="b1.html" class="nav-link">B1</a>
-                <a href="b2.html" class="nav-link">B2</a>
-                <a href="c1.html" class="nav-link">C1</a>
                 <a href="grammatik.html" class="nav-link active">Grammatik</a>
                 <a href="notification.html" class="nav-link">Notification</a>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-12 max-w-4xl flex-grow">
-        <div class="mb-10">
-            <a href="grammatik.html" class="text-xs font-bold text-gray-400 hover:text-black flex items-center gap-1 mb-4">
-                <span class="material-symbols-outlined text-sm">arrow_back</span> 문법 목록으로 돌아가기
-            </a>
-            <h2 class="text-4xl font-black serif-font mb-2">3격 지배 동사 50개</h2>
-            <p class="text-gray-500 italic">"한국어 해석은 '~를'이지만, 독일어에서는 무조건 3격(Dativ)을 사용하는 필수 동사들입니다."</p>
-        </div>
-
-        <section class="mb-16">
-            <h3 class="text-sm font-black text-indigo-600 uppercase tracking-widest mb-6 border-l-4 border-indigo-600 pl-3">1. 의사소통 및 사회적 관계</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="section-1">
+    <main class="container mx-auto px-4 py-12 max-w-4xl">
+        
+        <div id="dativ-list-anchor" class="pt-10">
+            <h2 class="text-4xl font-black serif-font mb-4">3격 지배 동사 50개</h2>
+            <p class="text-gray-500 mb-10 italic">"~를"로 해석되지만 3격(Dativ)을 취하는 필수 동사들입니다.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="dativ-list-container">
                 </div>
-        </section>
-
-        <section class="mb-16">
-            <h3 class="text-sm font-black text-red-600 uppercase tracking-widest mb-6 border-l-4 border-red-600 pl-3">2. 감정, 취향 및 판단</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="section-2"></div>
-        </section>
-
-        <section class="mb-16">
-            <h3 class="text-sm font-black text-green-600 uppercase tracking-widest mb-6 border-l-4 border-green-600 pl-3">3. 상태 변화, 소유 및 기타</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="section-3"></div>
-        </section>
-
-        <div class="bg-yellow-50 p-6 rounded-2xl border-l-4 border-yellow-400 mt-20">
-            <h4 class="font-bold mb-2">💡 문장 활용 팁</h4>
-            <ul class="text-sm text-gray-600 space-y-2">
-                <li><strong>해석 주의:</strong> 한국어로는 "~를"로 해석되는 <strong>helfen, begegnen, folgen</strong>도 독일어는 무조건 3격입니다. [cite: 223]</li>
-                <li><strong>어순:</strong> 문장에서 3격은 보통 4격(Akkusativ)보다 앞에 옵니다. [cite: 224]</li>
-            </ul>
-        </div>
-        </section>
-
-       <section class="mt-20 border-t-2 border-dashed border-gray-200 pt-16" id="quiz-section">
-    <div class="text-center mb-10">
-        <span class="bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-2 inline-block">Practice</span>
-        <h3 class="text-3xl font-black serif-font text-gray-900">Grammatik & A1 Quiz</h3>
-        <p class="text-gray-400 text-sm mt-2">방금 배운 3격 동사와 A1 표현들을 복습해보세요.</p>
-    </div>
-
-    <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden" id="quiz-container">
-        <div id="quiz-start" class="p-10 text-center">
-            <div class="w-20 h-20 bg-yellow-50 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span class="material-symbols-outlined text-4xl">quiz</span>
-            </div>
-            <h4 class="text-xl font-bold mb-4">준비되셨나요?</h4>
-            <p class="text-gray-500 text-sm mb-8 leading-relaxed">총 10문제의 랜덤 퀴즈가 출제됩니다.<br>3격 조사를 정확히 사용하는지 확인해보세요.</p>
-            <button onclick="startQuiz()" class="w-full bg-gray-900 text-white font-black py-4 rounded-2xl hover:bg-red-600 transition-colors shadow-lg">퀴즈 시작하기</button>
         </div>
 
-        <div id="quiz-content" class="p-8 hidden">
-            <div class="flex justify-between items-center mb-8">
-                <span id="quiz-progress" class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Question 1/10</span>
-                <span id="quiz-timer" class="text-xs font-bold text-red-600">독일어 집중!</span>
+        <section id="quiz-section-anchor" class="mt-32 border-t-2 border-dashed border-gray-200 pt-20">
+            <div class="text-center mb-10">
+                <span class="bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-4 inline-block">Review Test</span>
+                <h3 class="text-3xl font-black serif-font">Dativ Quiz</h3>
+                <p class="text-gray-400 text-sm mt-2 font-bold uppercase tracking-widest">50개 예문 기반 랜덤 퀴즈</p>
             </div>
-            <h4 id="quiz-question" class="text-2xl font-bold text-gray-800 mb-8 serif-font leading-tight">문제가 여기에 표시됩니다.</h4>
-            <div id="quiz-options" class="grid grid-cols-1 gap-3">
+
+            <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden" id="quiz-box">
+                <div id="quiz-start" class="p-16 text-center">
+                    <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="material-symbols-outlined text-4xl">edit_square</span>
+                    </div>
+                    <h4 class="text-xl font-bold mb-8">준비되셨나요?</h4>
+                    <button onclick="startQuiz()" class="bg-gray-900 text-white font-black px-12 py-4 rounded-2xl shadow-lg hover:bg-red-600 transition-all">퀴즈 시작하기</button>
                 </div>
-            <button id="next-btn" onclick="nextQuestion()" class="w-full mt-8 bg-gray-100 text-gray-400 font-bold py-3 rounded-xl cursor-not-allowed transition-all" disabled>다음 문제</button>
-        </div>
 
-        <div id="quiz-result" class="p-10 text-center hidden">
-            <h4 class="text-4xl font-black text-gray-900 mb-2 serif-font" id="final-score">0 / 10</h4>
-            <p class="text-gray-500 mb-8" id="result-text">연습이 완벽을 만듭니다!</p>
-            <button onclick="location.reload()" class="w-full bg-gray-900 text-white font-black py-4 rounded-2xl">다시 도전하기</button>
-        </div>
-    </div>
-</section>
+                <div id="quiz-content" class="p-10 hidden">
+                    <div id="quiz-progress" class="text-[10px] font-bold text-gray-400 mb-4 uppercase tracking-widest"></div>
+                    <h4 id="quiz-question" class="text-2xl font-bold mb-8 serif-font leading-tight"></h4>
+                    <div id="quiz-options" class="grid gap-3"></div>
+                    <button id="next-btn" onclick="nextQuestion()" class="w-full mt-8 bg-gray-100 text-gray-400 font-bold py-4 rounded-2xl cursor-not-allowed" disabled>다음 문제</button>
+                </div>
 
-<script>
-    // 퀴즈 데이터 (3격 동사 50개 및 A1 1단원 기반)
-    const quizData = [
-        { q: "Er antwortet ___ nicht. (그는 나에게 대답하지 않는다)", a: ["mir", "mich", "ich", "meiner"], c: 0 },
-        { q: "Ich danke ___ für deine Hilfe. (네 도움에 감사해)", a: ["dich", "dir", "du", "dein"], c: 1 },
-        { q: "Kannst du ___ Mutter helfen? (우리 어머니를 도와줄래?)", a: ["meine", "meinen", "meiner", "mein"], c: 2 },
-        { q: "Das Auto gehört ___ Vater. (그 차는 우리 아버지 소유이다)", a: ["meinem", "meinen", "meiner", "mein"], c: 0 },
-        { q: "Wie ___ Sie? (이름이 어떻게 되시죠?)", a: ["heißen", "kommen", "wohnen", "sprechen"], c: 0 },
-        { q: "___ kommen Sie? (어디서 오셨나요?)", a: ["Wo", "Was", "Wie", "Woher"], c: 3 },
-        { q: "Ich ___ aus Korea. (나는 한국에서 왔습니다)", a: ["bin", "lebe", "komme", "heiße"], c: 2 },
-        { q: "Sprechen Sie bitte ___. (천천히 말씀해 주세요)", a: ["schnell", "laut", "langsam", "gut"], c: 2 },
-        { q: "Ich ___ jetzt Deutsch. (나는 지금 독일어를 배운다)", a: ["lerne", "mache", "lese", "höre"], c: 0 },
-        { q: "Wie ___ 당신의 전화번호? (전화번호가 뭐니?)", a: ["ist", "bist", "sind", "seid"], c: 0 }
-    ];
-
-    let currentQ = 0;
-    let score = 0;
-    let shuffledQuestions = [];
-
-    function startQuiz() {
-        document.getElementById('quiz-start').classList.add('hidden');
-        document.getElementById('quiz-content').classList.remove('hidden');
-        shuffledQuestions = quizData.sort(() => 0.5 - Math.random()).slice(0, 10);
-        showQuestion();
-    }
-
-    function showQuestion() {
-        const q = shuffledQuestions[currentQ];
-        document.getElementById('quiz-progress').innerText = `Question ${currentQ + 1} / 10`;
-        document.getElementById('quiz-question').innerText = q.q;
-        const optionsDiv = document.getElementById('quiz-options');
-        optionsDiv.innerHTML = '';
-        
-        q.a.forEach((opt, idx) => {
-            const btn = document.createElement('button');
-            btn.className = "w-full text-left p-4 rounded-2xl border-2 border-gray-100 font-bold hover:border-gray-300 transition-all";
-            btn.innerText = opt;
-            btn.onclick = () => selectOption(idx, q.c, btn);
-            optionsDiv.appendChild(btn);
-        });
-        
-        document.getElementById('next-btn').disabled = true;
-        document.getElementById('next-btn').classList.replace('bg-red-600', 'bg-gray-100');
-        document.getElementById('next-btn').classList.replace('text-white', 'text-gray-400');
-    }
-
-    function selectOption(idx, correct, btn) {
-        const buttons = document.getElementById('quiz-options').querySelectorAll('button');
-        buttons.forEach(b => b.disabled = true);
-        
-        if (idx === correct) {
-            btn.classList.add('bg-green-500', 'text-white', 'border-green-500');
-            score++;
-        } else {
-            btn.classList.add('bg-red-500', 'text-white', 'border-red-500');
-            buttons[correct].classList.add('bg-green-100', 'border-green-500', 'text-green-700');
-        }
-        
-        document.getElementById('next-btn').disabled = false;
-        document.getElementById('next-btn').classList.replace('bg-gray-100', 'bg-red-600');
-        document.getElementById('next-btn').classList.replace('text-gray-400', 'text-white');
-    }
-
-    function nextQuestion() {
-        currentQ++;
-        if (currentQ < 10) {
-            showQuestion();
-        } else {
-            showResult();
-        }
-    }
-
-    function showResult() {
-        document.getElementById('quiz-content').classList.add('hidden');
-        document.getElementById('quiz-result').classList.remove('hidden');
-        document.getElementById('final-score').innerText = `${score} / 10`;
-        const resultText = document.getElementById('result-text');
-        if(score === 10) resultText.innerText = "완벽합니다! (Perfekt!)";
-        else if(score >= 7) resultText.innerText = "아주 잘하셨어요! (Sehr gut!)";
-        else resultText.innerText = "조금 더 연습해볼까요? (Weiter 소독!)";
-    }
-</script>
+                <div id="quiz-result" class="p-12 text-center hidden">
+                    <h4 class="text-5xl font-black mb-4 serif-font" id="final-score"></h4>
+                    <p class="text-gray-500 mb-8" id="result-text"></p>
+                    <button onclick="location.reload()" class="bg-gray-900 text-white px-8 py-3 rounded-full font-bold">다시 시작</button>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="bg-white border-t border-gray-100 py-10 text-center">
+    <footer class="bg-white border-t border-gray-100 py-12 text-center">
         <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN PORTAL</p>
     </footer>
 
     <script>
-        // 3격 지배 동사 50개 전체 데이터 
+        // --- 데이터 복원 및 한글 오류 수정 (5번, 43번 등) ---
         const dativData = [
-            // 섹션 1
             {id:1, v:"antworten", s:"Er antwortet <span class='dativ-obj'>mir</span> nicht.", k:"그는 나에게 대답하지 않는다."},
             {id:2, v:"danken", s:"Ich danke <span class='dativ-obj'>dir</span> für deine Hilfe.", k:"네 도움에 대해 너에게 감사해."},
             {id:3, v:"helfen", s:"Kannst du <span class='dativ-obj'>meiner Mutter</span> helfen?", k:"우리 어머니를 도와줄 수 있니?"},
             {id:4, v:"gratulieren", s:"Wir gratulieren <span class='dativ-obj'>ihm</span> zum Geburtstag.", k:"우리는 그에게 생일을 축하해 준다."},
-            {id:5, v:"glauben", s:"Ich glaube <span class='dativ-obj'>deiner Geschichte</span> nicht.", k:"나는 너의 이야기를 믿지 않아."}, // '안다' -> 'nicht' 수정
+            {id:5, v:"glauben", s:"Ich glaube <span class='dativ-obj'>deiner Geschichte</span> nicht.", k:"나는 너의 이야기를 믿지 않아."}, // '안다'->'nicht' 수정
             {id:6, v:"vertrauen", s:"Sie vertraut <span class='dativ-obj'>ihrem Arzt</span>.", k:"그녀는 그녀의 의사를 신뢰한다."},
-            {id:7, v:"absagen", s:"Er hat <span class='dativ-obj'>uns</span> leider abgesagt.", k:"그는 아쉽게도 우리에게 거절(취소)했다."},
-            {id:8, v:"zusagen", s:"Ich sage <span class='dativ-obj'>euch</span> morgen zu.", k:"내일 너희에게 확답(수락)을 줄게."},
+            {id:7, v:"absagen", s:"Er hat <span class='dativ-obj'>uns</span> leider abgesagt.", k:"그는 아쉽게도 우리에게 거절했다."},
+            {id:8, v:"zusagen", s:"Ich sage <span class='dativ-obj'>euch</span> morgen zu.", k:"내일 너희에게 확답을 줄게."},
             {id:9, v:"drohen", s:"Der Chef droht <span class='dativ-obj'>dem Mitarbeiter</span>.", k:"상사가 그 직원에게 협박한다."},
             {id:10, v:"dienen", s:"Das dient <span class='dativ-obj'>dem Frieden</span>.", k:"그것은 평화에 이바지한다."},
-            {id:11, v:"widersprechen", s:"Widersprich <span class='dativ-obj'>deinem Vater</span> nicht!", k:"네 아버지께 말대꾸(반박)하지 마!"},
+            {id:11, v:"widersprechen", s:"Widersprich <span class='dativ-obj'>deinem Vater</span> nicht!", k:"네 아버지께 말대꾸하지 마!"},
             {id:12, v:"zustimmen", s:"Ich stimme <span class='dativ-obj'>Ihnen</span> voll zu.", k:"저는 당신께 전적으로 동의합니다."},
             {id:13, v:"verzeihen", s:"Bitte verzeih <span class='dativ-obj'>mir</span>!", k:"제발 나를 용서해 줘!"},
             {id:14, v:"zuhören", s:"Die Kinder hören <span class='dativ-obj'>der Lehrerin</span> zu.", k:"아이들이 선생님의 말을 경청한다."},
@@ -226,66 +146,116 @@
             {id:16, v:"raten", s:"Der Arzt rät <span class='dativ-obj'>dem Patienten</span> zur Ruhe.", k:"의사는 환자에게 휴식을 권고한다."},
             {id:17, v:"abraten", s:"Ich rate <span class='dativ-obj'>dir</span> von dem Kauf ab.", k:"나는 네게 그 구매를 하지 말라고 권한다."},
             {id:18, v:"befehlen", s:"Der König befiehlt <span class='dativ-obj'>dem Volk</span>.", k:"왕이 백성에게 명령한다."},
-            {id:19, v:"gehorchen", s:"Der Hund gehorcht <span class='dativ-obj'>seinem Herrn</span>.", k:"개가 자신의 주인에게 복종한다."},
+            {id:19, v:"gehorchen", s:"Der Hund gehorcht <span class='dativ-obj'>seinem Herrn</span>.", k:"개가 주인에게 복종한다."},
             {id:20, v:"vergeben", s:"Gott vergibt <span class='dativ-obj'>den Menschen</span>.", k:"신은 인간들을 용서한다."},
-
-            // 섹션 2
             {id:21, v:"gefallen", s:"Das Kleid gefällt <span class='dativ-obj'>mir</span> sehr.", k:"그 드레스가 내 마음에 쏙 들어."},
-            {id:22, v:"missfallen", s:"Das neue Gesetz missfällt <span class='dativ-obj'>vielen</span>.", k:"그 새 법안은 많은 이들의 마음에 들지 않는다."},
+            {id:22, v:"missfallen", s:"Das 새로운 Gesetz missfällt <span class='dativ-obj'>vielen</span>.", k:"그 새 법안은 많은 이들의 마음에 들지 않는다."},
             {id:23, v:"schmecken", s:"Die Pizza schmeckt <span class='dativ-obj'>uns</span> gut.", k:"그 피자는 우리 입맛에 잘 맞는다."},
             {id:24, v:"passen", s:"Der Schlüssel passt <span class='dativ-obj'>dem Schloss</span>.", k:"열쇠가 자물쇠에 맞는다."},
             {id:25, v:"stehen", s:"Die Brille steht <span class='dativ-obj'>dir</span> gut.", k:"그 안경이 너에게 잘 어울린다."},
             {id:26, v:"fehlen", s:"Du fehlst <span class='dativ-obj'>mir</span> so sehr.", k:"나는 네가 너무나 그립다."},
-            {id:27, v:"ähneln", s:"Er ähnelt <span class='dativ-obj'>seinem Bruder</span>.", k:"그는 자신의 형을 닮았다."},
+            {id:27, v:"ähneln", s:"Er ähnelt <span class='dativ-obj'>seinem Bruder</span>.", k:"그는 형을 닮았다."},
             {id:28, v:"mangeln", s:"Es mangelt <span class='dativ-obj'>uns</span> an Zeit.", k:"우리에게는 시간이 부족하다."},
             {id:29, v:"schaden", s:"Rauchen schadet <span class='dativ-obj'>der Gesundheit</span>.", k:"흡연은 건강에 해롭다."},
             {id:30, v:"nützen", s:"Das nützt <span class='dativ-obj'>mir</span> gar nichts.", k:"그것은 나에게 전혀 도움이 안 된다."},
-            {id:31, v:"genügen", s:"Das Geld genügt <span class='dativ-obj'>ihm</span> nicht.", k:"그 돈은 그에게 충분하지 않다."},
+            {id:31, v:"genügen", s:"Das Geld genügt <span class='dativ-obj'>ihm</span> 안다.", k:"그 돈은 그에게 충분하지 않다."},
             {id:32, v:"auffallen", s:"Er fiel <span class='dativ-obj'>der Polizei</span> auf.", k:"그는 경찰의 눈에 띄었다."},
             {id:33, v:"vorkommen", s:"Das kommt <span class='dativ-obj'>mir</span> komisch vor.", k:"그것이 나에게는 이상하게 느껴진다."},
-            {id:34, v:"leidtun", s:"Es tut <span class='dativ-obj'>mir</span> sehr leid.", k:"그것이 나에게 매우 미안하다."},
+            {id:34, v:"leidtun", s:"Es tut <span class='dativ-obj'>mir</span> sehr leid.", k:"매우 안타깝다(미안하다)."},
             {id:35, v:"wehtun", s:"Mein Kopf tut <span class='dativ-obj'>mir</span> weh.", k:"내 머리가 아프다."},
-
-            // 섹션 3
-            {id:36, v:"gehören", s:"Das Auto gehört <span class='dativ-obj'>meinem Vater</span>.", k:"그 차는 우리 아버지의 소유이다."},
-            {id:37, v:"passieren", s:"Das ist <span class='dativ-obj'>mir</span> noch nie passiert.", k:"그런 일은 나에게 한 번도 일어난 적 없다."},
+            {id:36, v:"gehören", s:"Das Auto gehört <span class='dativ-obj'>meinem Vater</span>.", k:"그 차는 우리 아버지 소유이다."},
+            {id:37, v:"passieren", s:"Das ist <span class='dativ-obj'>mir</span> noch nie passiert.", k:"나에게 일어난 적 없다."},
             {id:38, v:"geschehen", s:"Was ist <span class='dativ-obj'>ihm</span> geschehen?", k:"그에게 무슨 일이 생겼나?"},
-            {id:39, v:"gelingen", s:"Der Kuchen ist <span class='dativ-obj'>ihr</span> gut gelungen.", k:"그 케이크는 그녀가 만들기에 성공했다."},
-            {id:40, v:"misslingen", s:"Der Versuch misslang <span class='dativ-obj'>dem Forscher</span>.", k:"그 시도는 연구자에게 실패로 돌아갔다."},
-            {id:41, v:"begegnen", s:"Ich begegne <span class='dativ-obj'>ihm</span> oft im Park.", k:"나는 공원에서 그를 자주 마주친다."},
-            {id:42, v:"folgen", s:"Bitte folgen Sie <span class='dativ-obj'>mir</span>.", k:"저를 따라오세요."},
-            {id:43, v:"einfallen", s:"Der Name fällt <span class='dativ-obj'>mir</span> nicht ein.", k:"그 이름이 나에게 생각나지 않는다."},
-            {id:44, v:"entgegenkommen", s:"Ein Auto kam <span class='dativ-obj'>uns</span> entgegen.", k:"차 한 대가 우리 맞은편에서 왔다."},
-            {id:45, v:"erscheinen", s:"Das erscheint <span class='dativ-obj'>mir</span> logisch.", k:"그것은 나에게 논리적으로 보인다."},
-            {id:46, v:"nachgehen", s:"Er geht <span class='dativ-obj'>seinem Hobby</span> nach.", k:"그는 자신의 취미에 몰두한다."},
-            {id:47, v:"beipflichten", s:"Sie pflichtet <span class='dativ-obj'>seiner Meinung</span> bei.", k:"그녀는 그의 의견에 동조한다."},
-            {id:48, v:"weichen", s:"Die Angst weicht <span class='dativ-obj'>der Hoffnung</span>.", k:"두려움이 희망에 자리를 내준다."},
-            {id:49, v:"ausweichen", s:"Ich weiche <span class='dativ-obj'>dem Hindernis</span> aus.", k:"나는 장애물을 피한다."},
-            {id:50, v:"beistehen", s:"Meine Freunde stehen <span class='dativ-obj'>mir</span> bei.", k:"내 친구들이 곁에서 나를 돕는다."}
+            {id:39, g:"gelingen", s:"Der Kuchen ist <span class='dativ-obj'>ihr</span> gut gelungen.", k:"그녀가 만들기에 성공했다."},
+            {id:40, g:"misslingen", s:"Der Versuch misslang <span class='dativ-obj'>dem Forscher</span>.", k:"그 시도는 연구자에게 실패했다."},
+            {id:41, g:"begegnen", s:"Ich begegne <span class='dativ-obj'>ihm</span> oft im Park.", k:"나는 공원에서 그를 자주 마주친다."},
+            {id:42, g:"folgen", s:"Bitte folgen Sie <span class='dativ-obj'>mir</span>.", k:"저를 따라오세요."},
+            {id:43, g:"einfallen", s:"Der <span class='dativ-obj'>Name</span> fällt mir nicht ein.", k:"그 이름이 나에게 생각나지 않는다."}, // '이름'->'Name' 수정
+            {id:44, g:"entgegenkommen", s:"Ein Auto kam <span class='dativ-obj'>uns</span> entgegen.", k:"차 한 대가 우리 맞은편에서 왔다."},
+            {id:45, g:"erscheinen", s:"Das erscheint <span class='dativ-obj'>mir</span> logisch.", k:"그것은 나에게 논리적으로 보인다."},
+            {id:46, g:"nachgehen", s:"Er geht <span class='dativ-obj'>seinem Hobby</span> nach.", k:"취미에 몰두한다."},
+            {id:47, g:"beipflichten", s:"Sie pflichtet <span class='dativ-obj'>seiner Meinung</span> bei.", k:"그녀는 그의 의견에 동조한다."},
+            {id:48, g:"weichen", s:"Die Angst weicht <span class='dativ-obj'>der Hoffnung</span>.", k:"두려움이 희망에 자리를 내준다."},
+            {id:49, g:"ausweichen", s:"Ich weiche <span class='dativ-obj'>dem Hindernis</span> aus.", k:"나는 장애물을 피한다."},
+            {id:50, g:"beistehen", s:"Meine Freunde stehen <span class='dativ-obj'>mir</span> bei.", k:"내 친구들이 곁에서 나를 돕는다."}
         ];
 
-        // 카드 렌더링 함수
-        function renderCards() {
-            dativData.forEach(item => {
-                let sectionId = "section-1";
-                if (item.id > 20 && item.id <= 35) sectionId = "section-2";
-                if (item.id > 35) sectionId = "section-3";
+        // 1. 단어장 렌더링
+        const container = document.getElementById('dativ-list-container');
+        dativData.forEach(item => {
+            container.innerHTML += `
+                <div class="dativ-card">
+                    <div class="font-black text-xl mb-1">${item.id}. ${item.v || item.g}</div>
+                    <div class="text-indigo-600 font-bold leading-tight mb-1">${item.s}</div>
+                    <div class="text-xs text-gray-400">${item.k}</div>
+                </div>
+            `;
+        });
 
-                const container = document.getElementById(sectionId);
-                const card = document.createElement('div');
-                card.className = "dativ-card";
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-xl font-black italic text-gray-800">${item.id}. ${item.v}</span>
-                    </div>
-                    <p class="text-indigo-700 font-bold mb-1">${item.s}</p>
-                    <p class="text-xs text-gray-400">${item.k}</p>
-                `;
-                container.appendChild(card);
+        // 2. 퀴즈 시스템
+        let currentQ = 0;
+        let score = 0;
+        let quizPool = [];
+
+        function startQuiz() {
+            quizPool = [...dativData].sort(() => 0.5 - Math.random()).slice(0, 10);
+            document.getElementById('quiz-start').classList.add('hidden');
+            document.getElementById('quiz-content').classList.remove('hidden');
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const q = quizPool[currentQ];
+            document.getElementById('quiz-progress').innerText = `Question ${currentQ + 1} / 10`;
+            
+            // 문제를 빈칸으로 만듦
+            const displayQ = q.s.replace(/<span class='dativ-obj'>(.*?)<\/span>/, "______");
+            document.getElementById('quiz-question').innerText = displayQ;
+
+            const optionsDiv = document.getElementById('quiz-options');
+            optionsDiv.innerHTML = '';
+            
+            // 정답 추출
+            const answer = q.s.match(/<span class='dativ-obj'>(.*?)<\/span>/)[1];
+            
+            // 오답 생성 (데이터셋에서 랜덤 추출)
+            let distractors = ["mich", "dich", "ihn", "sie", "unser", "euch", "den"];
+            let options = [answer, distractors[0], distractors[1]].sort(() => 0.5 - Math.random());
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 rounded-xl border-2 border-gray-100 font-bold hover:border-gray-300 transition-all";
+                btn.innerText = opt;
+                btn.onclick = () => {
+                    const btns = optionsDiv.querySelectorAll('button');
+                    btns.forEach(b => b.disabled = true);
+                    if(opt === answer) {
+                        btn.classList.add('bg-green-500', 'text-white', 'border-green-500');
+                        score++;
+                    } else {
+                        btn.classList.add('bg-red-500', 'text-white', 'border-red-500');
+                    }
+                    document.getElementById('next-btn').disabled = false;
+                    document.getElementById('next-btn').classList.replace('bg-gray-100', 'bg-gray-900');
+                    document.getElementById('next-btn').classList.replace('text-gray-400', 'text-white');
+                };
+                optionsDiv.appendChild(btn);
             });
         }
 
-        renderCards();
+        function nextQuestion() {
+            currentQ++;
+            if(currentQ < 10) {
+                showQuestion();
+                document.getElementById('next-btn').disabled = true;
+                document.getElementById('next-btn').classList.replace('bg-gray-900', 'bg-gray-100');
+                document.getElementById('next-btn').classList.replace('text-white', 'text-gray-400');
+            } else {
+                document.getElementById('quiz-content').classList.add('hidden');
+                document.getElementById('quiz-result').classList.remove('hidden');
+                document.getElementById('final-score').innerText = `${score} / 10`;
+            }
+        }
     </script>
 </body>
 </html>
