@@ -13,15 +13,25 @@
         .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; }
     </style>
 </head>
-<body>
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+<header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="german-line w-full"></div>
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="grammatik.html" class="font-bold text-gray-400 hover:text-black">← Grammatik 목록</a>
-            <h1 class="text-lg font-bold serif-font">3격 지배 동사 50개</h1>
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
+                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
+                <h1 class="text-2xl font-bold text-gray-800 serif-font">Deutsch Lernen</h1>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-6 text-sm">
+                <a href="index.html" class="nav-link">Alle</a>
+                <a href="a1.html" class="nav-link">A1</a>
+                <a href="a2.html" class="nav-link">A2</a>
+                <a href="b1.html" class="nav-link">B1</a>
+                <a href="b2.html" class="nav-link">B2</a>
+                <a href="c1.html" class="nav-link">C1</a>
+                <a href="grammatik.html" class="nav-link active">Grammatik</a>
+                <a href="notification.html" class="nav-link">Notification</a>
+            </nav>
         </div>
     </header>
-
     <main class="container mx-auto px-4 py-10 max-w-3xl">
         <div class="space-y-6">
             <div class="dativ-card border-l-8 border-yellow-400">
