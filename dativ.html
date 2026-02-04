@@ -3,22 +3,35 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>3격 지배 동사 50개 - Grammatik</title>
+    <title>Grammatik - 3격 지배 동사 50개</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Open Sans', sans-serif; background-color: #f8f9fa; }
-        .serif-font { font-family: 'Merriweather', serif; }
-        .german-line { height: 4px; background: linear-gradient(90deg, #000 33%, #d00 33%, #d00 66%, #fc0 66%); }
-        .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; margin-bottom: 1rem; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; color: #333; }
+        h1, h2, h3, h4, .serif-font { font-family: 'Merriweather', serif; }
+        .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
+        .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
+        .nav-link:hover { color: #d00; }
+        .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
+        
+        /* 3격 카드 스타일 */
+        .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; }
+        .dativ-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+        .dativ-obj { color: #d00; font-weight: 800; text-decoration: underline; }
     </style>
 </head>
-<header class="bg-white shadow-sm sticky top-0 z-50">
+<body class="flex flex-col min-h-screen">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="german-line w-full"></div>
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
-                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
-                <h1 class="text-2xl font-bold text-gray-800 serif-font">Deutsch Lernen</h1>
+                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded shadow-sm">D</div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">A1-C1 Study Portal</p>
+                </div>
             </div>
             <nav class="flex flex-wrap justify-center gap-6 text-sm">
                 <a href="index.html" class="nav-link">Alle</a>
@@ -32,16 +45,127 @@
             </nav>
         </div>
     </header>
-    <main class="container mx-auto px-4 py-10 max-w-3xl">
-        <div class="space-y-6">
-            <div class="dativ-card border-l-8 border-yellow-400">
-                <div class="flex justify-between items-start mb-2">
-                    <span class="text-2xl font-black text-gray-900 italic">1. antworten</span>
+
+    <main class="container mx-auto px-4 py-12 max-w-4xl flex-grow">
+        <div class="mb-10">
+            <a href="grammatik.html" class="text-xs font-bold text-gray-400 hover:text-black flex items-center gap-1 mb-4">
+                <span class="material-symbols-outlined text-sm">arrow_back</span> 문법 목록으로 돌아가기
+            </a>
+            <h2 class="text-4xl font-black serif-font mb-2">3격 지배 동사 50개</h2>
+            <p class="text-gray-500 italic">"한국어 해석은 '~를'이지만, 독일어에서는 무조건 3격(Dativ)을 사용하는 필수 동사들입니다."</p>
+        </div>
+
+        <section class="mb-16">
+            <h3 class="text-sm font-black text-indigo-600 uppercase tracking-widest mb-6 border-l-4 border-indigo-600 pl-3">1. 의사소통 및 사회적 관계</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="section-1">
                 </div>
-                <p class="text-lg text-indigo-700 font-bold">"Er antwortet <span class="underline">mir</span> nicht."</p>
-                <p class="text-sm text-gray-400 mt-1">그는 나에게 대답하지 않는다.</p>
-            </div>
-            </div>
+        </section>
+
+        <section class="mb-16">
+            <h3 class="text-sm font-black text-red-600 uppercase tracking-widest mb-6 border-l-4 border-red-600 pl-3">2. 감정, 취향 및 판단</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="section-2"></div>
+        </section>
+
+        <section class="mb-16">
+            <h3 class="text-sm font-black text-green-600 uppercase tracking-widest mb-6 border-l-4 border-green-600 pl-3">3. 상태 변화, 소유 및 기타</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="section-3"></div>
+        </section>
+
+        <div class="bg-yellow-50 p-6 rounded-2xl border-l-4 border-yellow-400 mt-20">
+            <h4 class="font-bold mb-2">💡 문장 활용 팁</h4>
+            <ul class="text-sm text-gray-600 space-y-2">
+                <li><strong>해석 주의:</strong> 한국어로는 "~를"로 해석되는 <strong>helfen, begegnen, folgen</strong>도 독일어는 무조건 3격입니다. [cite: 223]</li>
+                <li><strong>어순:</strong> 문장에서 3격은 보통 4격(Akkusativ)보다 앞에 옵니다. [cite: 224]</li>
+            </ul>
+        </div>
     </main>
+
+    <footer class="bg-white border-t border-gray-100 py-10 text-center">
+        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN PORTAL</p>
+    </footer>
+
+    <script>
+        // 3격 지배 동사 50개 전체 데이터 
+        const dativData = [
+            // 섹션 1
+            {id:1, v:"antworten", s:"Er antwortet <span class='dativ-obj'>mir</span> nicht.", k:"그는 나에게 대답하지 않는다."},
+            {id:2, v:"danken", s:"Ich danke <span class='dativ-obj'>dir</span> für deine Hilfe.", k:"네 도움에 대해 너에게 감사해."},
+            {id:3, v:"helfen", s:"Kannst du <span class='dativ-obj'>meiner Mutter</span> helfen?", k:"우리 어머니를 도와줄 수 있니?"},
+            {id:4, v:"gratulieren", s:"Wir gratulieren <span class='dativ-obj'>ihm</span> zum Geburtstag.", k:"우리는 그에게 생일을 축하해 준다."},
+            {id:5, v:"glauben", s:"Ich glaube <span class='dativ-obj'>deiner Geschichte</span> nicht.", k:"나는 너의 이야기를 믿지 않아."}, // '안다' -> 'nicht' 수정
+            {id:6, v:"vertrauen", s:"Sie vertraut <span class='dativ-obj'>ihrem Arzt</span>.", k:"그녀는 그녀의 의사를 신뢰한다."},
+            {id:7, v:"absagen", s:"Er hat <span class='dativ-obj'>uns</span> leider abgesagt.", k:"그는 아쉽게도 우리에게 거절(취소)했다."},
+            {id:8, v:"zusagen", s:"Ich sage <span class='dativ-obj'>euch</span> morgen zu.", k:"내일 너희에게 확답(수락)을 줄게."},
+            {id:9, v:"drohen", s:"Der Chef droht <span class='dativ-obj'>dem Mitarbeiter</span>.", k:"상사가 그 직원에게 협박한다."},
+            {id:10, v:"dienen", s:"Das dient <span class='dativ-obj'>dem Frieden</span>.", k:"그것은 평화에 이바지한다."},
+            {id:11, v:"widersprechen", s:"Widersprich <span class='dativ-obj'>deinem Vater</span> nicht!", k:"네 아버지께 말대꾸(반박)하지 마!"},
+            {id:12, v:"zustimmen", s:"Ich stimme <span class='dativ-obj'>Ihnen</span> voll zu.", k:"저는 당신께 전적으로 동의합니다."},
+            {id:13, v:"verzeihen", s:"Bitte verzeih <span class='dativ-obj'>mir</span>!", k:"제발 나를 용서해 줘!"},
+            {id:14, v:"zuhören", s:"Die Kinder hören <span class='dativ-obj'>der Lehrerin</span> zu.", k:"아이들이 선생님의 말을 경청한다."},
+            {id:15, v:"zusehen", s:"Ich sehe <span class='dativ-obj'>dir</span> beim Kochen zu.", k:"나는 네가 요리하는 것을 지켜본다."},
+            {id:16, v:"raten", s:"Der Arzt rät <span class='dativ-obj'>dem Patienten</span> zur Ruhe.", k:"의사는 환자에게 휴식을 권고한다."},
+            {id:17, v:"abraten", s:"Ich rate <span class='dativ-obj'>dir</span> von dem Kauf ab.", k:"나는 네게 그 구매를 하지 말라고 권한다."},
+            {id:18, v:"befehlen", s:"Der König befiehlt <span class='dativ-obj'>dem Volk</span>.", k:"왕이 백성에게 명령한다."},
+            {id:19, v:"gehorchen", s:"Der Hund gehorcht <span class='dativ-obj'>seinem Herrn</span>.", k:"개가 자신의 주인에게 복종한다."},
+            {id:20, v:"vergeben", s:"Gott vergibt <span class='dativ-obj'>den Menschen</span>.", k:"신은 인간들을 용서한다."},
+
+            // 섹션 2
+            {id:21, v:"gefallen", s:"Das Kleid gefällt <span class='dativ-obj'>mir</span> sehr.", k:"그 드레스가 내 마음에 쏙 들어."},
+            {id:22, v:"missfallen", s:"Das neue Gesetz missfällt <span class='dativ-obj'>vielen</span>.", k:"그 새 법안은 많은 이들의 마음에 들지 않는다."},
+            {id:23, v:"schmecken", s:"Die Pizza schmeckt <span class='dativ-obj'>uns</span> gut.", k:"그 피자는 우리 입맛에 잘 맞는다."},
+            {id:24, v:"passen", s:"Der Schlüssel passt <span class='dativ-obj'>dem Schloss</span>.", k:"열쇠가 자물쇠에 맞는다."},
+            {id:25, v:"stehen", s:"Die Brille steht <span class='dativ-obj'>dir</span> gut.", k:"그 안경이 너에게 잘 어울린다."},
+            {id:26, v:"fehlen", s:"Du fehlst <span class='dativ-obj'>mir</span> so sehr.", k:"나는 네가 너무나 그립다."},
+            {id:27, v:"ähneln", s:"Er ähnelt <span class='dativ-obj'>seinem Bruder</span>.", k:"그는 자신의 형을 닮았다."},
+            {id:28, v:"mangeln", s:"Es mangelt <span class='dativ-obj'>uns</span> an Zeit.", k:"우리에게는 시간이 부족하다."},
+            {id:29, v:"schaden", s:"Rauchen schadet <span class='dativ-obj'>der Gesundheit</span>.", k:"흡연은 건강에 해롭다."},
+            {id:30, v:"nützen", s:"Das nützt <span class='dativ-obj'>mir</span> gar nichts.", k:"그것은 나에게 전혀 도움이 안 된다."},
+            {id:31, v:"genügen", s:"Das Geld genügt <span class='dativ-obj'>ihm</span> nicht.", k:"그 돈은 그에게 충분하지 않다."},
+            {id:32, v:"auffallen", s:"Er fiel <span class='dativ-obj'>der Polizei</span> auf.", k:"그는 경찰의 눈에 띄었다."},
+            {id:33, v:"vorkommen", s:"Das kommt <span class='dativ-obj'>mir</span> komisch vor.", k:"그것이 나에게는 이상하게 느껴진다."},
+            {id:34, v:"leidtun", s:"Es tut <span class='dativ-obj'>mir</span> sehr leid.", k:"그것이 나에게 매우 미안하다."},
+            {id:35, v:"wehtun", s:"Mein Kopf tut <span class='dativ-obj'>mir</span> weh.", k:"내 머리가 아프다."},
+
+            // 섹션 3
+            {id:36, v:"gehören", s:"Das Auto gehört <span class='dativ-obj'>meinem Vater</span>.", k:"그 차는 우리 아버지의 소유이다."},
+            {id:37, v:"passieren", s:"Das ist <span class='dativ-obj'>mir</span> noch nie passiert.", k:"그런 일은 나에게 한 번도 일어난 적 없다."},
+            {id:38, v:"geschehen", s:"Was ist <span class='dativ-obj'>ihm</span> geschehen?", k:"그에게 무슨 일이 생겼나?"},
+            {id:39, v:"gelingen", s:"Der Kuchen ist <span class='dativ-obj'>ihr</span> gut gelungen.", k:"그 케이크는 그녀가 만들기에 성공했다."},
+            {id:40, v:"misslingen", s:"Der Versuch misslang <span class='dativ-obj'>dem Forscher</span>.", k:"그 시도는 연구자에게 실패로 돌아갔다."},
+            {id:41, v:"begegnen", s:"Ich begegne <span class='dativ-obj'>ihm</span> oft im Park.", k:"나는 공원에서 그를 자주 마주친다."},
+            {id:42, v:"folgen", s:"Bitte folgen Sie <span class='dativ-obj'>mir</span>.", k:"저를 따라오세요."},
+            {id:43, v:"einfallen", s:"Der Name fällt <span class='dativ-obj'>mir</span> nicht ein.", k:"그 이름이 나에게 생각나지 않는다."},
+            {id:44, v:"entgegenkommen", s:"Ein Auto kam <span class='dativ-obj'>uns</span> entgegen.", k:"차 한 대가 우리 맞은편에서 왔다."},
+            {id:45, v:"erscheinen", s:"Das erscheint <span class='dativ-obj'>mir</span> logisch.", k:"그것은 나에게 논리적으로 보인다."},
+            {id:46, v:"nachgehen", s:"Er geht <span class='dativ-obj'>seinem Hobby</span> nach.", k:"그는 자신의 취미에 몰두한다."},
+            {id:47, v:"beipflichten", s:"Sie pflichtet <span class='dativ-obj'>seiner Meinung</span> bei.", k:"그녀는 그의 의견에 동조한다."},
+            {id:48, v:"weichen", s:"Die Angst weicht <span class='dativ-obj'>der Hoffnung</span>.", k:"두려움이 희망에 자리를 내준다."},
+            {id:49, v:"ausweichen", s:"Ich weiche <span class='dativ-obj'>dem Hindernis</span> aus.", k:"나는 장애물을 피한다."},
+            {id:50, v:"beistehen", s:"Meine Freunde stehen <span class='dativ-obj'>mir</span> bei.", k:"내 친구들이 곁에서 나를 돕는다."}
+        ];
+
+        // 카드 렌더링 함수
+        function renderCards() {
+            dativData.forEach(item => {
+                let sectionId = "section-1";
+                if (item.id > 20 && item.id <= 35) sectionId = "section-2";
+                if (item.id > 35) sectionId = "section-3";
+
+                const container = document.getElementById(sectionId);
+                const card = document.createElement('div');
+                card.className = "dativ-card";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <span class="text-xl font-black italic text-gray-800">${item.id}. ${item.v}</span>
+                    </div>
+                    <p class="text-indigo-700 font-bold mb-1">${item.s}</p>
+                    <p class="text-xs text-gray-400">${item.k}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        renderCards();
+    </script>
 </body>
 </html>
