@@ -78,6 +78,126 @@
                 <li><strong>어순:</strong> 문장에서 3격은 보통 4격(Akkusativ)보다 앞에 옵니다. [cite: 224]</li>
             </ul>
         </div>
+        </section>
+
+       <section class="mt-20 border-t-2 border-dashed border-gray-200 pt-16" id="quiz-section">
+    <div class="text-center mb-10">
+        <span class="bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-2 inline-block">Practice</span>
+        <h3 class="text-3xl font-black serif-font text-gray-900">Grammatik & A1 Quiz</h3>
+        <p class="text-gray-400 text-sm mt-2">방금 배운 3격 동사와 A1 표현들을 복습해보세요.</p>
+    </div>
+
+    <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden" id="quiz-container">
+        <div id="quiz-start" class="p-10 text-center">
+            <div class="w-20 h-20 bg-yellow-50 text-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span class="material-symbols-outlined text-4xl">quiz</span>
+            </div>
+            <h4 class="text-xl font-bold mb-4">준비되셨나요?</h4>
+            <p class="text-gray-500 text-sm mb-8 leading-relaxed">총 10문제의 랜덤 퀴즈가 출제됩니다.<br>3격 조사를 정확히 사용하는지 확인해보세요.</p>
+            <button onclick="startQuiz()" class="w-full bg-gray-900 text-white font-black py-4 rounded-2xl hover:bg-red-600 transition-colors shadow-lg">퀴즈 시작하기</button>
+        </div>
+
+        <div id="quiz-content" class="p-8 hidden">
+            <div class="flex justify-between items-center mb-8">
+                <span id="quiz-progress" class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Question 1/10</span>
+                <span id="quiz-timer" class="text-xs font-bold text-red-600">독일어 집중!</span>
+            </div>
+            <h4 id="quiz-question" class="text-2xl font-bold text-gray-800 mb-8 serif-font leading-tight">문제가 여기에 표시됩니다.</h4>
+            <div id="quiz-options" class="grid grid-cols-1 gap-3">
+                </div>
+            <button id="next-btn" onclick="nextQuestion()" class="w-full mt-8 bg-gray-100 text-gray-400 font-bold py-3 rounded-xl cursor-not-allowed transition-all" disabled>다음 문제</button>
+        </div>
+
+        <div id="quiz-result" class="p-10 text-center hidden">
+            <h4 class="text-4xl font-black text-gray-900 mb-2 serif-font" id="final-score">0 / 10</h4>
+            <p class="text-gray-500 mb-8" id="result-text">연습이 완벽을 만듭니다!</p>
+            <button onclick="location.reload()" class="w-full bg-gray-900 text-white font-black py-4 rounded-2xl">다시 도전하기</button>
+        </div>
+    </div>
+</section>
+
+<script>
+    // 퀴즈 데이터 (3격 동사 50개 및 A1 1단원 기반)
+    const quizData = [
+        { q: "Er antwortet ___ nicht. (그는 나에게 대답하지 않는다)", a: ["mir", "mich", "ich", "meiner"], c: 0 },
+        { q: "Ich danke ___ für deine Hilfe. (네 도움에 감사해)", a: ["dich", "dir", "du", "dein"], c: 1 },
+        { q: "Kannst du ___ Mutter helfen? (우리 어머니를 도와줄래?)", a: ["meine", "meinen", "meiner", "mein"], c: 2 },
+        { q: "Das Auto gehört ___ Vater. (그 차는 우리 아버지 소유이다)", a: ["meinem", "meinen", "meiner", "mein"], c: 0 },
+        { q: "Wie ___ Sie? (이름이 어떻게 되시죠?)", a: ["heißen", "kommen", "wohnen", "sprechen"], c: 0 },
+        { q: "___ kommen Sie? (어디서 오셨나요?)", a: ["Wo", "Was", "Wie", "Woher"], c: 3 },
+        { q: "Ich ___ aus Korea. (나는 한국에서 왔습니다)", a: ["bin", "lebe", "komme", "heiße"], c: 2 },
+        { q: "Sprechen Sie bitte ___. (천천히 말씀해 주세요)", a: ["schnell", "laut", "langsam", "gut"], c: 2 },
+        { q: "Ich ___ jetzt Deutsch. (나는 지금 독일어를 배운다)", a: ["lerne", "mache", "lese", "höre"], c: 0 },
+        { q: "Wie ___ 당신의 전화번호? (전화번호가 뭐니?)", a: ["ist", "bist", "sind", "seid"], c: 0 }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let shuffledQuestions = [];
+
+    function startQuiz() {
+        document.getElementById('quiz-start').classList.add('hidden');
+        document.getElementById('quiz-content').classList.remove('hidden');
+        shuffledQuestions = quizData.sort(() => 0.5 - Math.random()).slice(0, 10);
+        showQuestion();
+    }
+
+    function showQuestion() {
+        const q = shuffledQuestions[currentQ];
+        document.getElementById('quiz-progress').innerText = `Question ${currentQ + 1} / 10`;
+        document.getElementById('quiz-question').innerText = q.q;
+        const optionsDiv = document.getElementById('quiz-options');
+        optionsDiv.innerHTML = '';
+        
+        q.a.forEach((opt, idx) => {
+            const btn = document.createElement('button');
+            btn.className = "w-full text-left p-4 rounded-2xl border-2 border-gray-100 font-bold hover:border-gray-300 transition-all";
+            btn.innerText = opt;
+            btn.onclick = () => selectOption(idx, q.c, btn);
+            optionsDiv.appendChild(btn);
+        });
+        
+        document.getElementById('next-btn').disabled = true;
+        document.getElementById('next-btn').classList.replace('bg-red-600', 'bg-gray-100');
+        document.getElementById('next-btn').classList.replace('text-white', 'text-gray-400');
+    }
+
+    function selectOption(idx, correct, btn) {
+        const buttons = document.getElementById('quiz-options').querySelectorAll('button');
+        buttons.forEach(b => b.disabled = true);
+        
+        if (idx === correct) {
+            btn.classList.add('bg-green-500', 'text-white', 'border-green-500');
+            score++;
+        } else {
+            btn.classList.add('bg-red-500', 'text-white', 'border-red-500');
+            buttons[correct].classList.add('bg-green-100', 'border-green-500', 'text-green-700');
+        }
+        
+        document.getElementById('next-btn').disabled = false;
+        document.getElementById('next-btn').classList.replace('bg-gray-100', 'bg-red-600');
+        document.getElementById('next-btn').classList.replace('text-gray-400', 'text-white');
+    }
+
+    function nextQuestion() {
+        currentQ++;
+        if (currentQ < 10) {
+            showQuestion();
+        } else {
+            showResult();
+        }
+    }
+
+    function showResult() {
+        document.getElementById('quiz-content').classList.add('hidden');
+        document.getElementById('quiz-result').classList.remove('hidden');
+        document.getElementById('final-score').innerText = `${score} / 10`;
+        const resultText = document.getElementById('result-text');
+        if(score === 10) resultText.innerText = "완벽합니다! (Perfekt!)";
+        else if(score >= 7) resultText.innerText = "아주 잘하셨어요! (Sehr gut!)";
+        else resultText.innerText = "조금 더 연습해볼까요? (Weiter 소독!)";
+    }
+</script>
     </main>
 
     <footer class="bg-white border-t border-gray-100 py-10 text-center">
