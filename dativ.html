@@ -3,217 +3,109 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>3격 지배 동사 & Quiz</title>
+    <title>3격 지배 동사 & Quiz Master</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        html { scroll-behavior: smooth; } /* 부드러운 스크롤 효과 */
-        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; color: #333; }
         .serif-font { font-family: 'Merriweather', serif; }
         .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
         
-        /* GNB 스타일 */
+        /* [GNB 고정] */
+        header { position: sticky; top: 0; z-index: 1000; background: white; width: 100%; border-bottom: 1px solid #f0f0f0; }
         .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
+        .nav-link:hover { color: #d00; }
         .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
 
-        /* 좌측 퀵 메뉴 스타일 */
-        .quick-nav {
-            position: fixed;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 100;
+        /* [퀵 메뉴 크기 확대] */
+        .side-nav { position: fixed; left: 40px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 50; }
+        .side-btn { 
+            background: white; border: 2px solid #000; padding: 25px 15px; border-radius: 20px; 
+            font-size: 14px; font-weight: 900; color: #000; text-align: center; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; 
+            width: 150px; cursor: pointer; line-height: 1.4; 
         }
-        .quick-btn {
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 25px 15px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 800;
-            color: #333;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
-            transition: all 0.2s;
-            width: 150px;
-            line-height: 1.4;
-        }
-        .quick-btn:hover {
-            background: #000;
-            color: #fff;
-            border-color: #000;
-        }
-#next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
+        .side-btn:hover { background: #d00; color: #fff; border-color: #d00; transform: scale(1.05) translateX(5px); }
+
+        /* [다음 문제 버튼 커서] */
+        #next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
         #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
-        .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; }
+
+        .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; cursor: pointer; }
+        .dativ-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .dativ-obj { color: #d00; font-weight: 800; text-decoration: underline; }
         
-        /* 모바일에서는 퀵 메뉴 숨기기 */
-        @media (max-width: 1024px) {
-            .quick-nav { display: none; }
-        }
-        /* 단어 카드에 마우스 손가락 모양 추가 */
-.dativ-card { cursor: pointer; transition: transform 0.2s; }
-.dativ-card:active { transform: scale(0.95); }
+        /* 확대 모달 스타일 */
+        #word-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: white; width: 100%; max-width: 500px; border-radius: 40px; padding: 60px 40px; position: relative; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
 
-/* 확대 모달창 디자인 */
-#word-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 2000; /* GNB보다 위에 떠야 함 */
-    background-color: rgba(0, 0, 0, 0.8);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-.modal-content {
-    background: white;
-    width: 100%;
-    max-width: 500px;
-    border-radius: 30px;
-    padding: 40px;
-    position: relative;
-    text-align: center;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-}
-.close-modal {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-    color: #999;
-}
-        
+        @media (max-width: 1400px) { .side-nav { display: none; } }
     </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen">
 
-    <div class="quick-nav">
-        <a href="#dativ-list-anchor" class="quick-btn">3격 지배 동사<br>50개 리스트</a>
-        <a href="#quiz-section-anchor" class="quick-btn">복습 퀴즈</a>
+    <div class="side-nav">
+        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn">🇩🇪 3격 지배 동사<br>50개 리스트</div>
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 복습 퀴즈<br>(10문제)</div>
     </div>
 
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="german-line w-full"></div>
+    <header>
+        <div class="german-line"></div>
         <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
                 <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
                 <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Study Portal</p>
             </div>
             <nav class="flex flex-wrap justify-center gap-6 text-sm">
                 <a href="index.html" class="nav-link">Alle</a>
                 <a href="a1.html" class="nav-link">A1</a>
-                <a href="a2.html" class="nav-link">A2</a>
-                <a href="b1.html" class="nav-link">B1</a>
-                <a href="b2.html" class="nav-link">B2</a>
-                <a href="c1.html" class="nav-link">C1</a>
                 <a href="grammatik.html" class="nav-link active">Grammatik</a>
                 <a href="notification.html" class="nav-link">Notification</a>
             </nav>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-12 max-w-4xl">
-        
-        <div id="dativ-list-anchor" class="pt-10">
-            <h2 class="text-4xl font-black serif-font mb-4">3격 지배 동사 50개</h2>
-            <p class="text-gray-500 mb-10 italic">"~를"로 해석되지만 3격(Dativ)을 취하는 필수 동사들입니다.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="dativ-list-container">
-                </div>
+    <main class="container mx-auto px-4 py-12 max-w-4xl flex-grow">
+        <div id="list-start" class="pt-10">
+            <h2 class="text-4xl font-black serif-font mb-4 tracking-tighter">3격 지배 동사 50개</h2>
+            <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-10 border-b-2 border-black pb-4 inline-block">카드를 클릭하면 확대됩니다.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="dativ-list"></div>
         </div>
 
-        <section id="quiz-section-anchor" class="mt-32 border-t-2 border-dashed border-gray-200 pt-20">
-            <div class="text-center mb-10">
-                <span class="bg-red-600 text-white text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-4 inline-block">Review Test</span>
-                <h3 class="text-3xl font-black serif-font">Dativ Quiz</h3>
-                <p class="text-gray-400 text-sm mt-2 font-bold uppercase tracking-widest">50개 예문 기반 랜덤 퀴즈</p>
-            </div>
-
-            <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden" id="quiz-box">
-                <div id="quiz-start" class="p-16 text-center">
-                    <div class="w-20 h-20 bg-red-50 text-red-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="material-symbols-outlined text-4xl">edit_square</span>
-                    </div>
-                    <h4 class="text-xl font-bold mb-8">준비되셨나요?</h4>
-                    <button onclick="startQuiz()" class="bg-gray-900 text-white font-black px-12 py-4 rounded-2xl shadow-lg hover:bg-red-600 transition-all">퀴즈 시작하기</button>
+        <section id="quiz-start" class="mt-40 border-t-4 border-black pt-20 mb-32">
+            <div class="text-center mb-12"><h3 class="text-3xl font-black serif-font">Dativ Quiz Center</h3></div>
+            <div class="max-w-2xl mx-auto bg-white rounded-[2.5rem] shadow-2xl overflow-hidden" id="quiz-box">
+                <div id="q-init" class="p-20 text-center"><button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl cursor-pointer">퀴즈 시작</button></div>
+                <div id="q-play" class="p-12 hidden">
+                    <div id="q-status" class="text-xs font-black text-red-600 mb-6 uppercase text-center tracking-widest"></div>
+                    <h4 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 text-center serif-font leading-snug"></h4>
+                    <div id="q-options" class="grid gap-4"></div>
+                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl transition-all" disabled>다음 문제로 넘어가기</button>
                 </div>
-
-                <div id="quiz-content" class="p-10 hidden">
-                    <div id="quiz-progress" class="text-[10px] font-bold text-gray-400 mb-4 uppercase tracking-widest"></div>
-                    <h4 id="quiz-question" class="text-2xl font-bold mb-8 serif-font leading-tight"></h4>
-                    <div id="quiz-options" class="grid gap-3"></div>
-                    <button id="next-btn" onclick="nextQuestion()" class="w-full mt-8 bg-gray-100 text-gray-400 font-bold py-4 rounded-2xl cursor-not-allowed" disabled>다음 문제</button>
-                </div>
-
-                <div id="quiz-result" class="p-12 text-center hidden">
-                    <h4 class="text-5xl font-black mb-4 serif-font" id="final-score"></h4>
-                    <p class="text-gray-500 mb-8" id="result-text"></p>
-                    <button onclick="location.reload()" class="bg-gray-900 text-white px-8 py-3 rounded-full font-bold">다시 시작</button>
-                </div>
+                <div id="q-result" class="p-16 text-center hidden"><h4 class="text-6xl font-black mb-6 serif-font" id="score-text"></h4><button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold cursor-pointer">다시 시작</button></div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-white border-t border-gray-100 py-12 text-center">
-        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN PORTAL</p>
-    </footer>
     <div id="word-modal" onclick="closeWordModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <span class="material-symbols-outlined close-modal" onclick="closeWordModal()">close</span>
-        <div id="modal-id" class="text-red-600 font-black text-sm mb-4"></div>
-        <div id="modal-word" class="text-5xl font-black serif-font mb-6 text-gray-900"></div>
-        <div id="modal-sentence" class="text-2xl font-bold text-indigo-600 leading-relaxed mb-4"></div>
-        <div id="modal-meaning" class="text-lg text-gray-400 font-medium"></div>
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="material-symbols-outlined absolute top-6 right-6 cursor-pointer text-gray-300 hover:text-black" onclick="closeWordModal()">close</span>
+            <div id="modal-id" class="text-red-600 font-black text-xs uppercase mb-2"></div>
+            <div id="modal-word" class="text-5xl font-black serif-font mb-8"></div>
+            <div id="modal-sentence" class="text-2xl font-bold text-indigo-600 mb-6 leading-tight"></div>
+            <div id="modal-meaning" class="text-gray-400 font-bold text-lg"></div>
+        </div>
     </div>
-</div>
 
     <script>
-        // 리스트 렌더링 (클릭 이벤트 추가 버전)
-const listDiv = document.getElementById('dativ-list');
-fullData.forEach(item => {
-    // 텍스트에서 <span> 태그 제거하고 순수 텍스트만 추출하기 위한 처리
-    const cleanSentence = item.s.replace(/<[^>]*>?/gm, '');
-    
-    listDiv.innerHTML += `
-        <div class="dativ-card group hover:border-black transition-all" 
-             onclick="openWordModal('${item.id}', '${item.v}', '${cleanSentence}', '${item.k}')">
-            <div class="font-black text-xl mb-1 group-hover:text-red-600 transition-colors">${item.id}. ${item.v}</div>
-            <div class="text-indigo-600 font-bold leading-tight mb-1">${item.s}</div>
-            <div class="text-xs text-gray-400 font-bold uppercase tracking-tighter">${item.k}</div>
-        </div>
-    `;
-});
-
-// 모달 열기 함수
-function openWordModal(id, v, s, k) {
-    document.getElementById('modal-id').innerText = "WORD NO." + id;
-    document.getElementById('modal-word').innerText = v;
-    document.getElementById('modal-sentence').innerText = s;
-    document.getElementById('modal-meaning').innerText = k;
-    document.getElementById('word-modal').style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
-}
-
-// 모달 닫기 함수
-function closeWordModal() {
-    document.getElementById('word-modal').style.display = 'none';
-    document.body.style.overflow = 'auto'; // 배경 스크롤 복구
-}
-        // --- 데이터 복원 및 한글 오류 수정 (5번, 43번 등) ---
-        const dativData = [
+        const fullData = [
             {id:1, v:"antworten", s:"Er antwortet <span class='dativ-obj'>mir</span> nicht.", k:"그는 나에게 대답하지 않는다."},
             {id:2, v:"danken", s:"Ich danke <span class='dativ-obj'>dir</span> für deine Hilfe.", k:"네 도움에 대해 너에게 감사해."},
             {id:3, v:"helfen", s:"Kannst du <span class='dativ-obj'>meiner Mutter</span> helfen?", k:"우리 어머니를 도와줄 수 있니?"},
             {id:4, v:"gratulieren", s:"Wir gratulieren <span class='dativ-obj'>ihm</span> zum Geburtstag.", k:"우리는 그에게 생일을 축하해 준다."},
-            {id:5, v:"glauben", s:"Ich glaube <span class='dativ-obj'>deiner Geschichte</span> nicht.", k:"나는 너의 이야기를 믿지 않아."}, // '안다'->'nicht' 수정
+            {id:5, v:"glauben", s:"Ich glaube <span class='dativ-obj'>deiner Geschichte</span> nicht.", k:"나는 너의 이야기를 믿지 않아."},
             {id:6, v:"vertrauen", s:"Sie vertraut <span class='dativ-obj'>ihrem Arzt</span>.", k:"그녀는 그녀의 의사를 신뢰한다."},
             {id:7, v:"absagen", s:"Er hat <span class='dativ-obj'>uns</span> leider abgesagt.", k:"그는 아쉽게도 우리에게 거절했다."},
             {id:8, v:"zusagen", s:"Ich sage <span class='dativ-obj'>euch</span> morgen zu.", k:"내일 너희에게 확답을 줄게."},
@@ -230,7 +122,7 @@ function closeWordModal() {
             {id:19, v:"gehorchen", s:"Der Hund gehorcht <span class='dativ-obj'>seinem Herrn</span>.", k:"개가 주인에게 복종한다."},
             {id:20, v:"vergeben", s:"Gott vergibt <span class='dativ-obj'>den Menschen</span>.", k:"신은 인간들을 용서한다."},
             {id:21, v:"gefallen", s:"Das Kleid gefällt <span class='dativ-obj'>mir</span> sehr.", k:"그 드레스가 내 마음에 쏙 들어."},
-            {id:22, v:"missfallen", s:"Das 새로운 Gesetz missfällt <span class='dativ-obj'>vielen</span>.", k:"그 새 법안은 많은 이들의 마음에 들지 않는다."},
+            {id:22, v:"missfallen", s:"Das neue Gesetz missfällt <span class='dativ-obj'>vielen</span>.", k:"그 새 법안은 많은 이들의 마음에 들지 않는다."},
             {id:23, v:"schmecken", s:"Die Pizza schmeckt <span class='dativ-obj'>uns</span> gut.", k:"그 피자는 우리 입맛에 잘 맞는다."},
             {id:24, v:"passen", s:"Der Schlüssel passt <span class='dativ-obj'>dem Schloss</span>.", k:"열쇠가 자물쇠에 맞는다."},
             {id:25, v:"stehen", s:"Die Brille steht <span class='dativ-obj'>dir</span> gut.", k:"그 안경이 너에게 잘 어울린다."},
@@ -238,104 +130,82 @@ function closeWordModal() {
             {id:27, v:"ähneln", s:"Er ähnelt <span class='dativ-obj'>seinem Bruder</span>.", k:"그는 형을 닮았다."},
             {id:28, v:"mangeln", s:"Es mangelt <span class='dativ-obj'>uns</span> an Zeit.", k:"우리에게는 시간이 부족하다."},
             {id:29, v:"schaden", s:"Rauchen schadet <span class='dativ-obj'>der Gesundheit</span>.", k:"흡연은 건강에 해롭다."},
-            {id:30, v:"nützen", s:"Das nützt <span class='dativ-obj'>mir</span> gar nichts.", k:"그것은 나에게 전혀 도움이 안 된다."},
-            {id:31, v:"genügen", s:"Das Geld genügt <span class='dativ-obj'>ihm</span> 안다.", k:"그 돈은 그에게 충분하지 않다."},
-            {id:32, v:"auffallen", s:"Er fiel <span class='dativ-obj'>der Polizei</span> auf.", k:"그는 경찰의 눈에 띄었다."},
-            {id:33, v:"vorkommen", s:"Das kommt <span class='dativ-obj'>mir</span> komisch vor.", k:"그것이 나에게는 이상하게 느껴진다."},
-            {id:34, v:"leidtun", s:"Es tut <span class='dativ-obj'>mir</span> sehr leid.", k:"매우 안타깝다(미안하다)."},
+            {id:30, v:"nützen", s:"Das nützt <span class='dativ-obj'>mir</span> gar nichts.", k:"나에게 전혀 도움이 안 된다."},
+            {id:31, v:"genügen", s:"Das Geld genügt <span class='dativ-obj'>ihm</span> nicht.", k:"그 돈은 그에게 충분하지 않다."},
+            {id:32, v:"auffallen", s:"Er fiel <span class='dativ-obj'>der Polizei</span> auf.", k:"경찰의 눈에 띄었다."},
+            {id:33, v:"vorkommen", s:"Das kommt <span class='dativ-obj'>mir</span> komisch vor.", k:"이상하게 느껴진다."},
+            {id:34, v:"leidtun", s:"Es tut <span class='dativ-obj'>mir</span> sehr leid.", k:"매우 미안하다."},
             {id:35, v:"wehtun", s:"Mein Kopf tut <span class='dativ-obj'>mir</span> weh.", k:"내 머리가 아프다."},
             {id:36, v:"gehören", s:"Das Auto gehört <span class='dativ-obj'>meinem Vater</span>.", k:"그 차는 우리 아버지 소유이다."},
-            {id:37, v:"passieren", s:"Das ist <span class='dativ-obj'>mir</span> noch nie passiert.", k:"나에게 일어난 적 없다."},
-            {id:38, v:"geschehen", s:"Was ist <span class='dativ-obj'>ihm</span> geschehen?", k:"그에게 무슨 일이 생겼나?"},
-            {id:39, g:"gelingen", s:"Der Kuchen ist <span class='dativ-obj'>ihr</span> gut gelungen.", k:"그녀가 만들기에 성공했다."},
-            {id:40, g:"misslingen", s:"Der Versuch misslang <span class='dativ-obj'>dem Forscher</span>.", k:"그 시도는 연구자에게 실패했다."},
-            {id:41, g:"begegnen", s:"Ich begegne <span class='dativ-obj'>ihm</span> oft im Park.", k:"나는 공원에서 그를 자주 마주친다."},
-            {id:42, g:"folgen", s:"Bitte folgen Sie <span class='dativ-obj'>mir</span>.", k:"저를 따라오세요."},
-            {id:43, g:"einfallen", s:"Der <span class='dativ-obj'>Name</span> fällt mir nicht ein.", k:"그 이름이 나에게 생각나지 않는다."}, // '이름'->'Name' 수정
-            {id:44, g:"entgegenkommen", s:"Ein Auto kam <span class='dativ-obj'>uns</span> entgegen.", k:"차 한 대가 우리 맞은편에서 왔다."},
-            {id:45, g:"erscheinen", s:"Das erscheint <span class='dativ-obj'>mir</span> logisch.", k:"그것은 나에게 논리적으로 보인다."},
-            {id:46, g:"nachgehen", s:"Er geht <span class='dativ-obj'>seinem Hobby</span> nach.", k:"취미에 몰두한다."},
-            {id:47, g:"beipflichten", s:"Sie pflichtet <span class='dativ-obj'>seiner Meinung</span> bei.", k:"그녀는 그의 의견에 동조한다."},
-            {id:48, g:"weichen", s:"Die Angst weicht <span class='dativ-obj'>der Hoffnung</span>.", k:"두려움이 희망에 자리를 내준다."},
-            {id:49, g:"ausweichen", s:"Ich weiche <span class='dativ-obj'>dem Hindernis</span> aus.", k:"나는 장애물을 피한다."},
-            {id:50, g:"beistehen", s:"Meine Freunde stehen <span class='dativ-obj'>mir</span> bei.", k:"내 친구들이 곁에서 나를 돕는다."}
+            {id:37, v:"passieren", s:"Das ist <span class='dativ-obj'>mir</span> 아직 한 번도 passiert.", k:"나에게 한 번도 일어난 적 없다."},
+            {id:38, v:"geschehen", s:"Was ist <span class='dativ-obj'>ihm</span> geschehen?", k:"무슨 일이 생겼나?"},
+            {id:39, v:"gelingen", s:"Der Kuchen ist <span class='dativ-obj'>ihr</span> gut gelungen.", k:"그녀가 만들기에 성공했다."},
+            {id:40, v:"misslingen", s:"Der Versuch misslang <span class='dativ-obj'>dem Forscher</span>.", k:"시도는 실패로 돌아갔다."},
+            {id:41, v:"begegnen", s:"Ich begegne <span class='dativ-obj'>ihm</span> oft im Park.", k:"그를 자주 마주친다."},
+            {id:42, v:"folgen", s:"Bitte folgen Sie <span class='dativ-obj'>mir</span>.", k:"저를 따라오세요."},
+            {id:43, v:"einfallen", s:"Der <span class='dativ-obj'>Name</span> fällt mir nicht ein.", k:"그 이름이 생각나지 않는다."},
+            {id:44, v:"entgegenkommen", s:"Ein Auto kam <span class='dativ-obj'>uns</span> entgegen.", k:"차가 우리 맞은편에서 왔다."},
+            {id:45, v:"erscheinen", s:"Das erscheint <span class='dativ-obj'>mir</span> logisch.", k:"나에게 논리적으로 보인다."},
+            {id:46, v:"nachgehen", s:"Er geht <span class='dativ-obj'>seinem Hobby</span> nach.", k:"취미에 몰두한다."},
+            {id:47, v:"beipflichten", s:"Sie pflichtet <span class='dativ-obj'>seiner Meinung</span> bei.", k:"의견에 동조한다."},
+            {id:48, v:"weichen", s:"Die Angst weicht <span class='dativ-obj'>der Hoffnung</span>.", k:"두려움이 희망에 자리를 내준다."},
+            {id:49, v:"ausweichen", s:"Ich weiche <span class='dativ-obj'>dem Hindernis</span> aus.", k:"장애물을 피한다."},
+            {id:50, v:"beistehen", s:"Meine Freunde stehen <span class='dativ-obj'>mir</span> bei.", k:"내 친구들이 곁에서 나를 돕는다."}
         ];
 
-        // 1. 단어장 렌더링
-        const container = document.getElementById('dativ-list-container');
-        dativData.forEach(item => {
-            container.innerHTML += `
-                <div class="dativ-card">
-                    <div class="font-black text-xl mb-1">${item.id}. ${item.v || item.g}</div>
+        const listContainer = document.getElementById('dativ-list');
+        fullData.forEach(item => {
+            const cleanS = item.s.replace(/<[^>]*>?/gm, '');
+            listContainer.innerHTML += `
+                <div class="dativ-card group hover:border-black transition-all" onclick="openWordModal('${item.id}', '${item.v}', '${cleanS}', '${item.k}')">
+                    <div class="font-black text-xl mb-1 group-hover:text-red-600 transition-colors">${item.id}. ${item.v}</div>
                     <div class="text-indigo-600 font-bold leading-tight mb-1">${item.s}</div>
-                    <div class="text-xs text-gray-400">${item.k}</div>
+                    <div class="text-xs text-gray-400 font-bold uppercase tracking-tighter">${item.k}</div>
                 </div>
             `;
         });
 
-        // 2. 퀴즈 시스템
-        let currentQ = 0;
-        let score = 0;
-        let quizPool = [];
-
-        function startQuiz() {
-            quizPool = [...dativData].sort(() => 0.5 - Math.random()).slice(0, 10);
-            document.getElementById('quiz-start').classList.add('hidden');
-            document.getElementById('quiz-content').classList.remove('hidden');
-            showQuestion();
+        function openWordModal(id, v, s, k) {
+            document.getElementById('modal-id').innerText = "WORD NO." + id;
+            document.getElementById('modal-word').innerText = v;
+            document.getElementById('modal-sentence').innerText = s;
+            document.getElementById('modal-meaning').innerText = k;
+            document.getElementById('word-modal').style.display = 'flex';
         }
+        function closeWordModal() { document.getElementById('word-modal').style.display = 'none'; }
 
-        function showQuestion() {
-            const q = quizPool[currentQ];
-            document.getElementById('quiz-progress').innerText = `Question ${currentQ + 1} / 10`;
-            
-            // 문제를 빈칸으로 만듦
-            const displayQ = q.s.replace(/<span class='dativ-obj'>(.*?)<\/span>/, "______");
-            document.getElementById('quiz-question').innerText = displayQ;
-
-            const optionsDiv = document.getElementById('quiz-options');
-            optionsDiv.innerHTML = '';
-            
-            // 정답 추출
-            const answer = q.s.match(/<span class='dativ-obj'>(.*?)<\/span>/)[1];
-            
-            // 오답 생성 (데이터셋에서 랜덤 추출)
-            let distractors = ["mich", "dich", "ihn", "sie", "unser", "euch", "den"];
-            let options = [answer, distractors[0], distractors[1]].sort(() => 0.5 - Math.random());
-
-            options.forEach(opt => {
+        let pool = []; let currIdx = 0; let score = 0;
+        function startQuiz() {
+            pool = [...fullData].sort(() => 0.5 - Math.random()).slice(0, 10);
+            document.getElementById('q-init').classList.add('hidden');
+            document.getElementById('q-play').classList.remove('hidden');
+            showQ();
+        }
+        function showQ() {
+            const item = pool[currIdx];
+            const answer = item.s.match(/<span class='dativ-obj'>(.*?)<\/span>/)[1];
+            const question = item.s.replace(/<span class='dativ-obj'>(.*?)<\/span>/, "_______");
+            document.getElementById('q-status').innerText = `Question ${currIdx + 1} of 10`;
+            document.getElementById('q-text').innerText = question;
+            const opts = document.getElementById('q-options'); opts.innerHTML = '';
+            const choices = [answer, "mich", "dich", "ihn"].sort(() => 0.5 - Math.random());
+            choices.forEach(o => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-4 rounded-xl border-2 border-gray-100 font-bold hover:border-gray-300 transition-all";
-                btn.innerText = opt;
+                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer";
+                btn.innerText = o;
                 btn.onclick = () => {
-                    const btns = optionsDiv.querySelectorAll('button');
-                    btns.forEach(b => b.disabled = true);
-                    if(opt === answer) {
-                        btn.classList.add('bg-green-500', 'text-white', 'border-green-500');
-                        score++;
-                    } else {
-                        btn.classList.add('bg-red-500', 'text-white', 'border-red-500');
-                    }
+                    const all = opts.querySelectorAll('button'); all.forEach(b => b.disabled = true);
+                    if(o === answer) { btn.classList.add('bg-green-500', 'text-white'); score++; }
+                    else { btn.classList.add('bg-red-500', 'text-white'); }
                     document.getElementById('next-btn').disabled = false;
-                    document.getElementById('next-btn').classList.replace('bg-gray-100', 'bg-gray-900');
-                    document.getElementById('next-btn').classList.replace('text-gray-400', 'text-white');
                 };
-                optionsDiv.appendChild(btn);
+                opts.appendChild(btn);
             });
         }
-
-        function nextQuestion() {
-            currentQ++;
-            if(currentQ < 10) {
-                showQuestion();
-                document.getElementById('next-btn').disabled = true;
-                document.getElementById('next-btn').classList.replace('bg-gray-900', 'bg-gray-100');
-                document.getElementById('next-btn').classList.replace('text-white', 'text-gray-400');
-            } else {
-                document.getElementById('quiz-content').classList.add('hidden');
-                document.getElementById('quiz-result').classList.remove('hidden');
-                document.getElementById('final-score').innerText = `${score} / 10`;
-            }
+        function nextQ() {
+            currIdx++;
+            if(currIdx < 10) { showQ(); document.getElementById('next-btn').disabled = true; }
+            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `${score} / 10`; }
         }
     </script>
 </body>
