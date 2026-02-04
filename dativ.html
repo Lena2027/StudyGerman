@@ -56,6 +56,40 @@
         @media (max-width: 1024px) {
             .quick-nav { display: none; }
         }
+        /* 단어 카드에 마우스 손가락 모양 추가 */
+.dativ-card { cursor: pointer; transition: transform 0.2s; }
+.dativ-card:active { transform: scale(0.95); }
+
+/* 확대 모달창 디자인 */
+#word-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 2000; /* GNB보다 위에 떠야 함 */
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 30px;
+    padding: 40px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    color: #999;
+}
+        
     </style>
 </head>
 <body>
@@ -131,8 +165,48 @@
     <footer class="bg-white border-t border-gray-100 py-12 text-center">
         <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN PORTAL</p>
     </footer>
+    <div id="word-modal" onclick="closeWordModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <span class="material-symbols-outlined close-modal" onclick="closeWordModal()">close</span>
+        <div id="modal-id" class="text-red-600 font-black text-sm mb-4"></div>
+        <div id="modal-word" class="text-5xl font-black serif-font mb-6 text-gray-900"></div>
+        <div id="modal-sentence" class="text-2xl font-bold text-indigo-600 leading-relaxed mb-4"></div>
+        <div id="modal-meaning" class="text-lg text-gray-400 font-medium"></div>
+    </div>
+</div>
 
     <script>
+        // 리스트 렌더링 (클릭 이벤트 추가 버전)
+const listDiv = document.getElementById('dativ-list');
+fullData.forEach(item => {
+    // 텍스트에서 <span> 태그 제거하고 순수 텍스트만 추출하기 위한 처리
+    const cleanSentence = item.s.replace(/<[^>]*>?/gm, '');
+    
+    listDiv.innerHTML += `
+        <div class="dativ-card group hover:border-black transition-all" 
+             onclick="openWordModal('${item.id}', '${item.v}', '${cleanSentence}', '${item.k}')">
+            <div class="font-black text-xl mb-1 group-hover:text-red-600 transition-colors">${item.id}. ${item.v}</div>
+            <div class="text-indigo-600 font-bold leading-tight mb-1">${item.s}</div>
+            <div class="text-xs text-gray-400 font-bold uppercase tracking-tighter">${item.k}</div>
+        </div>
+    `;
+});
+
+// 모달 열기 함수
+function openWordModal(id, v, s, k) {
+    document.getElementById('modal-id').innerText = "WORD NO." + id;
+    document.getElementById('modal-word').innerText = v;
+    document.getElementById('modal-sentence').innerText = s;
+    document.getElementById('modal-meaning').innerText = k;
+    document.getElementById('word-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+}
+
+// 모달 닫기 함수
+function closeWordModal() {
+    document.getElementById('word-modal').style.display = 'none';
+    document.body.style.overflow = 'auto'; // 배경 스크롤 복구
+}
         // --- 데이터 복원 및 한글 오류 수정 (5번, 43번 등) ---
         const dativData = [
             {id:1, v:"antworten", s:"Er antwortet <span class='dativ-obj'>mir</span> nicht.", k:"그는 나에게 대답하지 않는다."},
