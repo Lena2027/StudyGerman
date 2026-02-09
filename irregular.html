@@ -73,7 +73,7 @@
         <div id="list-start" class="pt-10">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-black serif-font mb-2 tracking-tighter">Unregelmäßige Verben</h2>
-                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4 underline">파일 기반 데이터 전체 업데이트 완료</p>
+                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4 underline">파일 데이터 업데이트 완료 (48 Verben)</p>
             </div>
             <div class="word-grid" id="irr-list"></div>
         </div>
@@ -113,9 +113,9 @@
                 <table class="conj-table">
                     <thead>
                         <tr>
-                            <th>Präsens (3.Pers)</th>
-                            <th>Präteritum (3.Pers)</th>
-                            <th>Perfekt</th>
+                            <th>Präsens (er/sie/es)</th>
+                            <th>Präteritum (ich/er)</th>
+                            <th>Perfekt (Partizip II)</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,53 +133,61 @@
     </div>
 
     <footer class="bg-white border-t border-gray-100 py-12 text-center mt-20">
-        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN · IRREGULAR VERBS UPGRADED</p>
+        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2026 DEUTSCH LERNEN · UPDATED DATA</p>
     </footer>
 
     <script>
-        // 업로드된 파일 데이터 완벽 반영 + 예문 추가 + 오류 수정 (sein/haben)
+        // 업로드된 파일 데이터를 기반으로 작성된 리스트
         const irrData = [
-            {id:1, v:"bergen", k:"구조하다", p1:"birgt", p2:"barg", p3:"hat geborgen", s:"Die Bergwacht birgt den Verletzten."},
-            {id:2, v:"sich besinnen", k:"숙고하다", p1:"besinnt sich", p2:"besann sich", p3:"hat sich besonnen", s:"Er besinnt sich auf seine Stärken."},
+            {id:1, v:"bergen", k:"구조하다", p1:"birgt", p2:"barg", p3:"hat geborgen", s:"Die Bergwacht hat den Verletzten geborgen."},
+            {id:2, v:"sich besinnen", k:"숙고하다", p1:"besinnt sich", p2:"besann sich", p3:"hat sich besonnen", s:"Er hat sich eines Besseren besonnen."},
             {id:3, v:"betrügen", k:"속이다", p1:"betrügt", p2:"betrog", p3:"hat betrogen", s:"Er hat mich beim Kartenspiel betrogen."},
-            {id:4, v:"beweisen", k:"증명하다", p1:"beweist", p2:"bewies", p3:"hat bewiesen", s:"Kannst du deine Theorie beweisen?"},
+            {id:4, v:"beweisen", k:"증명하다", p1:"beweist", p2:"bewies", p3:"hat bewiesen", s:"Er hat seine Unschuld bewiesen."},
             {id:5, v:"fliehen", k:"도망치다", p1:"flieht", p2:"floh", p3:"ist geflohen", s:"Der Dieb ist vor der Polizei geflohen."},
             {id:6, v:"frieren", k:"얼다/춥다", p1:"friert", p2:"fror", p3:"hat gefroren", s:"Mich hat es gestern sehr gefroren."},
             {id:7, v:"gelingen", k:"성공하다", p1:"gelingt", p2:"gelang", p3:"ist gelungen", s:"Der Plan ist uns endlich gelungen."},
-            {id:8, v:"gelten", k:"유효하다", p1:"gilt", p2:"galt", p3:"hat gegolten", s:"Dieses Ticket gilt nur heute."},
+            {id:8, v:"gelten", k:"유효하다", p1:"gilt", p2:"galt", p3:"hat gegolten", s:"Dieses Ticket hat nur gestern gegolten."},
             {id:9, v:"geschehen", k:"일어나다", p1:"geschieht", p2:"geschah", p3:"ist geschehen", s:"Was ist hier geschehen?"},
             {id:10, v:"kriechen", k:"기어가다", p1:"kriecht", p2:"kroch", p3:"ist gekrochen", s:"Die Schlange ist unter den Stein gekrochen."},
             {id:11, v:"leiden", k:"고통받다", p1:"leidet", p2:"litt", p3:"hat gelitten", s:"Er hat lange an der Krankheit gelitten."},
-            {id:12, v:"meiden", k:"피하다", p1:"meidet", p2:"mied", p3:"hat gemieden", s:"Sie mied den Kontakt zu ihm."},
-            {id:13, v:"reiben", k:"문지르다", p1:"reibt", p2:"rieb", p3:"hat gerieben", s:"Er rieb sich die müden Augen."},
-            {id:14, v:"reißen", k:"찢다/끊어지다", p1:"reißt", p2:"riss", p3:"hat/ist gerissen", s:"Das Seil ist plötzlich gerissen."},
-            {id:15, v:"ringen", k:"애쓰다", p1:"ringt", p2:"rang", p3:"hat gerungen", s:"Er rang nach den passenden Worten."},
-            {id:16, v:"schlagen", k:"때리다", p1:"schlägt", p2:"schlug", p3:"hat geschlagen", s:"Die Uhr hat gerade zwölf geschlagen."},
+            {id:12, v:"meiden", k:"피하다", p1:"meidet", p2:"mied", p3:"hat gemieden", s:"Sie hat den Kontakt zu ihm gemieden."},
+            {id:13, v:"reiben", k:"문지르다", p1:"reibt", p2:"rieb", p3:"hat gerieben", s:"Er hat sich die müden Augen gerieben."},
+            {id:14, v:"reißen", k:"찢다", p1:"reißt", p2:"riss", p3:"hat gerissen", s:"Das Seil ist plötzlich gerissen."},
+            {id:15, v:"ringen", k:"애쓰다", p1:"ringt", p2:"rang", p3:"hat gerungen", s:"Er hat lange nach Worten gerungen."},
+            {id:16, v:"schlagen", k:"치다/때리다", p1:"schlägt", p2:"schlug", p3:"hat geschlagen", s:"Die Uhr hat gerade zwölf geschlagen."},
             {id:17, v:"schleichen", k:"살금살금 걷다", p1:"schleicht", p2:"schlich", p3:"ist geschlichen", s:"Die Katze ist durch den Garten geschlichen."},
             {id:18, v:"schleifen", k:"연마하다", p1:"schleift", p2:"schliff", p3:"hat geschliffen", s:"Er hat das Messer scharf geschliffen."},
-            {id:19, v:"schließen", k:"닫다", p1:"schließt", p2:"schloss", p3:"hat geschlossen", s:"Hast du das Fenster geschlossen?"},
-            {id:20, v:"schlingen", k:"감다/삼키다", p1:"schlingt", p2:"schlang", p3:"hat geschlungen", s:"Die Pflanze schlang sich um den Baum."},
-            {id:21, v:"schmeißen", k:"던지다", p1:"schmeißt", p2:"schmiss", p3:"hat geschmissen", s:"Er hat den Stein ins Wasser geschmissen."},
-            {id:22, v:"schneiden", k:"자르다", p1:"schneidet", p2:"schnitt", p3:"hat geschnitten", s:"Er hat das Brot in Scheiben geschnitten."},
-            {id:23, v:"schreiben", k:"쓰다", p1:"schreibt", p2:"schrieb", p3:"hat geschrieben", s:"Sie hat einen langen Brief geschrieben."},
-            {id:24, v:"schreiten", k:"걷다/나아가다", p1:"schreitet", p2:"schritt", p3:"ist geschritten", s:"Wir sind zur Tat geschritten."},
-            {id:25, v:"schweigen", k:"침묵하다", p1:"schweigt", p2:"schwieg", p3:"hat geschwiegen", s:"Er schwieg zu den Vorwürfen."},
-            {id:26, v:"schwellen", k:"부풀다", p1:"schwillt", p2:"schwoll", p3:"ist geschwollen", s:"Sein Fuß ist nach dem Unfall geschwollen."},
-            {id:27, v:"schwingen", k:"흔들다", p1:"schwingt", p2:"schwang", p3:"hat geschwungen", s:"Der Affe schwang sich von Ast zu Ast."},
-            {id:28, v:"schwören", k:"맹세하다", p1:"schwört", p2:"schwor", p3:"hat geschworen", s:"Er hat ewige Treue geschworen."},
-            {id:29, v:"stechen", k:"찌르다", p1:"sticht", p2:"stach", p3:"hat gestochen", s:"Eine Biene hat mich gestochen."},
-            {id:30, v:"stehlen", k:"훔치다", p1:"stiehlt", p2:"stahl", p3:"hat gestohlen", s:"Jemand hat mein Fahrrad gestohlen."},
-            {id:31, v:"betragen", k:"(수치)~에 달하다", p1:"beträgt", p2:"betrug", p3:"hat betragen", s:"Die Rechnung hat 50 Euro betragen."},
-            {id:32, v:"übertragen", k:"중계/전염하다", p1:"überträgt", p2:"übertrug", p3:"hat übertragen", s:"Das Spiel wurde live übertragen."},
-            {id:33, v:"antreten", k:"시작하다", p1:"tritt an", p2:"trat an", p3:"hat angetreten", s:"Er hat gestern seine neue Stelle angetreten."},
-            {id:34, v:"auftreten", k:"등장하다", p1:"tritt auf", p2:"trat auf", p3:"ist aufgetreten", s:"Der Sänger ist gestern aufgetreten."},
-            {id:35, v:"betreten", k:"들어오다", p1:"betritt", p2:"betrat", p3:"hat betreten", s:"Er hat den Raum leise betreten."},
-            {id:36, v:"eintreten", k:"입장/가입하다", p1:"tritt ein", p2:"trat ein", p3:"ist eingetreten", s:"Sie ist in den Verein eingetreten."},
-            {id:37, v:"vertreten", k:"대변/대리하다", p1:"vertritt", p2:"vertrat", p3:"hat vertreten", s:"Er hat seinen Kollegen krankheitsbedingt vertreten."},
-            {id:38, v:"zurücktreten", k:"사임하다", p1:"tritt zurück", p2:"trat zurück", p3:"ist zurückgetreten", s:"Der Minister ist gestern zurückgetreten."},
-            {id:39, v:"abtun", k:"일축/무시하다", p1:"tut ab", p2:"tat ab", p3:"hat abgetan", s:"Er hat das Problem als unwichtig abgetan."},
-            {id:40, v:"verderben", k:"상하다/망치다", p1:"verdirbt", p2:"verdarb", p3:"ist/hat verdorben", s:"Das Fleisch ist in der Hitze verdorben."},
-            {id:41, v:"vergessen", k:"잊다", p1:"vergisst", p2:"vergaß", p3:"hat vergessen", s:"Ich habe meinen Schlüssel vergessen."}
+            {id:19, v:"schlingen", k:"휘감다/삼키다", p1:"schlingt", p2:"schlang", p3:"hat geschlungen", s:"Er hat den Schal um den Hals geschlungen."},
+            {id:20, v:"schreiten", k:"성큼 걷다", p1:"schreitet", p2:"schritt", p3:"ist geschritten", s:"Wir sind sofort zur Tat geschritten."},
+            {id:21, v:"schweigen", k:"침묵하다", p1:"schweigt", p2:"schwieg", p3:"hat geschwiegen", s:"Er hat zu den Vorwürfen geschwiegen."},
+            {id:22, v:"schwellen", k:"부풀다", p1:"schwillt", p2:"schwoll", p3:"ist geschwollen", s:"Sein Fuß ist nach dem Unfall geschwollen."},
+            {id:23, v:"schwingen", k:"흔들다", p1:"schwingt", p2:"schwang", p3:"hat geschwungen", s:"Der Affe hat sich von Ast zu Ast geschwungen."},
+            {id:24, v:"schwören", k:"맹세하다", p1:"schwört", p2:"schwor", p3:"hat geschworen", s:"Er hat mir ewige Treue geschworen."},
+            {id:25, v:"stechen", k:"찌르다", p1:"sticht", p2:"stach", p3:"hat gestochen", s:"Eine Biene hat mich gestochen."},
+            {id:26, v:"stehlen", k:"훔치다", p1:"stiehlt", p2:"stahl", p3:"hat gestohlen", s:"Jemand hat mein Fahrrad gestohlen."},
+            {id:27, v:"betragen", k:"수량이 ~에 달하다", p1:"beträgt", p2:"betrug", p3:"hat betragen", s:"Die Rechnung hat 50 Euro betragen."},
+            {id:28, v:"übertragen", k:"중계하다, 전염시키다", p1:"überträgt", p2:"übertrug", p3:"hat übertragen", s:"Das Spiel wurde live übertragen."},
+            {id:29, v:"antreten", k:"여행을 시작하다", p1:"tritt an", p2:"trat an", p3:"hat angetreten", s:"Er hat gestern seine neue Stelle angetreten."},
+            {id:30, v:"auftreten", k:"무대에 서다, 나타나다", p1:"tritt auf", p2:"trat auf", p3:"ist aufgetreten", s:"Der Sänger ist gestern aufgetreten."},
+            {id:31, v:"betreten", k:"건물에 들어가다", p1:"betritt", p2:"betrat", p3:"hat betreten", s:"Er hat den Raum leise betreten."},
+            {id:32, v:"eintreten", k:"입장/가입하다", p1:"tritt ein", p2:"trat ein", p3:"ist eingetreten", s:"Sie ist in den Verein eingetreten."},
+            {id:33, v:"vertreten", k:"대리/대변하다", p1:"vertritt", p2:"vertrat", p3:"hat vertreten", s:"Er hat seinen Kollegen vertreten."},
+            {id:34, v:"zurücktreten", k:"사임/물러나다", p1:"tritt zurück", p2:"trat zurück", p3:"ist zurückgetreten", s:"Der Minister ist gestern zurückgetreten."},
+            {id:35, v:"abtun", k:"일축하다, 무시하다", p1:"tut ab", p2:"tat ab", p3:"hat abgetan", s:"Er hat das Problem als unwichtig abgetan."},
+            {id:36, v:"verderben", k:"망치다, 상하다", p1:"verdirbt", p2:"verdarb", p3:"ist verdorben", s:"Das Fleisch ist in der Hitze verdorben."},
+            {id:37, v:"vergessen", k:"잊다", p1:"vergisst", p2:"vergaß", p3:"hat vergessen", s:"Ich habe meinen Schlüssel vergessen."},
+            {id:38, v:"weichen", k:"물러나다, 비키다", p1:"weicht", p2:"wich", p3:"ist gewichen", s:"Die Nacht ist dem Tag gewichen."},
+            {id:39, v:"ausweichen", k:"피하다", p1:"weicht aus", p2:"wich aus", p3:"ist ausgewichen", s:"Er ist dem Auto im letzten Moment ausgewichen."},
+            {id:40, v:"weisen", k:"가리키다, 안내하다", p1:"weist", p2:"wies", p3:"hat gewiesen", s:"Er hat mir den Weg gewiesen."},
+            {id:41, v:"beweisen", k:"증명하다 (Check)", p1:"beweist", p2:"bewies", p3:"hat bewiesen", s:"Er hat es schon einmal bewiesen."},
+            {id:42, v:"erweisen", k:"판명되다, 드러내다", p1:"erweist sich", p2:"erwies sich", p3:"hat sich erwiesen", s:"Das Gerücht hat sich als falsch erwiesen."},
+            {id:43, v:"nachweisen", k:"입증하다", p1:"weist nach", p2:"wies nach", p3:"hat nachgewiesen", s:"Sie haben die Zahlung nachgewiesen."},
+            {id:44, v:"verweisen", k:"참조/언급하다", p1:"verweist", p2:"verwies", p3:"hat verwiesen", s:"Der Lehrer hat ihn des Raumes verwiesen."},
+            {id:45, v:"werben", k:"광고/모집하다", p1:"wirbt", p2:"warb", p3:"hat geworben", s:"Die Firma hat für das neue Produkt geworben."},
+            {id:46, v:"erwerben", k:"습득하다, 얻다", p1:"erwirbt", p2:"erwarb", p3:"hat erworben", s:"Sie hat in der Schule viele Kenntnisse erworben."},
+            {id:47, v:"beziehen", k:"입주하다, 씌우다", p1:"bezieht", p2:"bezog", p3:"hat bezogen", s:"Wir haben das neue Haus bezogen."},
+            {id:48, v:"zurückziehen", k:"철회/물러나다", p1:"zieht zurück", p2:"zog zurück", p3:"hat zurückgezogen", s:"Er hat seinen Antrag zurückgezogen."},
+            {id:49, v:"zwingen", k:"강요하다", p1:"zwingt", p2:"zwang", p3:"hat gezwungen", s:"Das schlechte Wetter hat uns zur Pause gezwungen."}
         ];
 
         // 데이터 렌더링
@@ -211,10 +219,13 @@
         let pool = []; let currIdx = 0; let score = 0;
         function startQuiz() {
             pool = [...irrData].sort(() => 0.5 - Math.random()).slice(0, 10);
+            currIdx = 0; score = 0;
             document.getElementById('q-init').classList.add('hidden');
             document.getElementById('q-play').classList.remove('hidden');
+            document.getElementById('q-result').classList.add('hidden');
             showQ();
         }
+
         function showQ() {
             const item = pool[currIdx];
             document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
@@ -225,13 +236,14 @@
             let question, answer, wrong1, wrong2, wrong3;
 
             if (isPerfekt) {
-                // 완료형 문제 (hat/ist 구분 + ge-형태)
-                // 예: "Der Dieb _____ geflohen." (ist vs hat) 또는 "Der Dieb ist _____." (geflohen vs geflieht)
-                const aux = item.p3.split(' ')[0]; // hat or ist
-                const partizip = item.p3.split(' ')[1]; // geflohen
+                // 완료형 문제 파싱 로직 개선 (재귀동사 처리)
+                const parts = item.p3.split(' ');
+                const aux = parts[0]; // hat 또는 ist
+                const partizip = parts[parts.length - 1]; // 문장 끝의 과거분사 (예: besonnen)
                 
                 if(Math.random() > 0.5) {
                     // 조동사(hat/ist) 맞히기
+                    // 문장에서 aux를 빈칸으로
                     question = item.s.replace(aux, "_______");
                     answer = aux;
                     wrong1 = (aux === "hat" ? "ist" : "hat");
@@ -241,32 +253,29 @@
                     // 과거분사(Partizip II) 맞히기
                     question = item.s.replace(partizip, "_______");
                     answer = partizip;
-                    // 오답 생성 로직 (규칙 변화처럼 만들기 등)
-                    wrong1 = item.v + "t"; // flieht
-                    wrong2 = "ge" + item.v + "t"; // geflieht (규칙인척)
-                    wrong3 = item.p2; // floh (과거형)
+                    
+                    // 오답 생성
+                    wrong1 = item.v + "t"; // 규칙동사처럼 (flieht)
+                    wrong2 = "ge" + item.v + "t"; // geflieht (규칙 과거분사 흉내)
+                    wrong3 = item.p2.split(' ')[0]; // 과거형 (floh)
                 }
             } else {
                 // 과거형 문제 (Präteritum)
-                // 예: "Gestern _____ er nach Hause." (ging vs gingt vs gang)
-                // 문장에서 동사 부분만 추출해서 빈칸으로 만듦 (단, p2가 문장에 포함된 경우만)
-                // 만약 예문이 완료형이면 그냥 완료형 문제로 돌림
-                if(item.s.includes(item.p3.split(' ')[1])) {
-                     // 예문이 완료형인데 과거형 문제를 낼 순 없으니 완료형 문제로 진행
-                     const partizip = item.p3.split(' ')[1];
-                     question = item.s.replace(partizip, "_______");
-                     answer = partizip;
-                     wrong1 = "ge" + item.v + "t"; 
-                     wrong2 = item.v + "en";
-                     wrong3 = item.p1.split(' ')[0];
-                } else {
-                    // 여기로 올 일은 거의 없지만(예문들이 대부분 완료형이라), 로직상 대비
-                    question = `${item.v.toUpperCase()}: Gestern _______ er.`;
-                    answer = item.p2.split(' ')[0]; // barg
-                    wrong1 = item.v + "te"; // bergte
-                    wrong2 = item.p1.split(' ')[0]; // birgt
-                    wrong3 = "gebarg";
-                }
+                // 문장에서 과거분사를 찾아서 과거형으로 바꾸는 식은 복잡하므로,
+                // "동사원형: Gestern _______ er/sie ..." 패턴으로 출제
+                const pastForm = item.p2.split(' ')[item.p2.split(' ').length -1]; // 재귀대명사 제외하고 동사만 추출 시도, 하지만 단순하게 가자.
+                // 대부분 p2는 "barg", "besann sich" 등임.
+                
+                // 단순화: 동사만 빈칸 뚫기. 단, p2가 "besann sich" 처럼 길면 첫 단어만 추출
+                const simplePast = item.p2.split(' ')[0]; // besann
+                
+                question = `${item.v.toUpperCase()}: Gestern _______ er/sie ...`;
+                answer = simplePast;
+                
+                // 오답
+                wrong1 = item.v + "te"; // 규칙 과거형 (bergte)
+                wrong2 = item.p1.split(' ')[0]; // 현재형 (birgt)
+                wrong3 = "ge" + simplePast; // 이상한 형태
             }
 
             document.getElementById('q-text').innerText = question;
@@ -286,10 +295,15 @@
                 optsDiv.appendChild(btn);
             });
         }
+
         function nextQ() {
             currIdx++;
             if(currIdx < 10) { showQ(); document.getElementById('next-btn').disabled = true; }
-            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `Final Score: ${score} / 10`; }
+            else { 
+                document.getElementById('q-play').classList.add('hidden'); 
+                document.getElementById('q-result').classList.remove('hidden'); 
+                document.getElementById('score-text').innerText = `Final Score: ${score} / 10`; 
+            }
         }
     </script>
 </body>
