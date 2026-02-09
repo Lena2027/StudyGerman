@@ -36,12 +36,13 @@
         #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
 
         #word-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; width: 100%; max-width: 600px; border-radius: 40px; padding: 50px 30px; position: relative; text-align: center; }
+        .modal-content { background: white; width: 100%; max-width: 650px; border-radius: 40px; padding: 50px 30px; position: relative; text-align: center; }
         
-        .conj-table { width: 100%; margin-top: 20px; margin-bottom: 20px; font-size: 0.9rem; text-align: left; }
-        .conj-table th { color: #999; font-weight: normal; padding-bottom: 5px; border-bottom: 1px solid #eee; }
-        .conj-table td { font-weight: bold; padding: 8px 0; color: #333; }
-        
+        .conj-table { width: 100%; margin-top: 20px; margin-bottom: 20px; font-size: 0.95rem; text-align: left; border-collapse: collapse; }
+        .conj-table th { color: #999; font-weight: normal; padding: 10px; border-bottom: 1px solid #eee; font-size: 0.8rem; }
+        .conj-table td { font-weight: 800; padding: 15px 10px; color: #333; border-bottom: 1px solid #f9f9f9; }
+        .conj-table td:last-child { color: #7e22ce; } /* 완료형 강조 */
+
         @media (max-width: 1450px) { .side-nav { display: none; } }
     </style>
 </head>
@@ -49,7 +50,7 @@
 
     <div class="side-nav">
         <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn">⚡ 불규칙 동사<br>전체 리스트</div>
-        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 3단 변화<br>실전 퀴즈</div>
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 실전 퀴즈<br>(시제/형태)</div>
     </div>
 
     <header>
@@ -72,15 +73,15 @@
         <div id="list-start" class="pt-10">
             <div class="text-center mb-12">
                 <h2 class="text-4xl font-black serif-font mb-2 tracking-tighter">Unregelmäßige Verben</h2>
-                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4 underline">클릭하여 3단 변화(현재-과거-완료)를 확인하세요</p>
+                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4 underline">파일 기반 데이터 전체 업데이트 완료</p>
             </div>
             <div class="word-grid" id="irr-list"></div>
         </div>
 
         <section id="quiz-start" class="mt-40 border-t-4 border-black pt-20 mb-32 max-w-3xl mx-auto">
             <div class="text-center mb-12">
-                <h3 class="text-4xl font-black serif-font mb-2">Verb Quiz</h3>
-                <p class="text-gray-500 font-medium italic">동사의 과거완료형(Partizip II)을 맞혀보세요.</p>
+                <h3 class="text-4xl font-black serif-font mb-2">Verb Konjugation Quiz</h3>
+                <p class="text-gray-500 font-medium">문장에 알맞은 동사의 형태(과거/완료)를 선택하세요.</p>
             </div>
             <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden" id="quiz-box">
                 <div id="q-init" class="p-20 text-center">
@@ -89,7 +90,7 @@
                 <div id="q-play" class="p-12 hidden text-center">
                     <div id="q-status" class="text-xs font-black text-purple-600 mb-6 uppercase tracking-widest"></div>
                     <div class="text-sm text-gray-400 mb-4 italic font-bold" id="q-meaning-hint"></div>
-                    <h4 id="q-text" class="text-3xl font-bold mb-10 serif-font leading-snug"></h4>
+                    <h4 id="q-text" class="text-2xl font-bold mb-10 serif-font leading-snug"></h4>
                     <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                     <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl transition-all" disabled>다음 문제</button>
                 </div>
@@ -104,11 +105,11 @@
     <div id="word-modal" onclick="closeWordModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="material-symbols-outlined absolute top-6 right-6 cursor-pointer text-gray-300 hover:text-black" onclick="closeWordModal()">close</span>
-            <div class="text-purple-600 font-black text-[10px] tracking-widest mb-2 uppercase">IRREGULAR VERB</div>
+            <div class="text-purple-600 font-black text-[10px] tracking-widest mb-2 uppercase">STARKES VERB</div>
             <div id="modal-word" class="text-5xl font-black serif-font mb-2"></div>
             <div id="modal-meaning" class="text-gray-400 font-bold text-lg mb-8"></div>
             
-            <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+            <div class="bg-gray-50 rounded-3xl p-8 mb-8 shadow-inner">
                 <table class="conj-table">
                     <thead>
                         <tr>
@@ -119,55 +120,66 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td id="modal-p1" class="text-lg"></td>
-                            <td id="modal-p2" class="text-lg"></td>
-                            <td id="modal-p3" class="text-lg text-purple-700"></td>
+                            <td id="modal-p1" class="text-xl"></td>
+                            <td id="modal-p2" class="text-xl"></td>
+                            <td id="modal-p3" class="text-xl"></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
-            <div id="modal-sentence" class="text-xl font-bold text-gray-800 leading-tight italic"></div>
+            <div id="modal-sentence" class="text-2xl font-bold text-gray-800 leading-tight italic"></div>
         </div>
     </div>
 
     <footer class="bg-white border-t border-gray-100 py-12 text-center mt-20">
-        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN · IRREGULAR VERBS</p>
+        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN · IRREGULAR VERBS UPGRADED</p>
     </footer>
 
     <script>
-        // 사장님, 파일의 데이터를 기반으로 오류 수정 및 예문 추가 완료했습니다.
+        // 업로드된 파일 데이터 완벽 반영 + 예문 추가 + 오류 수정 (sein/haben)
         const irrData = [
             {id:1, v:"bergen", k:"구조하다", p1:"birgt", p2:"barg", p3:"hat geborgen", s:"Die Bergwacht birgt den Verletzten."},
             {id:2, v:"sich besinnen", k:"숙고하다", p1:"besinnt sich", p2:"besann sich", p3:"hat sich besonnen", s:"Er besinnt sich auf seine Stärken."},
-            {id:3, v:"betrügen", k:"속이다", p1:"betrügt", p2:"betrog", p3:"hat betrogen", s:"Er hat mich beim Spiel betrogen."},
-            {id:4, v:"beweisen", k:"증명하다", p1:"beweist", p2:"bewies", p3:"hat bewiesen", s:"Kannst du das beweisen?"},
+            {id:3, v:"betrügen", k:"속이다", p1:"betrügt", p2:"betrog", p3:"hat betrogen", s:"Er hat mich beim Kartenspiel betrogen."},
+            {id:4, v:"beweisen", k:"증명하다", p1:"beweist", p2:"bewies", p3:"hat bewiesen", s:"Kannst du deine Theorie beweisen?"},
             {id:5, v:"fliehen", k:"도망치다", p1:"flieht", p2:"floh", p3:"ist geflohen", s:"Der Dieb ist vor der Polizei geflohen."},
-            {id:6, v:"frieren", k:"얼다/춥다", p1:"friert", p2:"fror", p3:"hat gefroren", s:"Es hat heute Nacht gefroren."},
-            {id:7, v:"gelingen", k:"성공하다", p1:"gelingt", p2:"gelang", p3:"ist gelungen", s:"Der Kuchen ist mir gut gelungen."},
-            {id:8, v:"gelten", k:"유효하다", p1:"gilt", p2:"galt", p3:"hat gegolten", s:"Das Ticket gilt nicht mehr."},
-            {id:9, v:"geschehen", k:"일어나다", p1:"geschieht", p2:"geschah", p3:"ist geschehen", s:"Was ist gestern geschehen?"},
-            {id:10, v:"kriechen", k:"기어가다", p1:"kriecht", p2:"kroch", p3:"ist gekrochen", s:"Die Schlange kroch unter den Stein."},
-            {id:11, v:"leiden", k:"고통받다", p1:"leidet", p2:"litt", p3:"hat gelitten", s:"Er litt an einer schweren Krankheit."},
-            {id:12, v:"meiden", k:"피하다", p1:"meidet", p2:"mied", p3:"hat gemieden", s:"Er mied den Kontakt zu ihr."},
-            {id:13, v:"reiben", k:"문지르다", p1:"reibt", p2:"rieb", p3:"hat gerieben", s:"Sie rieb sich die Augen."},
-            {id:14, v:"reißen", k:"찢다", p1:"reißt", p2:"riss", p3:"hat gerissen", s:"Das Seil ist gerissen."},
-            {id:15, v:"ringen", k:"애쓰다", p1:"ringt", p2:"rang", p3:"hat gerungen", s:"Er rang nach Worten."},
-            {id:16, v:"schlagen", k:"때리다", p1:"schlägt", p2:"schlug", p3:"hat geschlagen", s:"Die Uhr hat zwölf geschlagen."},
-            {id:17, v:"schleichen", k:"살금살금 걷다", p1:"schleicht", p2:"schlich", p3:"ist geschlichen", s:"Die Katze schlich durch den Garten."},
-            {id:18, v:"schleifen", k:"연마하다", p1:"schleift", p2:"schliff", p3:"hat geschliffen", s:"Er schliff das Messer."},
-            {id:19, v:"schließen", k:"닫다", p1:"schließt", p2:"schloss", p3:"hat geschlossen", s:"Bitte schließen Sie die Tür."},
-            {id:20, v:"schlingen", k:"감다/삼키다", p1:"schlingt", p2:"schlang", p3:"hat geschlungen", s:"Er schlang die Arme um sie."},
-            {id:21, v:"schmeißen", k:"던지다", p1:"schmeißt", p2:"schmiss", p3:"hat geschmissen", s:"Er schmiss den Stein ins Wasser."},
-            {id:22, v:"schneiden", k:"자르다", p1:"schneidet", p2:"schnitt", p3:"hat geschnitten", s:"Ich habe mir in den Finger geschnitten."},
-            {id:23, v:"schreiben", k:"쓰다", p1:"schreibt", p2:"schrieb", p3:"hat geschrieben", s:"Hast du den Brief geschrieben?"},
-            {id:24, v:"schweigen", k:"침묵하다", p1:"schweigt", p2:"schwieg", p3:"hat geschwiegen", s:"Er schwieg zu den Vorwürfen."},
-            {id:25, v:"schwellen", k:"부풀다", p1:"schwillt", p2:"schwoll", p3:"ist geschwollen", s:"Sein Fuß ist stark geschwollen."},
-            {id:26, v:"schwimmen", k:"수영하다", p1:"schwimmt", p2:"schwamm", p3:"ist geschwommen", s:"Wir sind im See geschwommen."},
-            {id:27, v:"schwingen", k:"흔들다", p1:"schwingt", p2:"schwang", p3:"hat geschwungen", s:"Der Affe schwang sich von Baum zu Baum."},
-            {id:28, v:"schwören", k:"맹세하다", p1:"schwört", p2:"schwor", p3:"hat geschworen", s:"Er schwor, die Wahrheit zu sagen."},
-            {id:29, v:"sehen", k:"보다", p1:"sieht", p2:"sah", p3:"hat gesehen", s:"Hast du den Film gesehen?"},
-            {id:30, v:"sein", k:"~이다", p1:"ist", p2:"war", p3:"ist gewesen", s:"Ich bin in Berlin gewesen."}
+            {id:6, v:"frieren", k:"얼다/춥다", p1:"friert", p2:"fror", p3:"hat gefroren", s:"Mich hat es gestern sehr gefroren."},
+            {id:7, v:"gelingen", k:"성공하다", p1:"gelingt", p2:"gelang", p3:"ist gelungen", s:"Der Plan ist uns endlich gelungen."},
+            {id:8, v:"gelten", k:"유효하다", p1:"gilt", p2:"galt", p3:"hat gegolten", s:"Dieses Ticket gilt nur heute."},
+            {id:9, v:"geschehen", k:"일어나다", p1:"geschieht", p2:"geschah", p3:"ist geschehen", s:"Was ist hier geschehen?"},
+            {id:10, v:"kriechen", k:"기어가다", p1:"kriecht", p2:"kroch", p3:"ist gekrochen", s:"Die Schlange ist unter den Stein gekrochen."},
+            {id:11, v:"leiden", k:"고통받다", p1:"leidet", p2:"litt", p3:"hat gelitten", s:"Er hat lange an der Krankheit gelitten."},
+            {id:12, v:"meiden", k:"피하다", p1:"meidet", p2:"mied", p3:"hat gemieden", s:"Sie mied den Kontakt zu ihm."},
+            {id:13, v:"reiben", k:"문지르다", p1:"reibt", p2:"rieb", p3:"hat gerieben", s:"Er rieb sich die müden Augen."},
+            {id:14, v:"reißen", k:"찢다/끊어지다", p1:"reißt", p2:"riss", p3:"hat/ist gerissen", s:"Das Seil ist plötzlich gerissen."},
+            {id:15, v:"ringen", k:"애쓰다", p1:"ringt", p2:"rang", p3:"hat gerungen", s:"Er rang nach den passenden Worten."},
+            {id:16, v:"schlagen", k:"때리다", p1:"schlägt", p2:"schlug", p3:"hat geschlagen", s:"Die Uhr hat gerade zwölf geschlagen."},
+            {id:17, v:"schleichen", k:"살금살금 걷다", p1:"schleicht", p2:"schlich", p3:"ist geschlichen", s:"Die Katze ist durch den Garten geschlichen."},
+            {id:18, v:"schleifen", k:"연마하다", p1:"schleift", p2:"schliff", p3:"hat geschliffen", s:"Er hat das Messer scharf geschliffen."},
+            {id:19, v:"schließen", k:"닫다", p1:"schließt", p2:"schloss", p3:"hat geschlossen", s:"Hast du das Fenster geschlossen?"},
+            {id:20, v:"schlingen", k:"감다/삼키다", p1:"schlingt", p2:"schlang", p3:"hat geschlungen", s:"Die Pflanze schlang sich um den Baum."},
+            {id:21, v:"schmeißen", k:"던지다", p1:"schmeißt", p2:"schmiss", p3:"hat geschmissen", s:"Er hat den Stein ins Wasser geschmissen."},
+            {id:22, v:"schneiden", k:"자르다", p1:"schneidet", p2:"schnitt", p3:"hat geschnitten", s:"Er hat das Brot in Scheiben geschnitten."},
+            {id:23, v:"schreiben", k:"쓰다", p1:"schreibt", p2:"schrieb", p3:"hat geschrieben", s:"Sie hat einen langen Brief geschrieben."},
+            {id:24, v:"schreiten", k:"걷다/나아가다", p1:"schreitet", p2:"schritt", p3:"ist geschritten", s:"Wir sind zur Tat geschritten."},
+            {id:25, v:"schweigen", k:"침묵하다", p1:"schweigt", p2:"schwieg", p3:"hat geschwiegen", s:"Er schwieg zu den Vorwürfen."},
+            {id:26, v:"schwellen", k:"부풀다", p1:"schwillt", p2:"schwoll", p3:"ist geschwollen", s:"Sein Fuß ist nach dem Unfall geschwollen."},
+            {id:27, v:"schwingen", k:"흔들다", p1:"schwingt", p2:"schwang", p3:"hat geschwungen", s:"Der Affe schwang sich von Ast zu Ast."},
+            {id:28, v:"schwören", k:"맹세하다", p1:"schwört", p2:"schwor", p3:"hat geschworen", s:"Er hat ewige Treue geschworen."},
+            {id:29, v:"stechen", k:"찌르다", p1:"sticht", p2:"stach", p3:"hat gestochen", s:"Eine Biene hat mich gestochen."},
+            {id:30, v:"stehlen", k:"훔치다", p1:"stiehlt", p2:"stahl", p3:"hat gestohlen", s:"Jemand hat mein Fahrrad gestohlen."},
+            {id:31, v:"betragen", k:"(수치)~에 달하다", p1:"beträgt", p2:"betrug", p3:"hat betragen", s:"Die Rechnung hat 50 Euro betragen."},
+            {id:32, v:"übertragen", k:"중계/전염하다", p1:"überträgt", p2:"übertrug", p3:"hat übertragen", s:"Das Spiel wurde live übertragen."},
+            {id:33, v:"antreten", k:"시작하다", p1:"tritt an", p2:"trat an", p3:"hat angetreten", s:"Er hat gestern seine neue Stelle angetreten."},
+            {id:34, v:"auftreten", k:"등장하다", p1:"tritt auf", p2:"trat auf", p3:"ist aufgetreten", s:"Der Sänger ist gestern aufgetreten."},
+            {id:35, v:"betreten", k:"들어오다", p1:"betritt", p2:"betrat", p3:"hat betreten", s:"Er hat den Raum leise betreten."},
+            {id:36, v:"eintreten", k:"입장/가입하다", p1:"tritt ein", p2:"trat ein", p3:"ist eingetreten", s:"Sie ist in den Verein eingetreten."},
+            {id:37, v:"vertreten", k:"대변/대리하다", p1:"vertritt", p2:"vertrat", p3:"hat vertreten", s:"Er hat seinen Kollegen krankheitsbedingt vertreten."},
+            {id:38, v:"zurücktreten", k:"사임하다", p1:"tritt zurück", p2:"trat zurück", p3:"ist zurückgetreten", s:"Der Minister ist gestern zurückgetreten."},
+            {id:39, v:"abtun", k:"일축/무시하다", p1:"tut ab", p2:"tat ab", p3:"hat abgetan", s:"Er hat das Problem als unwichtig abgetan."},
+            {id:40, v:"verderben", k:"상하다/망치다", p1:"verdirbt", p2:"verdarb", p3:"ist/hat verdorben", s:"Das Fleisch ist in der Hitze verdorben."},
+            {id:41, v:"vergessen", k:"잊다", p1:"vergisst", p2:"vergaß", p3:"hat vergessen", s:"Ich habe meinen Schlüssel vergessen."}
         ];
 
         // 데이터 렌더링
@@ -175,7 +187,7 @@
         irrData.forEach(item => {
             container.innerHTML += `
                 <div class="word-card group" onclick="openWordModal('${item.id}')">
-                    <div class="helper-text">Irregular</div>
+                    <div class="helper-text">Starkes Verb</div>
                     <div class="verb group-hover:text-purple-600 transition-colors">${item.v}</div>
                     <div class="meaning">${item.k}</div>
                 </div>
@@ -195,7 +207,7 @@
         }
         function closeWordModal() { document.getElementById('word-modal').style.display='none'; }
 
-        // 퀴즈 로직 (과거분사 Partizip II 맞히기)
+        // 퀴즈 로직 (문맥에 맞는 올바른 형태 고르기)
         let pool = []; let currIdx = 0; let score = 0;
         function startQuiz() {
             pool = [...irrData].sort(() => 0.5 - Math.random()).slice(0, 10);
@@ -207,23 +219,67 @@
             const item = pool[currIdx];
             document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
             document.getElementById('q-meaning-hint').innerText = `뜻: ${item.k}`;
-            document.getElementById('q-text').innerText = `${item.v} → (Perfekt)?`;
             
+            // 1. 과거형(Präteritum) 또는 완료형(Perfekt) 중 하나를 문제로 냄
+            const isPerfekt = Math.random() > 0.5;
+            let question, answer, wrong1, wrong2, wrong3;
+
+            if (isPerfekt) {
+                // 완료형 문제 (hat/ist 구분 + ge-형태)
+                // 예: "Der Dieb _____ geflohen." (ist vs hat) 또는 "Der Dieb ist _____." (geflohen vs geflieht)
+                const aux = item.p3.split(' ')[0]; // hat or ist
+                const partizip = item.p3.split(' ')[1]; // geflohen
+                
+                if(Math.random() > 0.5) {
+                    // 조동사(hat/ist) 맞히기
+                    question = item.s.replace(aux, "_______");
+                    answer = aux;
+                    wrong1 = (aux === "hat" ? "ist" : "hat");
+                    wrong2 = "wird";
+                    wrong3 = "war";
+                } else {
+                    // 과거분사(Partizip II) 맞히기
+                    question = item.s.replace(partizip, "_______");
+                    answer = partizip;
+                    // 오답 생성 로직 (규칙 변화처럼 만들기 등)
+                    wrong1 = item.v + "t"; // flieht
+                    wrong2 = "ge" + item.v + "t"; // geflieht (규칙인척)
+                    wrong3 = item.p2; // floh (과거형)
+                }
+            } else {
+                // 과거형 문제 (Präteritum)
+                // 예: "Gestern _____ er nach Hause." (ging vs gingt vs gang)
+                // 문장에서 동사 부분만 추출해서 빈칸으로 만듦 (단, p2가 문장에 포함된 경우만)
+                // 만약 예문이 완료형이면 그냥 완료형 문제로 돌림
+                if(item.s.includes(item.p3.split(' ')[1])) {
+                     // 예문이 완료형인데 과거형 문제를 낼 순 없으니 완료형 문제로 진행
+                     const partizip = item.p3.split(' ')[1];
+                     question = item.s.replace(partizip, "_______");
+                     answer = partizip;
+                     wrong1 = "ge" + item.v + "t"; 
+                     wrong2 = item.v + "en";
+                     wrong3 = item.p1.split(' ')[0];
+                } else {
+                    // 여기로 올 일은 거의 없지만(예문들이 대부분 완료형이라), 로직상 대비
+                    question = `${item.v.toUpperCase()}: Gestern _______ er.`;
+                    answer = item.p2.split(' ')[0]; // barg
+                    wrong1 = item.v + "te"; // bergte
+                    wrong2 = item.p1.split(' ')[0]; // birgt
+                    wrong3 = "gebarg";
+                }
+            }
+
+            document.getElementById('q-text').innerText = question;
             const optsDiv = document.getElementById('q-options'); optsDiv.innerHTML = '';
             
-            // 정답 (hat/ist 포함)
-            let choices = [item.p3];
-            while(choices.length < 4) {
-                let rando = irrData[Math.floor(Math.random()*irrData.length)].p3;
-                if(!choices.includes(rando)) choices.push(rando);
-            }
+            let choices = [answer, wrong1, wrong2, wrong3];
             choices.sort(() => 0.5 - Math.random()).forEach(choice => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer bg-white";
+                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer bg-white text-lg";
                 btn.innerText = choice;
                 btn.onclick = () => {
                     document.querySelectorAll('#q-options button').forEach(b => b.disabled = true);
-                    if(choice === item.p3) { btn.classList.add('bg-green-500', 'text-white'); score++; }
+                    if(choice === answer) { btn.classList.add('bg-green-500', 'text-white'); score++; }
                     else { btn.classList.add('bg-red-500', 'text-white'); }
                     document.getElementById('next-btn').disabled = false;
                 };
@@ -233,7 +289,7 @@
         function nextQ() {
             currIdx++;
             if(currIdx < 10) { showQ(); document.getElementById('next-btn').disabled = true; }
-            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `Score: ${score} / 10`; }
+            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `Final Score: ${score} / 10`; }
         }
     </script>
 </body>
