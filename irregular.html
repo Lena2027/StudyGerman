@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>불규칙 동사 Master - Deutsch Lernen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; color: #333; }
+        .serif-font { font-family: 'Merriweather', serif; }
+        .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
+        
+        header { position: sticky; top: 0; z-index: 1000; background: white; width: 100%; border-bottom: 1px solid #f0f0f0; }
+        .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
+        .nav-link:hover { color: #d00; }
+        .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
+
+        .side-nav { position: fixed; left: 40px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 50; }
+        .side-btn { background: white; border: 2px solid #000; padding: 25px 15px; border-radius: 20px; font-size: 14px; font-weight: 900; color: #000; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; width: 160px; cursor: pointer; line-height: 1.4; }
+        .side-btn:hover { background: #d00; color: #fff; border-color: #d00; transform: scale(1.05) translateX(5px); }
+
+        .word-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        @media (min-width: 768px) { .word-grid { grid-template-columns: repeat(3, 1fr); } } 
+        @media (min-width: 1200px) { .word-grid { grid-template-columns: repeat(5, 1fr); } }
+
+        .word-card { background: white; border-radius: 1.2rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; cursor: pointer; text-align: center; position: relative; display: flex; flex-direction: column; justify-content: center; min-height: 120px; }
+        .word-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .word-card .verb { font-size: 1.1rem; font-weight: 800; color: #111; margin-bottom: 6px; }
+        .word-card .meaning { font-size: 0.75rem; color: #999; font-weight: 600; }
+        .helper-text { font-size: 9px; color: #e5e7eb; font-weight: 900; position: absolute; top: 8px; right: 10px; }
+
+        #next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
+        #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
+
+        #word-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
+        .modal-content { background: white; width: 100%; max-width: 600px; border-radius: 40px; padding: 50px 30px; position: relative; text-align: center; }
+        
+        .conj-table { width: 100%; margin-top: 20px; margin-bottom: 20px; font-size: 0.9rem; text-align: left; }
+        .conj-table th { color: #999; font-weight: normal; padding-bottom: 5px; border-bottom: 1px solid #eee; }
+        .conj-table td { font-weight: bold; padding: 8px 0; color: #333; }
+        
+        @media (max-width: 1450px) { .side-nav { display: none; } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <div class="side-nav">
+        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn">⚡ 불규칙 동사<br>전체 리스트</div>
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 3단 변화<br>실전 퀴즈</div>
+    </div>
+
+    <header>
+        <div class="german-line"></div>
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
+                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
+                <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
+            </div>
+            <nav class="flex flex-wrap justify-center gap-6 text-sm">
+                <a href="index.html" class="nav-link">Alle</a>
+                <a href="a1.html" class="nav-link">A1</a>
+                <a href="grammatik.html" class="nav-link active">Grammatik</a>
+                <a href="notification.html" class="nav-link">Notification</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12 flex-grow">
+        <div id="list-start" class="pt-10">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-black serif-font mb-2 tracking-tighter">Unregelmäßige Verben</h2>
+                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4 underline">클릭하여 3단 변화(현재-과거-완료)를 확인하세요</p>
+            </div>
+            <div class="word-grid" id="irr-list"></div>
+        </div>
+
+        <section id="quiz-start" class="mt-40 border-t-4 border-black pt-20 mb-32 max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-black serif-font mb-2">Verb Quiz</h3>
+                <p class="text-gray-500 font-medium italic">동사의 과거완료형(Partizip II)을 맞혀보세요.</p>
+            </div>
+            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden" id="quiz-box">
+                <div id="q-init" class="p-20 text-center">
+                    <button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl shadow-xl hover:bg-red-600 transition-all text-lg cursor-pointer">퀴즈 시작</button>
+                </div>
+                <div id="q-play" class="p-12 hidden text-center">
+                    <div id="q-status" class="text-xs font-black text-purple-600 mb-6 uppercase tracking-widest"></div>
+                    <div class="text-sm text-gray-400 mb-4 italic font-bold" id="q-meaning-hint"></div>
+                    <h4 id="q-text" class="text-3xl font-bold mb-10 serif-font leading-snug"></h4>
+                    <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl transition-all" disabled>다음 문제</button>
+                </div>
+                <div id="q-result" class="p-16 text-center hidden">
+                    <h4 class="text-6xl font-black mb-6 serif-font" id="score-text"></h4>
+                    <button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold cursor-pointer">다시 도전</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="word-modal" onclick="closeWordModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="material-symbols-outlined absolute top-6 right-6 cursor-pointer text-gray-300 hover:text-black" onclick="closeWordModal()">close</span>
+            <div class="text-purple-600 font-black text-[10px] tracking-widest mb-2 uppercase">IRREGULAR VERB</div>
+            <div id="modal-word" class="text-5xl font-black serif-font mb-2"></div>
+            <div id="modal-meaning" class="text-gray-400 font-bold text-lg mb-8"></div>
+            
+            <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+                <table class="conj-table">
+                    <thead>
+                        <tr>
+                            <th>Präsens (3.Pers)</th>
+                            <th>Präteritum (3.Pers)</th>
+                            <th>Perfekt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="modal-p1" class="text-lg"></td>
+                            <td id="modal-p2" class="text-lg"></td>
+                            <td id="modal-p3" class="text-lg text-purple-700"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="modal-sentence" class="text-xl font-bold text-gray-800 leading-tight italic"></div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-100 py-12 text-center mt-20">
+        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN · IRREGULAR VERBS</p>
+    </footer>
+
+    <script>
+        // 사장님, 파일의 데이터를 기반으로 오류 수정 및 예문 추가 완료했습니다.
+        const irrData = [
+            {id:1, v:"bergen", k:"구조하다", p1:"birgt", p2:"barg", p3:"hat geborgen", s:"Die Bergwacht birgt den Verletzten."},
+            {id:2, v:"sich besinnen", k:"숙고하다", p1:"besinnt sich", p2:"besann sich", p3:"hat sich besonnen", s:"Er besinnt sich auf seine Stärken."},
+            {id:3, v:"betrügen", k:"속이다", p1:"betrügt", p2:"betrog", p3:"hat betrogen", s:"Er hat mich beim Spiel betrogen."},
+            {id:4, v:"beweisen", k:"증명하다", p1:"beweist", p2:"bewies", p3:"hat bewiesen", s:"Kannst du das beweisen?"},
+            {id:5, v:"fliehen", k:"도망치다", p1:"flieht", p2:"floh", p3:"ist geflohen", s:"Der Dieb ist vor der Polizei geflohen."},
+            {id:6, v:"frieren", k:"얼다/춥다", p1:"friert", p2:"fror", p3:"hat gefroren", s:"Es hat heute Nacht gefroren."},
+            {id:7, v:"gelingen", k:"성공하다", p1:"gelingt", p2:"gelang", p3:"ist gelungen", s:"Der Kuchen ist mir gut gelungen."},
+            {id:8, v:"gelten", k:"유효하다", p1:"gilt", p2:"galt", p3:"hat gegolten", s:"Das Ticket gilt nicht mehr."},
+            {id:9, v:"geschehen", k:"일어나다", p1:"geschieht", p2:"geschah", p3:"ist geschehen", s:"Was ist gestern geschehen?"},
+            {id:10, v:"kriechen", k:"기어가다", p1:"kriecht", p2:"kroch", p3:"ist gekrochen", s:"Die Schlange kroch unter den Stein."},
+            {id:11, v:"leiden", k:"고통받다", p1:"leidet", p2:"litt", p3:"hat gelitten", s:"Er litt an einer schweren Krankheit."},
+            {id:12, v:"meiden", k:"피하다", p1:"meidet", p2:"mied", p3:"hat gemieden", s:"Er mied den Kontakt zu ihr."},
+            {id:13, v:"reiben", k:"문지르다", p1:"reibt", p2:"rieb", p3:"hat gerieben", s:"Sie rieb sich die Augen."},
+            {id:14, v:"reißen", k:"찢다", p1:"reißt", p2:"riss", p3:"hat gerissen", s:"Das Seil ist gerissen."},
+            {id:15, v:"ringen", k:"애쓰다", p1:"ringt", p2:"rang", p3:"hat gerungen", s:"Er rang nach Worten."},
+            {id:16, v:"schlagen", k:"때리다", p1:"schlägt", p2:"schlug", p3:"hat geschlagen", s:"Die Uhr hat zwölf geschlagen."},
+            {id:17, v:"schleichen", k:"살금살금 걷다", p1:"schleicht", p2:"schlich", p3:"ist geschlichen", s:"Die Katze schlich durch den Garten."},
+            {id:18, v:"schleifen", k:"연마하다", p1:"schleift", p2:"schliff", p3:"hat geschliffen", s:"Er schliff das Messer."},
+            {id:19, v:"schließen", k:"닫다", p1:"schließt", p2:"schloss", p3:"hat geschlossen", s:"Bitte schließen Sie die Tür."},
+            {id:20, v:"schlingen", k:"감다/삼키다", p1:"schlingt", p2:"schlang", p3:"hat geschlungen", s:"Er schlang die Arme um sie."},
+            {id:21, v:"schmeißen", k:"던지다", p1:"schmeißt", p2:"schmiss", p3:"hat geschmissen", s:"Er schmiss den Stein ins Wasser."},
+            {id:22, v:"schneiden", k:"자르다", p1:"schneidet", p2:"schnitt", p3:"hat geschnitten", s:"Ich habe mir in den Finger geschnitten."},
+            {id:23, v:"schreiben", k:"쓰다", p1:"schreibt", p2:"schrieb", p3:"hat geschrieben", s:"Hast du den Brief geschrieben?"},
+            {id:24, v:"schweigen", k:"침묵하다", p1:"schweigt", p2:"schwieg", p3:"hat geschwiegen", s:"Er schwieg zu den Vorwürfen."},
+            {id:25, v:"schwellen", k:"부풀다", p1:"schwillt", p2:"schwoll", p3:"ist geschwollen", s:"Sein Fuß ist stark geschwollen."},
+            {id:26, v:"schwimmen", k:"수영하다", p1:"schwimmt", p2:"schwamm", p3:"ist geschwommen", s:"Wir sind im See geschwommen."},
+            {id:27, v:"schwingen", k:"흔들다", p1:"schwingt", p2:"schwang", p3:"hat geschwungen", s:"Der Affe schwang sich von Baum zu Baum."},
+            {id:28, v:"schwören", k:"맹세하다", p1:"schwört", p2:"schwor", p3:"hat geschworen", s:"Er schwor, die Wahrheit zu sagen."},
+            {id:29, v:"sehen", k:"보다", p1:"sieht", p2:"sah", p3:"hat gesehen", s:"Hast du den Film gesehen?"},
+            {id:30, v:"sein", k:"~이다", p1:"ist", p2:"war", p3:"ist gewesen", s:"Ich bin in Berlin gewesen."}
+        ];
+
+        // 데이터 렌더링
+        const container = document.getElementById('irr-list');
+        irrData.forEach(item => {
+            container.innerHTML += `
+                <div class="word-card group" onclick="openWordModal('${item.id}')">
+                    <div class="helper-text">Irregular</div>
+                    <div class="verb group-hover:text-purple-600 transition-colors">${item.v}</div>
+                    <div class="meaning">${item.k}</div>
+                </div>
+            `;
+        });
+
+        // 모달 함수
+        function openWordModal(id) {
+            const item = irrData.find(d => d.id == id);
+            document.getElementById('modal-word').innerText = item.v;
+            document.getElementById('modal-meaning').innerText = item.k;
+            document.getElementById('modal-p1').innerText = item.p1;
+            document.getElementById('modal-p2').innerText = item.p2;
+            document.getElementById('modal-p3').innerText = item.p3;
+            document.getElementById('modal-sentence').innerText = `"${item.s}"`;
+            document.getElementById('word-modal').style.display = 'flex';
+        }
+        function closeWordModal() { document.getElementById('word-modal').style.display='none'; }
+
+        // 퀴즈 로직 (과거분사 Partizip II 맞히기)
+        let pool = []; let currIdx = 0; let score = 0;
+        function startQuiz() {
+            pool = [...irrData].sort(() => 0.5 - Math.random()).slice(0, 10);
+            document.getElementById('q-init').classList.add('hidden');
+            document.getElementById('q-play').classList.remove('hidden');
+            showQ();
+        }
+        function showQ() {
+            const item = pool[currIdx];
+            document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
+            document.getElementById('q-meaning-hint').innerText = `뜻: ${item.k}`;
+            document.getElementById('q-text').innerText = `${item.v} → (Perfekt)?`;
+            
+            const optsDiv = document.getElementById('q-options'); optsDiv.innerHTML = '';
+            
+            // 정답 (hat/ist 포함)
+            let choices = [item.p3];
+            while(choices.length < 4) {
+                let rando = irrData[Math.floor(Math.random()*irrData.length)].p3;
+                if(!choices.includes(rando)) choices.push(rando);
+            }
+            choices.sort(() => 0.5 - Math.random()).forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer bg-white";
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    document.querySelectorAll('#q-options button').forEach(b => b.disabled = true);
+                    if(choice === item.p3) { btn.classList.add('bg-green-500', 'text-white'); score++; }
+                    else { btn.classList.add('bg-red-500', 'text-white'); }
+                    document.getElementById('next-btn').disabled = false;
+                };
+                optsDiv.appendChild(btn);
+            });
+        }
+        function nextQ() {
+            currIdx++;
+            if(currIdx < 10) { showQ(); document.getElementById('next-btn').disabled = true; }
+            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `Score: ${score} / 10`; }
+        }
+    </script>
+</body>
+</html>
