@@ -1,247 +1,458 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>접속사 Master - Deutsch Lernen</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wichtige Konjunktionen - Deutsch Lernen</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; color: #333; }
-        .serif-font { font-family: 'Merriweather', serif; }
-        .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
-        
-        /* GNB 고정 */
-        header { position: sticky; top: 0; z-index: 1000; background: white; width: 100%; border-bottom: 1px solid #f0f0f0; }
-        .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
-        .nav-link:hover { color: #d00; }
-        .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
-
-        /* 좌측 대형 퀵 메뉴 */
-        .side-nav { position: fixed; left: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 50; }
-        .side-btn { 
-            background: white; border: 2px solid #000; padding: 25px 15px; border-radius: 20px; 
-            font-size: 14px; font-weight: 900; color: #000; text-align: center; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; 
-            width: 160px; cursor: pointer; line-height: 1.4; 
-        }
-        .side-btn:hover { background: #d00; color: #fff; border-color: #d00; transform: scale(1.05) translateX(5px); }
-
-        /* 가로 5개 그리드 */
-        .word-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        @media (min-width: 768px) { .word-grid { grid-template-columns: repeat(3, 1fr); } } 
-        @media (min-width: 1200px) { .word-grid { grid-template-columns: repeat(5, 1fr); } }
-
-        .word-card { 
-            background: white; border-radius: 1.2rem; padding: 1.5rem; border: 1px solid #eee; 
-            transition: all 0.2s; cursor: pointer; text-align: center; position: relative;
-            display: flex; flex-direction: column; justify-content: center; min-height: 120px;
-        }
-        .word-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .word-card .verb { font-size: 0.95rem; font-weight: 800; color: #111; line-height: 1.2; margin-bottom: 6px; }
-        .word-card .meaning { font-size: 0.75rem; color: #999; font-weight: 600; }
-        
-        /* 옅은 어순 라벨 표시 */
-        .type-label { font-size: 9px; color: #e5e7eb; font-weight: 900; position: absolute; top: 8px; right: 10px; }
-        .word-card:hover .type-label { color: #ffcccc; }
-
-        /* 퀴즈 버튼 커서 */
-        #next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
-        #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
-
-        /* 확대 모달 */
-        #word-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; width: 100%; max-width: 550px; border-radius: 40px; padding: 60px 40px; position: relative; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
-
-        @media (max-width: 1450px) { .side-nav { display: none; } }
-    </style>
-</head>
-<body class="flex flex-col min-h-screen">
-
-    <div class="side-nav">
-        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn">🔗 접속사<br>전체 리스트</div>
-        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 실전 퀴즈<br>(어순/의미)</div>
-    </div>
-
-    <header>
-        <div class="german-line"></div>
-        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
-                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded shadow-sm">D</div>
-                <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
-            </div>
-            <nav class="flex flex-wrap justify-center gap-6 text-sm">
-                <a href="index.html" class="nav-link">Alle</a>
-                <a href="a1.html" class="nav-link">A1</a>
-                <a href="grammatik.html" class="nav-link active">Grammatik</a>
-                <a href="notification.html" class="nav-link">Notification</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-4 py-12 flex-grow">
-        <div id="list-start" class="pt-10">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-black serif-font mb-2">Konjunktionen Master</h2>
-                <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-4 underline">모든 접속사와 문장 구조를 한눈에 확인하세요</p>
-                <div class="flex flex-wrap justify-center gap-2 text-[9px] font-bold text-gray-300">
-                    <span class="border px-2 py-1 rounded">Pos 0 (어순그대로)</span>
-                    <span class="border px-2 py-1 rounded">End (동사 맨 뒤)</span>
-                    <span class="border px-2 py-1 rounded">Inv (동사+주어 도치)</span>
-                    <span class="border px-2 py-1 rounded">Pair (상관접속사)</span>
-                </div>
-            </div>
-            <div class="word-grid" id="conj-list-container"></div>
-        </div>
-
-        <section id="quiz-start" class="mt-40 border-t-4 border-black pt-20 mb-32 max-w-3xl mx-auto">
-            <div class="text-center mb-12">
-                <h3 class="text-4xl font-black serif-font mb-2">Conjunction Quiz</h3>
-                <p class="text-gray-500 font-medium italic">문맥과 어순에 알맞은 접속사를 선택하세요.</p>
-            </div>
-            <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden" id="quiz-box">
-                <div id="q-init" class="p-20 text-center">
-                    <button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl shadow-xl hover:bg-red-600 transition-all text-lg cursor-pointer">퀴즈 시작</button>
-                </div>
-                <div id="q-play" class="p-12 hidden text-center">
-                    <div id="q-status" class="text-xs font-black text-red-600 mb-6 uppercase tracking-widest"></div>
-                    <div class="text-sm text-gray-400 mb-4 italic font-bold" id="q-meaning-hint"></div>
-                    <h4 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 serif-font leading-snug"></h4>
-                    <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl transition-all" disabled>다음 문제</button>
-                </div>
-                <div id="q-result" class="p-16 text-center hidden">
-                    <h4 class="text-6xl font-black mb-6 serif-font" id="score-text"></h4>
-                    <button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold cursor-pointer">다시 도전하기</button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="word-modal" onclick="closeWordModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="material-symbols-outlined absolute top-6 right-6 cursor-pointer text-gray-300 hover:text-black" onclick="closeWordModal()">close</span>
-            <div id="modal-type" class="text-red-600 font-black text-[10px] tracking-widest mb-2 uppercase"></div>
-            <div id="modal-word" class="text-4xl font-black serif-font mb-8"></div>
-            <div id="modal-sentence" class="text-2xl font-bold text-indigo-600 mb-6 leading-tight"></div>
-            <div id="modal-meaning" class="text-gray-400 font-bold text-lg"></div>
-        </div>
-    </div>
-
-    <footer class="bg-white border-t border-gray-100 py-12 text-center mt-20">
-        <p class="text-[10px] text-gray-300 font-black uppercase tracking-[0.3em]">© 2024 DEUTSCH LERNEN · ALL CONJUNCTIONS INCLUDED</p>
-    </footer>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <script>
-        // 업로드된 문서의 모든 접속사 데이터 정리
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a',
+                        },
+                        // Conjunction Theme (Orange)
+                        conj: { 50: '#fff7ed', 100: '#ffedd5', 500: '#f97316', 600: '#ea580c', 900: '#7c2d12' },
+                        
+                        // Grammar Types
+                        type0: { 50: '#ecfdf5', 600: '#059669' }, // Green (ADUSO - Pos 0)
+                        typeEnd: { 50: '#fef2f2', 600: '#dc2626' }, // Red (Nebensatz - End)
+                        type1: { 50: '#eff6ff', 600: '#2563eb' }, // Blue (Adverb - Pos 1)
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+        
+        .nav-link { 
+            position: relative; color: #475569; font-weight: 500; transition: all 0.2s;
+        }
+        .nav-link:hover, .nav-link.active { color: #2563eb; }
+        .nav-link.active::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background-color: #2563eb; border-radius: 2px;
+        }
+
+        /* 퀵 내비게이션 */
+        .side-nav {
+            position: fixed; left: 2rem; top: 50%; transform: translateY(-50%);
+            display: flex; flex-direction: column; gap: 1.5rem; z-index: 40;
+        }
+        .side-btn {
+            position: relative; width: 3.5rem; height: 3.5rem;
+            background: white; border: 1px solid #e2e8f0; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #64748b; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .side-btn:hover {
+            background: #ea580c; /* Orange for Conjunctions */
+            color: white; border-color: #ea580c;
+            transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(234, 88, 12, 0.4);
+        }
+        .side-tooltip {
+            position: absolute; left: 100%; top: 50%;
+            transform: translateY(-50%) translateX(10px);
+            background: #1e293b; color: white; padding: 0.5rem 1rem;
+            border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600;
+            white-space: nowrap; opacity: 0; visibility: hidden;
+            transition: all 0.2s ease; pointer-events: none;
+        }
+        .side-tooltip::before {
+            content: ''; position: absolute; left: -4px; top: 50%;
+            transform: translateY(-50%); border-width: 4px; border-style: solid;
+            border-color: transparent #1e293b transparent transparent;
+        }
+        .side-btn:hover .side-tooltip { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(15px); }
+
+        /* Filter Button Active State */
+        .filter-btn.active {
+            background-color: #1e293b; color: white; border-color: #1e293b;
+        }
+
+        @media (max-width: 1350px) { .side-nav { display: none; } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-conj-100 selection:text-conj-900">
+
+    <div class="side-nav">
+        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-list-dashes text-xl"></i>
+            <div class="side-tooltip">접속사 리스트</div>
+        </div>
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-pencil-simple text-xl"></i>
+            <div class="side-tooltip">빈칸 퀴즈</div>
+        </div>
+        <div onclick="window.scrollTo(0,0)" class="side-btn group">
+            <i class="ph-bold ph-arrow-up text-xl"></i>
+            <div class="side-tooltip">맨 위로</div>
+        </div>
+    </div>
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="location.href='index.html'">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                        <span class="font-bold text-lg">D</span>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl tracking-tight text-slate-900 leading-none">Deutsch Lernen</h1>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8 text-sm">
+                    <a href="index.html" class="nav-link">Alle</a>
+                    <a href="a1.html" class="nav-link">A1</a>
+                    <a href="a2.html" class="nav-link">A2</a>
+                    <a href="grammatik.html" class="nav-link active">Grammatik</a> 
+                    <a href="notification.html" class="nav-link">Notification</a>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div id="list-start" class="scroll-mt-32">
+                <div class="text-center mb-10">
+                    <span class="inline-block px-3 py-1 bg-conj-50 text-conj-600 rounded-full text-xs font-bold mb-3 border border-conj-100">
+                        <i class="ph-bold ph-git-merge"></i> Satzverbindung
+                    </span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Wichtige Konjunktionen</h2>
+                    <p class="text-slate-500 mb-8 max-w-2xl mx-auto">
+                        문장을 연결하는 핵심, 접속사입니다. 동사의 위치 변화에 주목하세요.<br>
+                        <span class="text-xs text-slate-400 mt-2 block">* 필터를 눌러 어순 유형별로 학습할 수 있습니다.</span>
+                    </p>
+
+                    <div class="flex flex-wrap justify-center gap-2 mb-10">
+                        <button onclick="filterConj('All')" class="filter-btn active px-5 py-2 rounded-full border border-slate-200 text-sm font-bold text-slate-600 bg-white hover:bg-slate-50 transition-all shadow-sm">Alle</button>
+                        <button onclick="filterConj('0')" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-sm font-bold text-slate-600 bg-white hover:bg-green-50 hover:text-green-600 transition-all shadow-sm flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-green-500"></div> Pos. 0 (ADUSO)</button>
+                        <button onclick="filterConj('E')" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-sm font-bold text-slate-600 bg-white hover:bg-red-50 hover:text-red-600 transition-all shadow-sm flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-red-500"></div> Verb am Ende</button>
+                        <button onclick="filterConj('1')" class="filter-btn px-5 py-2 rounded-full border border-slate-200 text-sm font-bold text-slate-600 bg-white hover:bg-blue-50 hover:text-blue-600 transition-all shadow-sm flex items-center gap-2"><div class="w-2 h-2 rounded-full bg-blue-500"></div> Pos. 1 (Inversion)</button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="word-list-container">
+                    </div>
+            </div>
+
+            <section id="quiz-start" class="mt-40 mb-20 scroll-mt-32">
+                <div class="max-w-3xl mx-auto">
+                    <div class="text-center mb-10">
+                        <span class="text-conj-600 font-bold tracking-widest text-xs uppercase mb-2 block">Challenge</span>
+                        <h3 class="text-3xl font-bold text-slate-900">Konjunktionen Quiz</h3>
+                        <p class="text-slate-500 mt-2">빈칸에 들어갈 알맞은 접속사를 고르세요.</p>
+                    </div>
+
+                    <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden relative">
+                        <div class="absolute -top-20 -right-20 w-64 h-64 bg-conj-50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+                        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-yellow-50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+
+                        <div id="q-init" class="p-16 text-center relative z-10">
+                            <div class="w-20 h-20 bg-conj-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-conj-500">
+                                <i class="ph-duotone ph-lego text-4xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-6">준비 되셨나요?</h4>
+                            <button onclick="startQuiz()" class="bg-conj-600 hover:bg-conj-500 text-white font-bold px-10 py-4 rounded-xl shadow-lg shadow-conj-500/30 transition-all transform hover:-translate-y-1">
+                                퀴즈 시작하기
+                            </button>
+                        </div>
+
+                        <div id="q-play" class="p-8 md:p-12 hidden relative z-10">
+                            <div class="flex justify-between items-center mb-8">
+                                <div id="q-status" class="text-xs font-bold text-conj-600 bg-conj-50 px-3 py-1 rounded-full border border-conj-100">
+                                    Question 1 / 10
+                                </div>
+                                <div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div id="q-progress-bar" class="h-full bg-conj-500 w-0 transition-all duration-300"></div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-8">
+                                <div class="text-sm text-slate-400 font-medium mb-2" id="q-meaning-hint"></div>
+                                <h4 id="q-text" class="text-2xl md:text-3xl font-bold text-slate-800 leading-snug"></h4>
+                            </div>
+
+                            <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8"></div>
+
+                            <button id="next-btn" onclick="nextQ()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-800 transition-all" disabled>
+                                다음 문제 <i class="ph-bold ph-arrow-right ml-2 inline-block align-middle"></i>
+                            </button>
+                        </div>
+
+                        <div id="q-result" class="p-16 text-center hidden relative z-10">
+                            <div class="w-24 h-24 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6 text-yellow-500 text-5xl">
+                                <i class="ph-fill ph-trophy"></i>
+                            </div>
+                            <h4 class="text-lg font-medium text-slate-500 mb-2">당신의 점수는?</h4>
+                            <h4 class="text-5xl font-black text-slate-900 mb-8 tracking-tight" id="score-text"></h4>
+                            <button onclick="location.reload()" class="bg-white border-2 border-slate-200 text-slate-700 hover:border-conj-500 hover:text-conj-600 px-8 py-3 rounded-xl font-bold transition-all">
+                                <i class="ph-bold ph-arrows-clockwise mr-2"></i> 다시 도전
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <div class="w-6 h-6 rounded bg-slate-900 flex items-center justify-center text-white text-xs">D</div>
+                <span class="font-semibold text-slate-700">Deutsch Lernen</span>
+            </div>
+            <p>© 2026 Deutsch Lernen. 50 Important Conjunctions.</p>
+        </div>
+    </footer>
+
+    <div id="word-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" onclick="closeWordModal()">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-8 md:p-10 transform transition-all scale-100" onclick="event.stopPropagation()">
+            <button class="absolute top-6 right-6 text-slate-300 hover:text-slate-600 transition-colors" onclick="closeWordModal()">
+                <i class="ph-bold ph-x text-2xl"></i>
+            </button>
+            <div id="modal-badge" class="inline-block px-3 py-1 rounded-lg text-xs font-bold mb-4 uppercase tracking-wider border"></div>
+            <h3 id="modal-word" class="text-4xl font-bold text-slate-900 mb-2"></h3>
+            <p id="modal-meaning" class="text-lg text-slate-500 font-medium mb-8"></p>
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                <p id="modal-sentence" class="text-xl font-medium text-slate-700 leading-relaxed"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* 데이터: 접속사 50개 (c:단어, t:유형(0/E/1), m:뜻, s:예문) */
         const conjData = [
-            // 0순위 (ADUSO)
-            {id:1, v:"und", s:"Ich trinke Tee und ich esse Brot.", k:"그리고", t:"Pos 0"},
-            {id:2, v:"aber", s:"Es ist teuer, aber es ist gut.", k:"하지만", t:"Pos 0"},
-            {id:3, v:"denn", s:"Ich schlafe, denn ich bin müde.", k:"왜냐하면", t:"Pos 0"},
-            {id:4, v:"oder", s:"Gehen wir ins Kino oder bleiben wir?", k:"또는", t:"Pos 0"},
-            {id:5, v:"sondern", s:"Nicht ich, sondern er hat das getan.", k:"(A가 아니라) ~이다", t:"Pos 0"},
-            // 종속 접속사 (동사 끝)
-            {id:6, v:"weil", s:"Ich bleibe zu Hause, weil es regnet.", k:"~때문에", t:"End"},
-            {id:7, v:"dass", s:"Ich glaube, dass er kommt.", k:"~라는 것", t:"End"},
-            {id:8, v:"obwohl", s:"Er arbeitet, obwohl er krank ist.", k:"비록 ~일지라도", t:"End"},
-            {id:9, v:"wenn", s:"Wenn ich Zeit habe, komme ich.", k:"만약 ~한다면 / ~할 때", t:"End"},
-            {id:10, v:"als", s:"Als ich klein war, lebte ich hier.", k:"(과거)~했을 때", t:"End"},
-            {id:11, v:"damit", s:"Ich lerne, damit ich bestehe.", k:"~하도록 (목적)", t:"End"},
-            {id:12, v:"während", s:"Während er las, schlief ich.", k:"~하는 동안", t:"End"},
-            {id:13, v:"da", s:"Da ich müde bin, gehe ich.", k:"~이므로", t:"End"},
-            {id:14, v:"bevor", s:"Wasch dich, bevor du isst.", k:"~하기 전에", t:"End"},
-            {id:15, v:"nachdem", s:"Nachdem er aß, ging er.", k:"~한 후에", t:"End"},
-            {id:16, v:"ob", s:"Ich weiß nicht, ob er kommt.", k:"~인지 아닌지", t:"End"},
-            {id:17, v:"seit", s:"Seit er hier ist, ist es laut.", k:"~한 이래로", t:"End"},
-            {id:18, v:"bis", s:"Warte, bis ich fertig bin.", k:"~할 때까지", t:"End"},
-            {id:19, v:"sodass", s:"Es schneit, sodass wir bleiben.", k:"그래서 그 결과", t:"End"},
-            // 접속 부사 (도치)
-            {id:20, v:"deshalb", s:"Es regnet, deshalb bleiben wir.", k:"그래서", t:"Inv"},
-            {id:21, v:"trotzdem", s:"Er ist krank, trotzdem arbeitet er.", k:"그럼에도 불구하고", t:"Inv"},
-            {id:22, v:"dann", s:"Zuerst essen wir, dann gehen wir.", k:"그러고 나서", t:"Inv"},
-            {id:23, v:"außerdem", s:"Er ist klug, außerdem ist er nett.", k:"게다가", t:"Inv"},
-            {id:24, v:"sonst", s:"Beeil dich, sonst kommen wir spät.", k:"그렇지 않으면", t:"Inv"},
-            {id:25, v:"다음에", s:"Erst lerne ich, danach schlafe ich.", k:"그 뒤에", t:"Inv"},
-            {id:26, v:"결국", s:"Schließlich haben wir gewonnen.", k:"결국", t:"Inv"},
-            {id:27, v:"반면에", s:"Er ist reich, dagegen bin ich arm.", k:"반면에", t:"Inv"},
-            // 상관 접속사 (짝꿍)
-            {id:28, v:"sowohl ... als auch", s:"Er spricht sowohl Deutsch als auch Englisch.", k:"A뿐만 아니라 B도", t:"Pair"},
-            {id:29, v:"entweder ... oder", s:"Entweder du kommst oder ich gehe.", k:"A거나 B거나", t:"Pair"},
-            {id:30, v:"weder ... noch", s:"Er trinkt weder Tee noch Kaffee.", k:"A도 B도 아닌", t:"Pair"},
-            {id:31, v:"nicht nur ... sondern auch", s:"Er ist nicht nur nett, sondern auch klug.", k:"A일 뿐 아니라 B이기도 한", t:"Pair"},
-            {id:32, v:"zwar ... aber", s:"Er ist zwar alt, aber fit.", k:"비록 A지만 B하다", t:"Pair"},
-            {id:33, v:"je ... desto", s:"Je mehr ich lerne, desto besser wird es.", k:"~할수록 더 ~하다", t:"Pair"}
+            // [Type 0] ADUSO (Position 0 - Normal Word Order)
+            {c:"aber", t:"0", m:"그러나/하지만", s:"Er ist krank, aber er geht zur Arbeit."},
+            {c:"denn", t:"0", m:"왜냐하면", s:"Ich gehe ins Bett, denn ich bin müde."},
+            {c:"und", t:"0", m:"그리고", s:"Ich trinke Kaffee und sie trinkt Tee."},
+            {c:"sondern", t:"0", m:"(A가 아니라) B이다", s:"Das ist kein Auto, sondern ein Fahrrad."},
+            {c:"oder", t:"0", m:"또는", s:"Möchtest du Tee oder Kaffee?"},
+            {c:"beziehungsweise", t:"0", m:"혹은/각각", s:"Ich fahre nach Berlin beziehungsweise München."},
+            {c:"doch", t:"0", m:"그렇지만 (강조)", s:"Er wollte kommen, doch er hatte keine Zeit."},
+
+            // [Type E] Nebensatz (Verb am Ende)
+            {c:"als", t:"E", m:"~했을 때 (과거 1회)", s:"Als ich Kind war, spielte ich viel."},
+            {c:"bevor", t:"E", m:"~하기 전에", s:"Bevor ich esse, wasche ich meine Hände."},
+            {c:"bis", t:"E", m:"~할 때까지", s:"Warte, bis ich fertig bin."},
+            {c:"da", t:"E", m:"~이므로 (이유)", s:"Da das Wetter gut ist, gehen wir raus."},
+            {c:"damit", t:"E", m:"~하기 위해", s:"Ich lerne viel, damit ich die Prüfung bestehe."},
+            {c:"dass", t:"E", m:"~라는 것", s:"Ich weiß, dass du recht hast."},
+            {c:"ehe", t:"E", m:"~하기 전에", s:"Ruf mich an, ehe du gehst."},
+            {c:"falls", t:"E", m:"만약 ~라면", s:"Falls es regnet, bleiben wir hier."},
+            {c:"indem", t:"E", m:"~함으로써", s:"Man lernt, indem man übt."},
+            {c:"nachdem", t:"E", m:"~한 후에", s:"Nachdem er gegessen hatte, ging er schlafen."},
+            {c:"ob", t:"E", m:"~인지 아닌지", s:"Ich weiß nicht, ob er kommt."},
+            {c:"obwohl", t:"E", m:"비록 ~일지라도", s:"Obwohl er krank ist, arbeitet er."},
+            {c:"seit", t:"E", m:"~한 이래로", s:"Seit er hier wohnt, ist er glücklich."},
+            {c:"seitdem", t:"E", m:"~한 이래로", s:"Seitdem sie weg ist, ist es ruhig."},
+            {c:"sobald", t:"E", m:"~하자마자", s:"Sobald ich zu Hause bin, rufe ich dich an."},
+            {c:"sofern", t:"E", m:"~하는 한", s:"Wir kommen, sofern wir Zeit haben."},
+            {c:"solange", t:"E", m:"~하는 동안", s:"Solange du hier bist, bin ich froh."},
+            {c:"während", t:"E", m:"~하는 동안/반면에", s:"Während ich lese, hört er Musik."},
+            {c:"weil", t:"E", m:"왜냐하면", s:"Ich lerne Deutsch, weil es wichtig ist."},
+            {c:"wenn", t:"E", m:"만약/w~할 때", s:"Wenn ich Zeit habe, komme ich."},
+            {c:"wie", t:"E", m:"~처럼/~같이", s:"Er macht es, wie er will."},
+            {c:"wo", t:"E", m:"어디에(서)", s:"Ich weiß nicht, wo er ist."},
+
+            // [Type 1] Adverbien (Position 1 - Inversion: Verb comes immediately after)
+            {c:"allerdings", t:"1", m:"물론/하지만", s:"Das ist teuer, allerdings ist es gut."},
+            {c:"also", t:"1", m:"그러므로/즉", s:"Ich habe Zeit, also helfe ich dir."},
+            {c:"andererseits", t:"1", m:"다른 한편으로는", s:"Einerseits will ich, andererseits habe ich Angst."},
+            {c:"anschließend", t:"1", m:"그 후에/이어서", s:"Wir essen, anschließend gehen wir ins Kino."},
+            {c:"außerdem", t:"1", m:"게다가", s:"Das Auto ist schön, außerdem ist es billig."},
+            {c:"dabei", t:"1", m:"그와 동시에/그럼에도", s:"Er lachte, dabei war es ernst."},
+            {c:"dadurch", t:"1", m:"그것을 통해", s:"Er übte viel, dadurch wurde er besser."},
+            {c:"dafür", t:"1", m:"그 대신/그에 대해", s:"Ich habe kein Geld, dafür habe ich Zeit."},
+            {c:"dagegen", t:"1", m:"그에 반해", s:"Ich mag Tee, er dagegen mag Kaffee."},
+            {c:"daher", t:"1", m:"따라서", s:"Es regnete, daher blieben wir zu Hause."},
+            {c:"danach", t:"1", m:"그 후에", s:"Erst arbeiten wir, danach essen wir."},
+            {c:"dann", t:"1", m:"그리고 나서", s:"Ich dusche, dann frühstücke ich."},
+            {c:"darum", t:"1", m:"그래서 (이유)", s:"Ich bin krank, darum komme ich nicht."},
+            {c:"dennoch", t:"1", m:"그럼에도 불구하고", s:"Es war kalt, dennoch gingen sie raus."},
+            {c:"deshalb", t:"1", m:"그 때문에", s:"Ich habe Hunger, deshalb esse ich."},
+            {c:"deswegen", t:"1", m:"그 때문에", s:"Er hat verschlafen, deswegen ist er spät."},
+            {c:"folglich", t:"1", m:"따라서", s:"Er hat nicht gelernt, folglich fiel er durch."},
+            {c:"inzwischen", t:"1", m:"그 사이에", s:"Du kochst, inzwischen decke ich den Tisch."},
+            {c:"jedoch", t:"1", m:"그러나", s:"Er wollte helfen, jedoch hatte er keine Zeit."},
+            {c:"schließlich", t:"1", m:"마침내/결국", s:"Wir warteten lange, schließlich kam er."},
+            {c:"trotzdem", t:"1", m:"그럼에도 불구하고", s:"Es regnet, trotzdem gehe ich joggen."}
         ];
 
-        // 1. 리스트 렌더링
-        const container = document.getElementById('conj-list-container');
-        conjData.forEach(item => {
-            container.innerHTML += `
-                <div class="word-card group" onclick="openWordModal('${item.id}', '${item.v}', '${item.s}', '${item.k}', '${item.t}')">
-                    <div class="type-label">[${item.t}]</div>
-                    <div class="text-[8px] text-gray-200 font-black mb-1 text-left">NO.${item.id}</div>
-                    <div class="verb group-hover:text-red-600 transition-colors">${item.v}</div>
-                    <div class="meaning">${item.k}</div>
-                </div>
-            `;
-        });
+        // 렌더링 로직
+        const container = document.getElementById('word-list-container');
+        
+        function getTypeStyle(t) {
+            switch(t) {
+                case '0': return { text: 'Pos. 0 (ADUSO)', badge: 'bg-green-50 text-green-600 border-green-100', hover: 'group-hover:text-green-600', icon: 'text-green-400' };
+                case 'E': return { text: 'Verb am Ende', badge: 'bg-red-50 text-red-600 border-red-100', hover: 'group-hover:text-red-600', icon: 'text-red-400' };
+                case '1': return { text: 'Pos. 1 (Inversion)', badge: 'bg-blue-50 text-blue-600 border-blue-100', hover: 'group-hover:text-blue-600', icon: 'text-blue-400' };
+                default: return { text: '', badge: '', hover: '', icon: '' };
+            }
+        }
 
-        // 2. 확대 모달
-        function openWordModal(id, v, s, k, t) {
-            let desc = (t==='Pos 0'?"어순 불변":t==='End'?"종속절 (동사 끝)":t==='Inv'?"부사 도치 (동사+주어)":"상관 접속사");
-            document.getElementById('modal-type').innerText = desc;
-            document.getElementById('modal-word').innerText = v;
-            document.getElementById('modal-sentence').innerText = s;
-            document.getElementById('modal-meaning').innerText = k;
-            document.getElementById('word-modal').style.display = 'flex';
+        function renderList(filter) {
+            container.innerHTML = '';
+            
+            // 필터 버튼 스타일 업데이트
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const isActive = (filter === 'All' && btn.innerText === 'Alle') || 
+                                 (filter === '0' && btn.innerText.includes('Pos. 0')) ||
+                                 (filter === 'E' && btn.innerText.includes('Verb am Ende')) ||
+                                 (filter === '1' && btn.innerText.includes('Pos. 1'));
+                                 
+                if(isActive) {
+                    btn.classList.add('active', 'bg-slate-800', 'text-white');
+                    btn.classList.remove('bg-white', 'hover:bg-green-50', 'hover:bg-red-50', 'hover:bg-blue-50');
+                } else {
+                    btn.classList.remove('active', 'bg-slate-800', 'text-white');
+                    btn.classList.add('bg-white');
+                }
+            });
+
+            const filtered = filter === 'All' ? conjData : conjData.filter(d => d.t === filter);
+
+            filtered.forEach((item, index) => {
+                const style = getTypeStyle(item.t);
+                container.innerHTML += `
+                    <div class="group bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between h-40" onclick="openWordModal('${item.c}')">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-bold text-slate-300">NO.${index + 1}</span>
+                            <span class="text-[10px] font-bold px-2 py-1 rounded-md border ${style.badge}">
+                                ${style.text.split(' ')[0]}
+                            </span>
+                        </div>
+                        <div class="text-center">
+                            <div class="font-bold text-slate-800 text-2xl ${style.hover} transition-colors mb-1 leading-tight">${item.c}</div>
+                            <div class="text-xs text-slate-400 font-medium truncate">${item.m}</div>
+                        </div>
+                        <div class="text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                             <i class="ph-bold ph-magnifying-glass-plus ${style.icon}"></i>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterConj(type) {
+            renderList(type);
+        }
+
+        // 초기 실행
+        renderList('All');
+
+        // Modal Logic
+        function openWordModal(word) {
+            const item = conjData.find(d => d.c === word);
+            const style = getTypeStyle(item.t);
+            
+            const badge = document.getElementById('modal-badge');
+            badge.className = `inline-block px-3 py-1 rounded-lg text-xs font-bold mb-4 uppercase tracking-wider border ${style.badge}`;
+            badge.innerText = style.text;
+
+            document.getElementById('modal-word').innerText = item.c;
+            document.getElementById('modal-meaning').innerText = item.m;
+            document.getElementById('modal-sentence').innerText = item.s;
+            
+            document.getElementById('word-modal').classList.remove('hidden');
+            document.getElementById('word-modal').classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
-        function closeWordModal() { document.getElementById('word-modal').style.display='none'; document.body.style.overflow='auto'; }
 
-        // 3. 실전 접속사 퀴즈
+        function closeWordModal() { 
+            document.getElementById('word-modal').classList.add('hidden'); 
+            document.getElementById('word-modal').classList.remove('flex');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Quiz Logic
         let pool = []; let currIdx = 0; let score = 0;
+
         function startQuiz() {
             pool = [...conjData].sort(() => 0.5 - Math.random()).slice(0, 10);
             document.getElementById('q-init').classList.add('hidden');
             document.getElementById('q-play').classList.remove('hidden');
-            showQ();
+            score = 0; currIdx = 0; showQ();
         }
+
         function showQ() {
             const item = pool[currIdx];
             document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
-            document.getElementById('q-meaning-hint').innerText = `해석: ${item.k} (${item.t})`;
-            
-            // 정답 접속사를 빈칸으로 만듦
-            const firstPart = item.v.split(' ')[0];
-            const questionText = item.s.replace(new RegExp(`\\b${firstPart}\\b`, 'i'), "_______");
-            document.getElementById('q-text').innerText = questionText;
+            document.getElementById('q-progress-bar').style.width = `${((currIdx + 1) / 10) * 100}%`;
 
-            const optsDiv = document.getElementById('q-options'); optsDiv.innerHTML = '';
-            let choices = [firstPart];
+            const styleText = getTypeStyle(item.t).text;
+            document.getElementById('q-meaning-hint').innerText = `뜻: ${item.m} (${styleText})`;
+            
+            // 문장에서 접속사만 빈칸으로 (대소문자 무시)
+            const regex = new RegExp(`\\b${item.c}\\b`, 'gi');
+            document.getElementById('q-text').innerText = item.s.replace(regex, "_______");
+            
+            const optsDiv = document.getElementById('q-options'); 
+            optsDiv.innerHTML = '';
+            
+            let choices = [item.c];
             while(choices.length < 4) {
-                let rando = conjData[Math.floor(Math.random()*conjData.length)].v.split(' ')[0];
-                if(!choices.includes(rando)) choices.push(rando);
+                let r = conjData[Math.floor(Math.random()*conjData.length)].c;
+                if(!choices.includes(r)) choices.push(r);
             }
+            
+            const baseBtnClass = "w-full text-left p-5 rounded-xl border-2 border-slate-100 font-bold text-slate-600 bg-white hover:border-conj-500 hover:text-conj-600 hover:bg-conj-50 transition-all cursor-pointer shadow-sm mb-2";
+            const correctBtnClass = "w-full text-left p-5 rounded-xl border-2 border-green-500 bg-green-50 text-green-700 font-bold shadow-md mb-2";
+            const wrongBtnClass = "w-full text-left p-5 rounded-xl border-2 border-red-500 bg-red-50 text-red-700 font-bold shadow-md mb-2";
+
             choices.sort(() => 0.5 - Math.random()).forEach(choice => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer bg-white";
+                btn.className = baseBtnClass;
                 btn.innerText = choice;
                 btn.onclick = () => {
                     document.querySelectorAll('#q-options button').forEach(b => b.disabled = true);
-                    if(choice === firstPart) { btn.classList.add('bg-green-500', 'text-white', 'border-green-500'); score++; }
-                    else { btn.classList.add('bg-red-500', 'text-white', 'border-red-500'); }
+                    if(choice.toLowerCase() === item.c.toLowerCase()) { 
+                        btn.className = correctBtnClass;
+                        score++; 
+                    } else { 
+                        btn.className = wrongBtnClass;
+                        // 정답 표시
+                        document.querySelectorAll('#q-options button').forEach(b => {
+                            if(b.innerText.toLowerCase() === item.c.toLowerCase()) b.className = correctBtnClass;
+                        });
+                    }
                     document.getElementById('next-btn').disabled = false;
                 };
                 optsDiv.appendChild(btn);
             });
         }
+
         function nextQ() {
             currIdx++;
             if(currIdx < 10) { showQ(); document.getElementById('next-btn').disabled = true; }
-            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `Score: ${score} / 10`; }
+            else { 
+                document.getElementById('q-play').classList.add('hidden'); 
+                document.getElementById('q-result').classList.remove('hidden'); 
+                document.getElementById('score-text').innerText = `${score} / 10`; 
+            }
         }
     </script>
 </body>
