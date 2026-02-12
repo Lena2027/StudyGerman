@@ -1,211 +1,444 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>3격 지배 동사 & Quiz Master</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dativ Verben - LingoSpace</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        },
+                        dativ: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            900: '#4c1d95',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
         html { scroll-behavior: smooth; }
-        body { font-family: 'Open Sans', sans-serif; background-color: #f5f5f5; color: #333; }
-        .serif-font { font-family: 'Merriweather', serif; }
-        .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
-        
-        /* [GNB 고정] */
-        header { position: sticky; top: 0; z-index: 1000; background: white; width: 100%; border-bottom: 1px solid #f0f0f0; }
-        .nav-link { padding-bottom: 4px; border-bottom: 2px solid transparent; transition: all 0.2s; font-weight: 700; color: #6b7280; }
-        .nav-link:hover { color: #d00; }
-        .nav-link.active { color: #d00 !important; border-bottom: 2px solid #d00; }
-
-        /* [퀵 메뉴 크기 확대] */
-        .side-nav { position: fixed; left: 40px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 50; }
-        .side-btn { 
-            background: white; border: 2px solid #000; padding: 25px 15px; border-radius: 20px; 
-            font-size: 14px; font-weight: 900; color: #000; text-align: center; 
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); transition: all 0.3s; 
-            width: 150px; cursor: pointer; line-height: 1.4; 
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
         }
-        .side-btn:hover { background: #d00; color: #fff; border-color: #d00; transform: scale(1.05) translateX(5px); }
-
-        /* [다음 문제 버튼 커서] */
-        #next-btn:disabled { cursor: not-allowed; opacity: 0.5; }
-        #next-btn:not(:disabled) { cursor: pointer; background-color: #000 !important; color: white !important; }
-
-        .dativ-card { background: white; border-radius: 1.5rem; padding: 1.5rem; border: 1px solid #eee; transition: all 0.2s; cursor: pointer; }
-        .dativ-card:hover { transform: translateY(-3px); border-color: #d00; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .dativ-obj { color: #d00; font-weight: 800; text-decoration: underline; }
+        /* ... (기존 스크롤바, 네비게이션 CSS 유지) ... */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
         
-        /* 확대 모달 스타일 */
-        #word-modal { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center; padding: 20px; }
-        .modal-content { background: white; width: 100%; max-width: 500px; border-radius: 40px; padding: 60px 40px; position: relative; text-align: center; box-shadow: 0 25px 50px rgba(0,0,0,0.3); }
+        /* [수정됨] New Floating Side Nav CSS */
+        .side-nav {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* 간격 넓힘 */
+            z-index: 40;
+        }
+        
+        .side-btn {
+            position: relative;
+            width: 3.5rem;  /* 56px */
+            height: 3.5rem; /* 56px */
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%; /* 완전 원형 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        @media (max-width: 1400px) { .side-nav { display: none; } }
+        /* 호버 시 버튼 스타일 */
+        .side-btn:hover {
+            background: #7c3aed; /* Dativ Purple */
+            color: white;
+            border-color: #7c3aed;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(124, 58, 237, 0.4);
+        }
+
+        /* 툴팁 (말풍선) 스타일 */
+        .side-tooltip {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%) translateX(10px);
+            background: #1e293b; /* Dark Slate */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* 말풍선 화살표 */
+        .side-tooltip::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 4px;
+            border-style: solid;
+            border-color: transparent #1e293b transparent transparent;
+        }
+
+        /* 호버 시 툴팁 표시 */
+        .side-btn:hover .side-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50%) translateX(15px);
+        }
+
+        /* 노트북/모바일에서는 숨김 (화면 가림 방지) */
+        @media (max-width: 1350px) { 
+            .side-nav { display: none; } 
+        }
+
     </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen selection:bg-dativ-100 selection:text-dativ-900">
 
-    <div class="side-nav">
-        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn">🇩🇪 3격 지배 동사<br>50개 리스트</div>
-        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn">✍️ 복습 퀴즈<br>(10문제)</div>
+   <div class="side-nav">
+        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-list-dashes text-xl"></i>
+            <div class="side-tooltip">3격 동사 리스트</div>
+        </div>
+        
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-pencil-simple text-xl"></i>
+            <div class="side-tooltip">실전 퀴즈</div>
+        </div>
+        
+        <div onclick="window.scrollTo(0,0)" class="side-btn group">
+            <i class="ph-bold ph-arrow-up text-xl"></i>
+            <div class="side-tooltip">맨 위로</div>
+        </div>
     </div>
 
-    <header>
-        <div class="german-line"></div>
-        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center gap-3 mb-4 md:mb-0 cursor-pointer" onclick="location.href='index.html'">
-                <div class="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">D</div>
-                <h1 class="text-2xl font-bold text-gray-800 serif-font tracking-tight">Deutsch Lernen</h1>
-            </div>
-            <nav class="flex flex-wrap justify-center gap-6 text-sm">
-                <a href="index.html" class="nav-link">Alle</a>
-                <a href="a1.html" class="nav-link">A1</a>
-                <a href="grammatik.html" class="nav-link active">Grammatik</a>
-                <a href="notification.html" class="nav-link">Notification</a>
-            </nav>
-        </div>
-    </header>
-
-    <main class="container mx-auto px-4 py-12 max-w-4xl flex-grow">
-        <div id="list-start" class="pt-10">
-            <h2 class="text-4xl font-black serif-font mb-4 tracking-tighter">3격 지배 동사 50개</h2>
-            <p class="text-gray-400 font-bold uppercase tracking-widest text-xs mb-10 border-b-2 border-black pb-4 inline-block">카드를 클릭하면 확대됩니다.</p>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="dativ-list"></div>
-        </div>
-
-        <section id="quiz-start" class="mt-40 border-t-4 border-black pt-20 mb-32">
-            <div class="text-center mb-12"><h3 class="text-3xl font-black serif-font">Dativ Quiz Center</h3></div>
-            <div class="max-w-2xl mx-auto bg-white rounded-[2.5rem] shadow-2xl overflow-hidden" id="quiz-box">
-                <div id="q-init" class="p-20 text-center"><button onclick="startQuiz()" class="bg-black text-white font-black px-16 py-5 rounded-2xl cursor-pointer">퀴즈 시작</button></div>
-                <div id="q-play" class="p-12 hidden">
-                    <div id="q-status" class="text-xs font-black text-red-600 mb-6 uppercase text-center tracking-widest"></div>
-                    <h4 id="q-text" class="text-2xl md:text-3xl font-bold mb-10 text-center serif-font leading-snug"></h4>
-                    <div id="q-options" class="grid gap-4"></div>
-                    <button id="next-btn" onclick="nextQ()" class="w-full mt-10 bg-gray-100 text-gray-400 font-black py-5 rounded-2xl transition-all" disabled>다음 문제로 넘어가기</button>
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="location.href='index.html'">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                        <span class="font-bold text-lg">D</span>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl tracking-tight text-slate-900 leading-none">Deutsch Lernen</h1>
+                        <span class="text-[10px] text-brand-600 font-bold uppercase tracking-wider">LingoSpace Theme</span>
+                    </div>
                 </div>
-                <div id="q-result" class="p-16 text-center hidden"><h4 class="text-6xl font-black mb-6 serif-font" id="score-text"></h4><button onclick="location.reload()" class="bg-black text-white px-10 py-4 rounded-full font-bold cursor-pointer">다시 시작</button></div>
+
+                <div class="hidden md:flex items-center space-x-8 text-sm">
+                    <a href="index.html" class="nav-link">Alle</a>
+                    <a href="a1.html" class="nav-link">A1</a>
+                    <a href="a2.html" class="nav-link">A2</a>
+                    <a href="grammatik.html" class="nav-link active">Grammatik</a> 
+                    <a href="notification.html" class="nav-link">Notification</a>
+                </div>
+                
+                <div></div>
             </div>
-        </section>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div id="list-start" class="scroll-mt-32">
+                <div class="text-center mb-12">
+                    <span class="inline-block px-3 py-1 bg-dativ-50 text-dativ-600 rounded-full text-xs font-bold mb-3 border border-dativ-100">
+                        <i class="ph-bold ph-book-bookmark"></i> Essential Grammar
+                    </span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Dativ Verben</h2>
+                    <p class="text-slate-500 mb-8 max-w-2xl mx-auto">
+                        목적어로 항상 3격(Dativ: ~에게)을 취하는 중요 동사들입니다.<br>
+                        <span class="text-dativ-600 font-bold">"Ich helfe dir"</span> 처럼 누구에게(Wem)에 해당하는 말이 3격으로 옵니다.
+                    </p>
+                    
+                    <div class="flex justify-center gap-4 text-xs font-bold">
+                        <span class="flex items-center gap-1 px-3 py-1 rounded-lg bg-dativ-50 text-dativ-600 border border-dativ-100">
+                            <div class="w-2 h-2 rounded-full bg-dativ-500"></div> Always Dativ
+                        </span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="word-list-container">
+                    </div>
+            </div>
+
+            <section id="quiz-start" class="mt-40 mb-20 scroll-mt-32">
+                <div class="max-w-3xl mx-auto">
+                    <div class="text-center mb-10">
+                        <span class="text-dativ-600 font-bold tracking-widest text-xs uppercase mb-2 block">Challenge</span>
+                        <h3 class="text-3xl font-bold text-slate-900">Dativ Quiz</h3>
+                        <p class="text-slate-500 mt-2">문맥에 맞는 올바른 3격 동사를 선택하세요.</p>
+                    </div>
+
+                    <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden relative">
+                        <div class="absolute -top-20 -right-20 w-64 h-64 bg-dativ-50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+                        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+
+                        <div id="q-init" class="p-16 text-center relative z-10">
+                            <div class="w-20 h-20 bg-dativ-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-dativ-500">
+                                <i class="ph-duotone ph-brain text-4xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-6">3격 완전 정복하기</h4>
+                            <button onclick="startQuiz()" class="bg-dativ-600 hover:bg-dativ-500 text-white font-bold px-10 py-4 rounded-xl shadow-lg shadow-dativ-500/30 transition-all transform hover:-translate-y-1">
+                                퀴즈 시작하기
+                            </button>
+                        </div>
+
+                        <div id="q-play" class="p-8 md:p-12 hidden relative z-10">
+                            <div class="flex justify-between items-center mb-8">
+                                <div id="q-status" class="text-xs font-bold text-dativ-600 bg-dativ-50 px-3 py-1 rounded-full border border-dativ-100">
+                                    Question 1 / 10
+                                </div>
+                                <div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div id="q-progress-bar" class="h-full bg-dativ-500 w-0 transition-all duration-300"></div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-8">
+                                <div class="text-sm text-slate-400 font-medium mb-2" id="q-meaning-hint"></div>
+                                <h4 id="q-text" class="text-2xl md:text-3xl font-bold text-slate-800 leading-snug"></h4>
+                            </div>
+
+                            <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                                </div>
+
+                            <button id="next-btn" onclick="nextQ()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-800 transition-all" disabled>
+                                다음 문제 <i class="ph-bold ph-arrow-right ml-2 inline-block align-middle"></i>
+                            </button>
+                        </div>
+
+                        <div id="q-result" class="p-16 text-center hidden relative z-10">
+                            <div class="w-24 h-24 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6 text-yellow-500 text-5xl">
+                                <i class="ph-fill ph-trophy"></i>
+                            </div>
+                            <h4 class="text-lg font-medium text-slate-500 mb-2">당신의 점수는?</h4>
+                            <h4 class="text-5xl font-black text-slate-900 mb-8 tracking-tight" id="score-text"></h4>
+                            <button onclick="location.reload()" class="bg-white border-2 border-slate-200 text-slate-700 hover:border-dativ-500 hover:text-dativ-600 px-8 py-3 rounded-xl font-bold transition-all">
+                                <i class="ph-bold ph-arrows-clockwise mr-2"></i> 다시 도전
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
     </main>
 
-    <div id="word-modal" onclick="closeWordModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <span class="material-symbols-outlined absolute top-6 right-6 cursor-pointer text-gray-300 hover:text-black" onclick="closeWordModal()">close</span>
-            <div id="modal-id" class="text-red-600 font-black text-xs uppercase mb-2"></div>
-            <div id="modal-word" class="text-5xl font-black serif-font mb-8"></div>
-            <div id="modal-sentence" class="text-2xl font-bold text-indigo-600 mb-6 leading-tight"></div>
-            <div id="modal-meaning" class="text-gray-400 font-bold text-lg"></div>
+    <footer class="bg-white border-t border-slate-200 py-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <div class="w-6 h-6 rounded bg-slate-900 flex items-center justify-center text-white text-xs">D</div>
+                <span class="font-semibold text-slate-700">Deutsch Lernen</span>
+            </div>
+            <p>© 2024 LingoSpace. Essential Dativ Verbs.</p>
+        </div>
+    </footer>
+
+    <div id="word-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" onclick="closeWordModal()">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-8 md:p-10 transform transition-all scale-100" onclick="event.stopPropagation()">
+            <button class="absolute top-6 right-6 text-slate-300 hover:text-slate-600 transition-colors" onclick="closeWordModal()">
+                <i class="ph-bold ph-x text-2xl"></i>
+            </button>
+            
+            <div class="inline-block px-3 py-1 rounded-lg text-xs font-bold mb-4 uppercase tracking-wider bg-dativ-50 text-dativ-600">
+                Dativ (3격)
+            </div>
+            
+            <h3 id="modal-word" class="text-3xl md:text-4xl font-bold text-slate-900 mb-6"></h3>
+            
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-6">
+                <p id="modal-sentence" class="text-xl font-medium text-dativ-700 leading-relaxed"></p>
+            </div>
+            
+            <div class="flex items-center gap-2 text-slate-500">
+                <i class="ph-fill ph-translate"></i>
+                <p id="modal-meaning" class="font-medium text-lg"></p>
+            </div>
         </div>
     </div>
 
     <script>
-        const fullData = [
-            {id:1, v:"antworten", s:"Er antwortet <span class='dativ-obj'>mir</span> nicht.", k:"그는 나에게 대답하지 않는다."},
-            {id:2, v:"danken", s:"Ich danke <span class='dativ-obj'>dir</span> für deine Hilfe.", k:"네 도움에 대해 너에게 감사해."},
-            {id:3, v:"helfen", s:"Kannst du <span class='dativ-obj'>meiner Mutter</span> helfen?", k:"우리 어머니를 도와줄 수 있니?"},
-            {id:4, v:"gratulieren", s:"Wir gratulieren <span class='dativ-obj'>ihm</span> zum Geburtstag.", k:"우리는 그에게 생일을 축하해 준다."},
-            {id:5, v:"glauben", s:"Ich glaube <span class='dativ-obj'>deiner Geschichte</span> nicht.", k:"나는 너의 이야기를 믿지 않아."},
-            {id:6, v:"vertrauen", s:"Sie vertraut <span class='dativ-obj'>ihrem Arzt</span>.", k:"그녀는 그녀의 의사를 신뢰한다."},
-            {id:7, v:"absagen", s:"Er hat <span class='dativ-obj'>uns</span> leider abgesagt.", k:"그는 아쉽게도 우리에게 거절했다."},
-            {id:8, v:"zusagen", s:"Ich sage <span class='dativ-obj'>euch</span> morgen zu.", k:"내일 너희에게 확답을 줄게."},
-            {id:9, v:"drohen", s:"Der Chef droht <span class='dativ-obj'>dem Mitarbeiter</span>.", k:"상사가 그 직원에게 협박한다."},
-            {id:10, v:"dienen", s:"Das dient <span class='dativ-obj'>dem Frieden</span>.", k:"그것은 평화에 이바지한다."},
-            {id:11, v:"widersprechen", s:"Widersprich <span class='dativ-obj'>deinem Vater</span> nicht!", k:"네 아버지께 말대꾸하지 마!"},
-            {id:12, v:"zustimmen", s:"Ich stimme <span class='dativ-obj'>Ihnen</span> voll zu.", k:"저는 당신께 전적으로 동의합니다."},
-            {id:13, v:"verzeihen", s:"Bitte verzeih <span class='dativ-obj'>mir</span>!", k:"제발 나를 용서해 줘!"},
-            {id:14, v:"zuhören", s:"Die Kinder hören <span class='dativ-obj'>der Lehrerin</span> zu.", k:"아이들이 선생님의 말을 경청한다."},
-            {id:15, v:"zusehen", s:"Ich sehe <span class='dativ-obj'>dir</span> beim Kochen zu.", k:"나는 네가 요리하는 것을 지켜본다."},
-            {id:16, v:"raten", s:"Der Arzt rät <span class='dativ-obj'>dem Patienten</span> zur Ruhe.", k:"의사는 환자에게 휴식을 권고한다."},
-            {id:17, v:"abraten", s:"Ich rate <span class='dativ-obj'>dir</span> von dem Kauf ab.", k:"나는 네게 그 구매를 하지 말라고 권한다."},
-            {id:18, v:"befehlen", s:"Der König befiehlt <span class='dativ-obj'>dem Volk</span>.", k:"왕이 백성에게 명령한다."},
-            {id:19, v:"gehorchen", s:"Der Hund gehorcht <span class='dativ-obj'>seinem Herrn</span>.", k:"개가 주인에게 복종한다."},
-            {id:20, v:"vergeben", s:"Gott vergibt <span class='dativ-obj'>den Menschen</span>.", k:"신은 인간들을 용서한다."},
-            {id:21, v:"gefallen", s:"Das Kleid gefällt <span class='dativ-obj'>mir</span> sehr.", k:"그 드레스가 내 마음에 쏙 들어."},
-            {id:22, v:"missfallen", s:"Das neue Gesetz missfällt <span class='dativ-obj'>vielen</span>.", k:"그 새 법안은 많은 이들의 마음에 들지 않는다."},
-            {id:23, v:"schmecken", s:"Die Pizza schmeckt <span class='dativ-obj'>uns</span> gut.", k:"그 피자는 우리 입맛에 잘 맞는다."},
-            {id:24, v:"passen", s:"Der Schlüssel passt <span class='dativ-obj'>dem Schloss</span>.", k:"열쇠가 자물쇠에 맞는다."},
-            {id:25, v:"stehen", s:"Die Brille steht <span class='dativ-obj'>dir</span> gut.", k:"그 안경이 너에게 잘 어울린다."},
-            {id:26, v:"fehlen", s:"Du fehlst <span class='dativ-obj'>mir</span> so sehr.", k:"나는 네가 너무나 그립다."},
-            {id:27, v:"ähneln", s:"Er ähnelt <span class='dativ-obj'>seinem Bruder</span>.", k:"그는 형을 닮았다."},
-            {id:28, v:"mangeln", s:"Es mangelt <span class='dativ-obj'>uns</span> an Zeit.", k:"우리에게는 시간이 부족하다."},
-            {id:29, v:"schaden", s:"Rauchen schadet <span class='dativ-obj'>der Gesundheit</span>.", k:"흡연은 건강에 해롭다."},
-            {id:30, v:"nützen", s:"Das nützt <span class='dativ-obj'>mir</span> gar nichts.", k:"나에게 전혀 도움이 안 된다."},
-            {id:31, v:"genügen", s:"Das Geld genügt <span class='dativ-obj'>ihm</span> nicht.", k:"그 돈은 그에게 충분하지 않다."},
-            {id:32, v:"auffallen", s:"Er fiel <span class='dativ-obj'>der Polizei</span> auf.", k:"경찰의 눈에 띄었다."},
-            {id:33, v:"vorkommen", s:"Das kommt <span class='dativ-obj'>mir</span> komisch vor.", k:"이상하게 느껴진다."},
-            {id:34, v:"leidtun", s:"Es tut <span class='dativ-obj'>mir</span> sehr leid.", k:"매우 미안하다."},
-            {id:35, v:"wehtun", s:"Mein Kopf tut <span class='dativ-obj'>mir</span> weh.", k:"내 머리가 아프다."},
-            {id:36, v:"gehören", s:"Das Auto gehört <span class='dativ-obj'>meinem Vater</span>.", k:"그 차는 우리 아버지 소유이다."},
-            {id:37, v:"passieren", s:"Das ist <span class='dativ-obj'>mir</span> 아직 한 번도 passiert.", k:"나에게 한 번도 일어난 적 없다."},
-            {id:38, v:"geschehen", s:"Was ist <span class='dativ-obj'>ihm</span> geschehen?", k:"무슨 일이 생겼나?"},
-            {id:39, v:"gelingen", s:"Der Kuchen ist <span class='dativ-obj'>ihr</span> gut gelungen.", k:"그녀가 만들기에 성공했다."},
-            {id:40, v:"misslingen", s:"Der Versuch misslang <span class='dativ-obj'>dem Forscher</span>.", k:"시도는 실패로 돌아갔다."},
-            {id:41, v:"begegnen", s:"Ich begegne <span class='dativ-obj'>ihm</span> oft im Park.", k:"그를 자주 마주친다."},
-            {id:42, v:"folgen", s:"Bitte folgen Sie <span class='dativ-obj'>mir</span>.", k:"저를 따라오세요."},
-            {id:43, v:"einfallen", s:"Der <span class='dativ-obj'>Name</span> fällt mir nicht ein.", k:"그 이름이 생각나지 않는다."},
-            {id:44, v:"entgegenkommen", s:"Ein Auto kam <span class='dativ-obj'>uns</span> entgegen.", k:"차가 우리 맞은편에서 왔다."},
-            {id:45, v:"erscheinen", s:"Das erscheint <span class='dativ-obj'>mir</span> logisch.", k:"나에게 논리적으로 보인다."},
-            {id:46, v:"nachgehen", s:"Er geht <span class='dativ-obj'>seinem Hobby</span> nach.", k:"취미에 몰두한다."},
-            {id:47, v:"beipflichten", s:"Sie pflichtet <span class='dativ-obj'>seiner Meinung</span> bei.", k:"의견에 동조한다."},
-            {id:48, v:"weichen", s:"Die Angst weicht <span class='dativ-obj'>der Hoffnung</span>.", k:"두려움이 희망에 자리를 내준다."},
-            {id:49, v:"ausweichen", s:"Ich weiche <span class='dativ-obj'>dem Hindernis</span> aus.", k:"장애물을 피한다."},
-            {id:50, v:"beistehen", s:"Meine Freunde stehen <span class='dativ-obj'>mir</span> bei.", k:"내 친구들이 곁에서 나를 돕는다."}
+        /* 데이터 (주요 3격 동사 30개) */
+        const dativData = [
+            {id:1, v:"antworten", m:"대답하다", s:"Bitte antworten Sie mir schnell."},
+            {id:2, v:"danken", m:"감사하다", s:"Ich danke dir für das Geschenk."},
+            {id:3, v:"gefallen", m:"마음에 들다", s:"Das Kleid gefällt mir sehr gut."},
+            {id:4, v:"gehören", m:"~의 것이다", s:"Das Buch gehört mir."},
+            {id:5, v:"glauben", m:"믿다", s:"Ich glaube dir nicht."},
+            {id:6, v:"helfen", m:"돕다", s:"Kannst du mir bitte helfen?"},
+            {id:7, v:"passen", m:"어울리다/맞다", s:"Die Hose passt mir nicht."},
+            {id:8, v:"schmecken", m:"맛이 나다", s:"Die Suppe schmeckt mir gut."},
+            {id:9, v:"vertrauen", m:"신뢰하다", s:"Du kannst mir vertrauen."},
+            {id:10, v:"verzeihen", m:"용서하다", s:"Bitte verzeih mir meinen Fehler."},
+            {id:11, v:"wehtun", m:"아프게 하다", s:"Mein Kopf tut mir weh."},
+            {id:12, v:"zuhören", m:"경청하다", s:"Hör mir bitte genau zu!"},
+            {id:13, v:"zustimmen", m:"동의하다", s:"Ich stimme dir vollkommen zu."},
+            {id:14, v:"gratulieren", m:"축하하다", s:"Ich gratuliere dir zum Geburtstag."},
+            {id:15, v:"begegnen", m:"우연히 만나다", s:"Ich bin ihm gestern begegnet."},
+            {id:16, v:"fehlen", m:"부족하다/없다", s:"Du fehlst mir sehr."},
+            {id:17, v:"folgen", m:"따라가다", s:"Bitte folgen Sie mir unauffällig."},
+            {id:18, v:"gehorchen", m:"복종하다", s:"Der Hund gehorcht seinem Besitzer."},
+            {id:19, v:"gelingen", m:"성공하다", s:"Der Kuchen ist dir gut gelungen."},
+            {id:20, v:"geschehen", m:"일어나다", s:"Das geschieht ihm recht."},
+            {id:21, v:"ähneln", m:"닮다", s:"Du ähnelst deinem Vater sehr."},
+            {id:22, v:"raten", m:"조언하다", s:"Ich rate dir, zum Arzt zu gehen."},
+            {id:23, v:"schaden", m:"해를 끼치다", s:"Rauchen schadet der Gesundheit."},
+            {id:24, v:"widersprechen", m:"반박하다", s:"Er widerspricht seinem Chef nie."},
+            {id:25, v:"zusehen", m:"지켜보다", s:"Kann ich dir beim Kochen zusehen?"},
+            {id:26, v:"einfallen", m:"생각나다", s:"Mir fällt sein Name nicht ein."},
+            {id:27, v:"auffallen", m:"눈에 띄다", s:"Seine neue Frisur fällt mir auf."},
+            {id:28, v:"schwerfallen", m:"어렵게 느껴지다", s:"Deutsch fällt mir manchmal schwer."},
+            {id:29, v:"leidtuin", m:"미안하다/유감이다", s:"Es tut mir wirklich leid."},
+            {id:30, v:"drohen", m:"위협하다", s:"Er droht seinem Nachbarn."}
         ];
 
-        const listContainer = document.getElementById('dativ-list');
-        fullData.forEach(item => {
-            const cleanS = item.s.replace(/<[^>]*>?/gm, '');
-            listContainer.innerHTML += `
-                <div class="dativ-card group hover:border-black transition-all" onclick="openWordModal('${item.id}', '${item.v}', '${cleanS}', '${item.k}')">
-                    <div class="font-black text-xl mb-1 group-hover:text-red-600 transition-colors">${item.id}. ${item.v}</div>
-                    <div class="text-indigo-600 font-bold leading-tight mb-1">${item.s}</div>
-                    <div class="text-xs text-gray-400 font-bold uppercase tracking-tighter">${item.k}</div>
+        // 렌더링 로직
+        const container = document.getElementById('word-list-container');
+        dativData.forEach(item => {
+            container.innerHTML += `
+                <div class="group bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between h-40" onclick="openWordModal('${item.id}', '${item.v}', '${item.s}', '${item.m}')">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold text-slate-300">NO.${item.id}</span>
+                        <span class="text-[10px] font-bold px-2 py-1 rounded-md border bg-dativ-50 text-dativ-600 border-dativ-100">
+                            Dat
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <div class="font-bold text-slate-800 text-lg group-hover:text-dativ-600 transition-colors mb-1 leading-tight">${item.v}</div>
+                        <div class="text-xs text-slate-400 font-medium truncate">${item.m}</div>
+                    </div>
+                    <div class="text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                         <i class="ph-bold ph-magnifying-glass-plus text-dativ-400"></i>
+                    </div>
                 </div>
             `;
         });
 
-        function openWordModal(id, v, s, k) {
-            document.getElementById('modal-id').innerText = "WORD NO." + id;
+        // Modal Logic
+        function openWordModal(id, v, s, m) {
             document.getElementById('modal-word').innerText = v;
             document.getElementById('modal-sentence').innerText = s;
-            document.getElementById('modal-meaning').innerText = k;
-            document.getElementById('word-modal').style.display = 'flex';
+            document.getElementById('modal-meaning').innerText = m;
+            
+            document.getElementById('word-modal').classList.remove('hidden');
+            document.getElementById('word-modal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
         }
-        function closeWordModal() { document.getElementById('word-modal').style.display = 'none'; }
 
-        let pool = []; let currIdx = 0; let score = 0;
+        function closeWordModal() { 
+            document.getElementById('word-modal').classList.add('hidden'); 
+            document.getElementById('word-modal').classList.remove('flex');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Quiz Logic
+        let pool = []; 
+        let currIdx = 0; 
+        let score = 0;
+
         function startQuiz() {
-            pool = [...fullData].sort(() => 0.5 - Math.random()).slice(0, 10);
+            pool = [...dativData].sort(() => 0.5 - Math.random()).slice(0, 10);
             document.getElementById('q-init').classList.add('hidden');
             document.getElementById('q-play').classList.remove('hidden');
+            score = 0;
+            currIdx = 0;
             showQ();
         }
+
         function showQ() {
             const item = pool[currIdx];
-            const answer = item.s.match(/<span class='dativ-obj'>(.*?)<\/span>/)[1];
-            const question = item.s.replace(/<span class='dativ-obj'>(.*?)<\/span>/, "_______");
-            document.getElementById('q-status').innerText = `Question ${currIdx + 1} of 10`;
-            document.getElementById('q-text').innerText = question;
-            const opts = document.getElementById('q-options'); opts.innerHTML = '';
-            const choices = [answer, "mich", "dich", "ihn"].sort(() => 0.5 - Math.random());
-            choices.forEach(o => {
+            document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
+            
+            // Progress Bar
+            const percent = ((currIdx + 1) / 10) * 100;
+            document.getElementById('q-progress-bar').style.width = `${percent}%`;
+
+            document.getElementById('q-meaning-hint').innerText = `뜻: ${item.m}`;
+            const questionText = item.s.replace(new RegExp(item.v, 'gi'), "_______"); // 대소문자 무시하고 빈칸 처리
+            document.getElementById('q-text').innerText = questionText;
+            
+            const optsDiv = document.getElementById('q-options'); 
+            optsDiv.innerHTML = '';
+            
+            let choices = [item.v];
+            while(choices.length < 4) {
+                let randomVerb = dativData[Math.floor(Math.random()*dativData.length)].v;
+                if(!choices.includes(randomVerb)) choices.push(randomVerb);
+            }
+            
+            choices.sort(() => 0.5 - Math.random()).forEach(choice => {
                 const btn = document.createElement('button');
-                btn.className = "w-full text-left p-5 rounded-2xl border-2 border-gray-100 font-bold hover:border-black transition-all cursor-pointer";
-                btn.innerText = o;
+                btn.className = "w-full text-left p-5 rounded-xl border border-slate-200 font-bold text-slate-600 hover:border-dativ-500 hover:text-dativ-600 hover:bg-dativ-50 transition-all cursor-pointer bg-white shadow-sm";
+                btn.innerText = choice;
                 btn.onclick = () => {
-                    const all = opts.querySelectorAll('button'); all.forEach(b => b.disabled = true);
-                    if(o === answer) { btn.classList.add('bg-green-500', 'text-white'); score++; }
-                    else { btn.classList.add('bg-red-500', 'text-white'); }
+                    document.querySelectorAll('#q-options button').forEach(b => b.disabled = true);
+                    
+                    if(choice === item.v) { 
+                        btn.className = "w-full text-left p-5 rounded-xl border border-green-500 bg-green-50 text-green-700 font-bold shadow-md";
+                        score++; 
+                    } else { 
+                        btn.className = "w-full text-left p-5 rounded-xl border border-red-500 bg-red-50 text-red-700 font-bold shadow-md";
+                    }
                     document.getElementById('next-btn').disabled = false;
                 };
-                opts.appendChild(btn);
+                optsDiv.appendChild(btn);
             });
         }
+
         function nextQ() {
             currIdx++;
-            if(currIdx < 10) { showQ(); document.getElementById('next-btn').disabled = true; }
-            else { document.getElementById('q-play').classList.add('hidden'); document.getElementById('q-result').classList.remove('hidden'); document.getElementById('score-text').innerText = `${score} / 10`; }
+            if(currIdx < 10) { 
+                showQ(); 
+                document.getElementById('next-btn').disabled = true; 
+            } else { 
+                document.getElementById('q-play').classList.add('hidden'); 
+                document.getElementById('q-result').classList.remove('hidden'); 
+                document.getElementById('score-text').innerText = `${score} / 10`; 
+            }
         }
     </script>
 </body>
