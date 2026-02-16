@@ -3,281 +3,482 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>사회/경제 토론 핵심 형용사 60선</title>
+    <title>Diskussion Adjektive</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Pretendard', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            900: '#1e3a8a',
+                        },
+                        /* 토론/경제 테마: Blue */
+                        diskussion: {
+                            50: '#f0f9ff',  /* sky-50 */
+                            100: '#e0f2fe', /* sky-100 */
+                            500: '#0ea5e9', /* sky-500 */
+                            600: '#0284c7', /* sky-600 */
+                            900: '#0c4a6e', /* sky-900 */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        html { scroll-behavior: smooth; }
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
         }
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 2px solid #2196F3; /* 파란색 테마 */
-            padding-bottom: 20px;
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
         }
-        h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
+        
+        /* Floating Side Nav */
+        .side-nav {
+            position: fixed;
+            left: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 40;
         }
-        .intro {
-            font-size: 1.1em;
-            color: #555;
-            margin-bottom: 30px;
-            background-color: #fff;
-            padding: 15px;
-            border-left: 5px solid #2196F3;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        h2 {
-            color: #2196F3;
-            margin-top: 40px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .category-desc {
-            font-style: italic;
-            color: #666;
-            margin-bottom: 15px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            background-color: white;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        th, td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: left;
-        }
-        th {
-            background-color: #2196F3;
-            color: white;
-            font-weight: bold;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        .german-word {
-            font-weight: bold;
-            color: #1565C0;
-        }
-        .tips-section {
-            background-color: #e3f2fd;
-            border: 1px solid #bbdefb;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 50px;
-        }
-        .back-link {
-            display: block;
-            margin-top: 40px;
-            text-align: center;
-            text-decoration: none;
-            color: #2196F3;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
+        
+        .side-btn {
+            position: relative;
+            width: 3.5rem;
+            height: 3.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 모바일 대응 */
-        @media screen and (max-width: 600px) {
-            table, thead, tbody, th, td, tr { display: block; }
-            thead tr { position: absolute; top: -9999px; left: -9999px; }
-            tr { margin-bottom: 15px; border: 1px solid #ccc; }
-            td { border: none; border-bottom: 1px solid #eee; position: relative; padding-left: 50%; }
-            td:before { position: absolute; top: 12px; left: 6px; width: 45%; padding-right: 10px; white-space: nowrap; font-weight: bold; content: attr(data-label); }
+        .side-btn:hover {
+            background: #0284c7; /* Diskussion Blue */
+            color: white;
+            border-color: #0284c7;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(14, 165, 233, 0.4);
+        }
+
+        .side-tooltip {
+            position: absolute;
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%) translateX(10px);
+            background: #1e293b;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .side-tooltip::before {
+            content: '';
+            position: absolute;
+            left: -4px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 4px;
+            border-style: solid;
+            border-color: transparent #1e293b transparent transparent;
+        }
+
+        .side-btn:hover .side-tooltip {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50%) translateX(15px);
+        }
+
+        @media (max-width: 1350px) { 
+            .side-nav { display: none; } 
         }
     </style>
 </head>
-<body>
+<body class="flex flex-col min-h-screen selection:bg-diskussion-100 selection:text-diskussion-900">
 
-    <header>
-        <h1>사회/경제 토론 핵심 형용사 60선</h1>
-        [cite_start]<p>B2 시험의 꽃, 토론(Diskussion)에서 비판적 시각을 보여주는 필수 어휘 [cite: 23]</p>
-    </header>
-
-    <div class="intro">
-        [cite_start]<p>단순히 아는 단어를 나열하는 것이 아니라, 사회적 현상을 분석하고 정교한 논리를 펼칠 때 이 형용사들이 위력을 발휘합니다[cite: 23].</p>
+   <div class="side-nav">
+        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-list-dashes text-xl"></i>
+            <div class="side-tooltip">형용사 리스트</div>
+        </div>
+        
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-pencil-simple text-xl"></i>
+            <div class="side-tooltip">실전 퀴즈</div>
+        </div>
+        
+        <div onclick="window.scrollTo(0,0)" class="side-btn group">
+            <i class="ph-bold ph-arrow-up text-xl"></i>
+            <div class="side-tooltip">맨 위로</div>
+        </div>
     </div>
 
-    <section>
-        <h2>1. 경제적 가치 및 성과 (Wirtschaftliche Bewertung)</h2>
-        <p class="category-desc">비용, 효율성, 시장성 등을 평가할 때 사용합니다.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th width="15%">단어</th>
-                    <th width="15%">의미</th>
-                    <th width="40%">예문 (Beispiel)</th>
-                    <th width="30%">번역</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td data-label="단어" class="german-word">rentabel</td><td data-label="의미">수익성이 있는</td><td data-label="예문">Das Projekt ist auf lange Sicht nicht <strong>rentabel</strong>.</td><td data-label="번역">그 프로젝트는 장기적으로 수익성이 없다.</td></tr>
-                <tr><td data-label="단어" class="german-word">kostspielig</td><td data-label="의미">돈이 많이 드는</td><td data-label="예문">Die Umstellung auf E-Autos ist sehr <strong>kostspielig</strong>.</td><td data-label="번역">전기차로의 전환은 비용이 매우 많이 든다.</td></tr>
-                <tr><td data-label="단어" class="german-word">effizient</td><td data-label="의미">효율적인</td><td data-label="예문">Wir brauchen <strong>effizientere</strong> Methoden zur Energiegewinnung.</td><td data-label="번역">우리는 더 효율적인 에너지 확보 방법이 필요하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">konkurrenzfähig</td><td data-label="의미">경쟁력 있는</td><td data-label="예문">Deutsche Firmen müssen weltweit <strong>konkurrenzfähig</strong> bleiben.</td><td data-label="번역">독일 기업들은 세계적으로 경쟁력을 유지해야 한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">lukrativ</td><td data-label="의미">유리한, 돈이 되는</td><td data-label="예문">Der Handel mit Daten ist ein <strong>lukratives</strong> Geschäft.</td><td data-label="번역">데이터 거래는 수익성이 좋은 사업이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">produktiv</td><td data-label="의미">생산적인</td><td data-label="예문">Homeoffice kann die Mitarbeiter <strong>produktiver</strong> machen.</td><td data-label="번역">재택근무는 직원들을 더 생산적으로 만들 수 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">stagnierend</td><td data-label="의미">정체된</td><td data-label="예문">Die Wirtschaft leidet unter <strong>stagnierenden</strong> Löhnen.</td><td data-label="번역">경제가 정체된 임금으로 인해 고통받고 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">marode</td><td data-label="의미">파산 직전의/노후한</td><td data-label="예문">Der Staat muss die <strong>marode</strong> Infrastruktur sanieren.</td><td data-label="번역">국가는 무너져가는 사회 기반 시설을 보수해야 한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">marktgerecht</td><td data-label="의미">시장 상황에 맞는</td><td data-label="예문">Wir brauchen <strong>marktgerechte</strong> Lösungen für die Krise.</td><td data-label="번역">우리는 위기에 대응하는 시장 적합한 해결책이 필요하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">verschuldet</td><td data-label="의미">빚을 진</td><td data-label="예문">Viele Haushalte sind extrem hoch <strong>verschuldet</strong>.</td><td data-label="번역">많은 가계가 매우 높은 부채를 안고 있다.</td></tr>
-            </tbody>
-        </table>
-    </section>
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="location.href='index.html'">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                        <span class="font-bold text-lg">D</span>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl tracking-tight text-slate-900 leading-none">Deutsch Lernen</h1>
+                        <span class="text-[10px] text-brand-600 font-bold uppercase tracking-wider">LingoSpace Theme</span>
+                    </div>
+                </div>
 
-    <section>
-        <h2>2. 사회적 갈등 및 문제점 (Soziale Probleme & Kritik)</h2>
-        <p class="category-desc">사회 문제를 비판하거나 논란을 설명할 때 필수적입니다.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th width="15%">단어</th>
-                    <th width="15%">의미</th>
-                    <th width="40%">예문 (Beispiel)</th>
-                    <th width="30%">번역</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td data-label="단어" class="german-word">umstritten</td><td data-label="의미">논란이 되는</td><td data-label="예문">Die neue Steuerreform ist politisch sehr <strong>umstritten</strong>.</td><td data-label="번역">새로운 세제 개혁은 정치적으로 매우 논란이 많다.</td></tr>
-                <tr><td data-label="단어" class="german-word">kontrovers</td><td data-label="의미">논쟁적인</td><td data-label="예문">Über dieses Thema wurde sehr <strong>kontrovers</strong> diskutiert.</td><td data-label="번역">이 주제에 대해 매우 논쟁적인 토론이 이루어졌다.</td></tr>
-                <tr><td data-label="단어" class="german-word">benachteiligt</td><td data-label="의미">소외된, 불이익 받는</td><td data-label="예문">Kinder aus <strong>benachteiligten</strong> Familien brauchen Hilfe.</td><td data-label="번역">소외 계층의 아이들은 도움이 필요하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">diskriminierend</td><td data-label="의미">차별적인</td><td data-label="예문">Solche Regeln wirken oft <strong>diskriminierend</strong>.</td><td data-label="번역">그런 규칙들은 종종 차별적인 효과를 낸다.</td></tr>
-                <tr><td data-label="단어" class="german-word">problematisch</td><td data-label="의미">문제가 있는</td><td data-label="예문">Der hohe Fleischkonsum ist ökologisch <strong>problematisch</strong>.</td><td data-label="번역">높은 육류 소비는 환경적으로 문제가 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">ungerecht</td><td data-label="의미">불공평한</td><td data-label="예문">Die Einkommensverteilung ist weltweit <strong>ungerecht</strong>.</td><td data-label="번역">소득 분배는 전 세계적으로 불공평하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">privilegiert</td><td data-label="의미">특권을 가진</td><td data-label="예문"><strong>Privilegierte</strong> Gruppen haben besseren Zugang zu Bildung.</td><td data-label="번역">특권층은 교육에 더 나은 접근권을 가진다.</td></tr>
-                <tr><td data-label="단어" class="german-word">oberflächlich</td><td data-label="의미">피상적인</td><td data-label="예문">Die Diskussion blieb leider sehr <strong>oberflächlich</strong>.</td><td data-label="번역">토론이 아쉽게도 매우 피상적인 수준에 머물렀다.</td></tr>
-                <tr><td data-label="단어" class="german-word">besorgniserregend</td><td data-label="의미">걱정스러운</td><td data-label="예문">Die Jugendarbeitslosigkeit ist <strong>besorgniserregend</strong>.</td><td data-label="번역">청년 실업률이 걱정스러운 수준이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">überfordert</td><td data-label="의미">버거운, 감당 못 하는</td><td data-label="예문">Das Gesundheitssystem ist völlig <strong>überfordert</strong>.</td><td data-label="번역">보건 의료 체계가 완전히 과부하 상태다.</td></tr>
-            </tbody>
-        </table>
-    </section>
+                <div class="hidden md:flex items-center space-x-8 text-sm">
+                    <a href="index.html" class="nav-link">Alle</a>
+                    <a href="a1.html" class="nav-link">A1</a>
+                    <a href="a2.html" class="nav-link">A2</a>
+                    <a href="grammatik.html" class="nav-link active">Grammatik</a> 
+                    <a href="notification.html" class="nav-link">Notification</a>
+                </div>
+                
+                <div></div>
+            </div>
+        </div>
+    </nav>
 
-    <section>
-        <h2>3. 변화와 영향의 정도 (Auswirkungen & Wandel)</h2>
-        <p class="category-desc">변화의 속도나 영향력의 크기를 묘사합니다.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th width="15%">단어</th>
-                    <th width="15%">의미</th>
-                    <th width="40%">예문 (Beispiel)</th>
-                    <th width="30%">번역</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td data-label="단어" class="german-word">gravierend</td><td data-label="의미">심각한, 중대한</td><td data-label="예문">Der Klimawandel hat <strong>gravierende</strong> Folgen.</td><td data-label="번역">기후 변화는 심각한 결과를 초래한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">erheblich</td><td data-label="의미">상당한</td><td data-label="예문">Die Kosten sind <strong>erheblich</strong> gestiegen.</td><td data-label="번역">비용이 상당히 상승했다.</td></tr>
-                <tr><td data-label="단어" class="german-word">rasant</td><td data-label="의미">급격한</td><td data-label="예문">Die Technik entwickelt sich <strong>rasant</strong> weiter.</td><td data-label="번역">기술이 급격하게 발전하고 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">nachhaltig</td><td data-label="의미">지속 가능한</td><td data-label="예문">Wir müssen <strong>nachhaltiger</strong> mit Ressourcen umgehen.</td><td data-label="번역">우리는 자원을 더 지속 가능하게 사용해야 한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">drastisch</td><td data-label="의미">급격한, 철저한</td><td data-label="예문">Die Regierung plant <strong>drastische</strong> Kürzungen.</td><td data-label="번역">정부는 대대적인 감축을 계획하고 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">langfristig</td><td data-label="의미">장기적인</td><td data-label="예문">Wir brauchen eine <strong>langfristige</strong> Strategie.</td><td data-label="번역">우리는 장기적인 전략이 필요하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">kurzfristig</td><td data-label="의미">단기적인</td><td data-label="예문">Das ist nur eine <strong>kurzfristige</strong> Lösung.</td><td data-label="번역">그것은 단지 단기적인 해결책일 뿐이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">fatal</td><td data-label="의미">치명적인</td><td data-label="예문">Eine Fehlentscheidung hätte <strong>fatale</strong> Auswirkungen.</td><td data-label="번역">잘못된 결정은 치명적인 영향을 미칠 것이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">absehbar</td><td data-label="의미">예견 가능한</td><td data-label="예문">Ein Ende der Krise ist noch nicht <strong>absehbar</strong>.</td><td data-label="번역">위기의 끝이 아직 보이지 않는다.</td></tr>
-                <tr><td data-label="단어" class="german-word">kontinuierlich</td><td data-label="의미">지속적인</td><td data-label="예문">Die Preise steigen <strong>kontinuierlich</strong>.</td><td data-label="번역">물가가 지속적으로 오르고 있다.</td></tr>
-            </tbody>
-        </table>
-    </section>
+    <main class="flex-grow pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div id="list-start" class="scroll-mt-32">
+                <div class="text-center mb-12">
+                    <span class="inline-block px-3 py-1 bg-diskussion-50 text-diskussion-600 rounded-full text-xs font-bold mb-3 border border-diskussion-100">
+                        <i class="ph-bold ph-chats-circle"></i> B2 Diskussion
+                    </span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Wichtige Adjektive</h2>
+                    <p class="text-slate-500 mb-8 max-w-2xl mx-auto">
+                        사회/경제 토론에서 분석적이고 날카로운 논리를 펼치기 위한 핵심 형용사 60선입니다.<br>
+                        <span class="text-diskussion-600 font-bold">"Das ist ökonomisch nicht rentabel"</span> 처럼 주장을 뒷받침할 때 사용하세요.
+                    </p>
+                    
+                    <div class="flex justify-center gap-4 text-xs font-bold">
+                        <span class="flex items-center gap-1 px-3 py-1 rounded-lg bg-diskussion-50 text-diskussion-600 border border-diskussion-100">
+                            <div class="w-2 h-2 rounded-full bg-diskussion-500"></div> Economic & Social
+                        </span>
+                    </div>
+                </div>
 
-    <section>
-        <h2>4. 구조 및 성격 (Struktur & Qualität)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th width="15%">단어</th>
-                    <th width="15%">의미</th>
-                    <th width="40%">예문 (Beispiel)</th>
-                    <th width="30%">번역</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td data-label="단어" class="german-word">komplex</td><td data-label="의미">복잡한</td><td data-label="예문">Das Steuersystem ist viel zu <strong>komplex</strong>.</td><td data-label="번역">조세 제도가 너무 복잡하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">wesentlich</td><td data-label="의미">본질적인, 핵심적인</td><td data-label="예문">Das ist ein <strong>wesentlicher</strong> Punkt der Debatte.</td><td data-label="번역">그것이 토론의 핵심적인 지점이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">relevant</td><td data-label="의미">유의미한, 관련 있는</td><td data-label="예문">Diese Daten sind für uns nicht <strong>relevant</strong>.</td><td data-label="번역">이 데이터들은 우리에게 유의미하지 않다.</td></tr>
-                <tr><td data-label="단어" class="german-word">grundlegend</td><td data-label="의미">근본적인</td><td data-label="예문">Wir brauchen <strong>grundlegende</strong> Reformen.</td><td data-label="번역">우리는 근본적인 개혁이 필요하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">innovativ</td><td data-label="의미">혁신적인</td><td data-label="예문">Das Unternehmen ist für seine <strong>innovativen</strong> Ideen bekannt.</td><td data-label="번역">그 회사는 혁신적인 아이디어로 유명하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">erforderlich</td><td data-label="의미">필요한, 요구되는</td><td data-label="예문">Massive Investitionen sind <strong>erforderlich</strong>.</td><td data-label="번역">막대한 투자가 요구된다.</td></tr>
-                <tr><td data-label="단어" class="german-word">transparent</td><td data-label="의미">투명한</td><td data-label="예문">Politische Entscheidungen müssen <strong>transparent</strong> sein.</td><td data-label="번역">정치적 결정은 투명해야 한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">bürokratisch</td><td data-label="의미">관료적인</td><td data-label="예문">Die Prozesse sind zu <strong>bürokratisch</strong> und langsam.</td><td data-label="번역">절차가 지나치게 관료적이고 느리다.</td></tr>
-                <tr><td data-label="단어" class="german-word">vielfältig</td><td data-label="의미">다양한</td><td data-label="예문">Die Gründe für die Krise sind <strong>vielfältig</strong>.</td><td data-label="번역">위기의 원인은 다양하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">unverzichtbar</td><td data-label="의미">필수불가결한</td><td data-label="예문">Internet ist heute <strong>unverzichtbar</strong>.</td><td data-label="번역">오늘날 인터넷은 필수불가결하다.</td></tr>
-            </tbody>
-        </table>
-    </section>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="word-list-container">
+                    </div>
+            </div>
 
-    <section>
-        <h2>5. 태도 및 관점 (Standpunkte & Perspektiven)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th width="15%">단어</th>
-                    <th width="15%">의미</th>
-                    <th width="40%">예문 (Beispiel)</th>
-                    <th width="30%">번역</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td data-label="단어" class="german-word">skeptisch</td><td data-label="의미">회의적인</td><td data-label="예문">Viele Bürger sind gegenüber KI <strong>skeptisch</strong>.</td><td data-label="번역">많은 시민이 AI에 대해 회의적이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">optimistisch</td><td data-label="의미">낙관적인</td><td data-label="예문">Ich bin <strong>optimistisch</strong>, was die Zukunft angeht.</td><td data-label="번역">나는 미래에 대해 낙관적이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">pessimistisch</td><td data-label="의미">비관적인</td><td data-label="예문">Er hat eine <strong>pessimistische</strong> Weltsicht.</td><td data-label="번역">그는 비관적인 세계관을 가지고 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">überzeugt</td><td data-label="의미">확신하는</td><td data-label="예문">Ich bin davon <strong>überzeugt</strong>, dass wir Erfolg haben.</td><td data-label="번역">나는 우리가 성공할 것이라고 확신한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">objektiv</td><td data-label="의미">객관적인</td><td data-label="예문">Wir brauchen eine <strong>objektive</strong> Berichterstattung.</td><td data-label="번역">우리는 객관적인 보도가 필요하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">subjektiv</td><td data-label="의미">주관적인</td><td data-label="예문">Das ist nur meine <strong>subjektive</strong> Meinung.</td><td data-label="번역">그것은 단지 나의 주관적인 의견일 뿐이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">glaubwürdig</td><td data-label="의미">신뢰할 수 있는</td><td data-label="예문">Seine Argumente klingen nicht <strong>glaubwürdig</strong>.</td><td data-label="번역">그의 논거는 신뢰할 수 있게 들리지 않는다.</td></tr>
-                <tr><td data-label="단어" class="german-word">eindeutig</td><td data-label="의미">명확한</td><td data-label="예문">Das Ergebnis der Studie ist <strong>eindeutig</strong>.</td><td data-label="번역">연구 결과는 명확하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">realistisch</td><td data-label="의미">현실적인</td><td data-label="예문">Man muss <strong>realistische</strong> Ziele setzen.</td><td data-label="번역">현실적인 목표를 세워야 한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">utopisch</td><td data-label="의미">비현실적인</td><td data-label="예문">Vollbeschäftigung ist momentan <strong>utopisch</strong>.</td><td data-label="번역">완전 고용은 현재로서 비현실적이다.</td></tr>
-            </tbody>
-        </table>
-    </section>
-    
-    <section>
-        <h2>6. 현대 사회 이슈 관련 (Spezielle Themen)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th width="15%">단어</th>
-                    <th width="15%">의미</th>
-                    <th width="40%">예문 (Beispiel)</th>
-                    <th width="30%">번역</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td data-label="단어" class="german-word">digital</td><td data-label="의미">디지털의</td><td data-label="예문">Die <strong>digitale</strong> Transformation verändert alles.</td><td data-label="번역">디지털 전환이 모든 것을 바꾸고 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">demografisch</td><td data-label="의미">인구학적인</td><td data-label="예문">Der <strong>demografische</strong> Wandel ist eine Gefahr.</td><td data-label="번역">인구학적 변화는 위협이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">vielversprechend</td><td data-label="의미">유망한</td><td data-label="예문">Das ist ein <strong>vielversprechender</strong> Ansatz.</td><td data-label="번역">그것은 유망한 접근 방식이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">konstruktiv</td><td data-label="의미">건설적인</td><td data-label="예문">Wir führen eine <strong>konstruktive</strong> Diskussion.</td><td data-label="번역">우리는 건설적인 토론을 하고 있다.</td></tr>
-                <tr><td data-label="단어" class="german-word">zwingend</td><td data-label="의미">피할 수 없는</td><td data-label="예문">Reformen sind <strong>zwingend</strong> notwendig.</td><td data-label="번역">개혁은 반드시 필요하다.</td></tr>
-                <tr><td data-label="단어" class="german-word">paradox</td><td data-label="의미">역설적인</td><td data-label="예문">Es ist <strong>paradox</strong>, dass die Preise trotz Krise steigen.</td><td data-label="번역">위기에도 불구하고 물가가 오르는 것은 역설적이다.</td></tr>
-                <tr><td data-label="단어" class="german-word">vernünftig</td><td data-label="의미">합리적인</td><td data-label="예문">Wir müssen eine <strong>vernünftige</strong> Lösung finden.</td><td data-label="번역">우리는 합리적인 해결책을 찾아야 한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">vorbildlich</td><td data-label="의미">모범적인</td><td data-label="예문">Die Firma verhält sich ökologisch <strong>vorbildlich</strong>.</td><td data-label="번역">그 회사는 환경적으로 모범적인 행보를 보인다.</td></tr>
-                <tr><td data-label="단어" class="german-word">flexibel</td><td data-label="의미">유연한</td><td data-label="예문">Arbeitszeiten müssen <strong>flexibler</strong> werden.</td><td data-label="번역">근로 시간은 더 유연해져야 한다.</td></tr>
-                <tr><td data-label="단어" class="german-word">effektiv</td><td data-label="의미">효과적인</td><td data-label="예문">Das ist die <strong>effektivste</strong> Methode gegen Armut.</td><td data-label="번역">그것이 빈곤에 대항하는 가장 효과적인 방법이다.</td></tr>
-            </tbody>
-        </table>
-    </section>
+            <section id="quiz-start" class="mt-40 mb-20 scroll-mt-32">
+                <div class="max-w-3xl mx-auto">
+                    <div class="text-center mb-10">
+                        <span class="text-diskussion-600 font-bold tracking-widest text-xs uppercase mb-2 block">Challenge</span>
+                        <h3 class="text-3xl font-bold text-slate-900">Vokabel Quiz</h3>
+                        <p class="text-slate-500 mt-2">문맥에 가장 적절한 형용사를 선택하여 논리를 완성하세요.</p>
+                    </div>
 
-    <div class="tips-section">
-        <h3>💡 공부 팁</h3>
-        [cite_start]<p>이 단어들을 단순히 외우기보다, <strong>반대말끼리 묶어서</strong> 외우면 찬반 토론에서 훨씬 유용합니다! [cite: 37, 38]</p>
-        <ul>
-            <li><strong>rentabel</strong> (수익성 있는) &harr; [cite_start]<strong>verlustreich</strong> (손실이 많은) [cite: 39]</li>
-            <li><strong>optimistisch</strong> (낙관적) &harr; [cite_start]<strong>skeptisch</strong> (회의적) [cite: 40]</li>
-            <li><strong>langfristig</strong> (장기적) &harr; [cite_start]<strong>kurzfristig</strong> (단기적) [cite: 26, 30]</li>
-        </ul>
+                    <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden relative">
+                        <div class="absolute -top-20 -right-20 w-64 h-64 bg-diskussion-50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+                        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-60 pointer-events-none"></div>
+
+                        <div id="q-init" class="p-16 text-center relative z-10">
+                            <div class="w-20 h-20 bg-diskussion-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-diskussion-500">
+                                <i class="ph-duotone ph-chart-line-up text-4xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-6">토론 어휘 마스터하기</h4>
+                            <button onclick="startQuiz()" class="bg-diskussion-600 hover:bg-diskussion-500 text-white font-bold px-10 py-4 rounded-xl shadow-lg shadow-diskussion-500/30 transition-all transform hover:-translate-y-1">
+                                퀴즈 시작하기
+                            </button>
+                        </div>
+
+                        <div id="q-play" class="p-8 md:p-12 hidden relative z-10">
+                            <div class="flex justify-between items-center mb-8">
+                                <div id="q-status" class="text-xs font-bold text-diskussion-600 bg-diskussion-50 px-3 py-1 rounded-full border border-diskussion-100">
+                                    Question 1 / 10
+                                </div>
+                                <div class="w-24 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div id="q-progress-bar" class="h-full bg-diskussion-500 w-0 transition-all duration-300"></div>
+                                </div>
+                            </div>
+
+                            <div class="text-center mb-8">
+                                <div class="text-sm text-slate-400 font-medium mb-2" id="q-meaning-hint"></div>
+                                <h4 id="q-text" class="text-2xl md:text-3xl font-bold text-slate-800 leading-snug"></h4>
+                            </div>
+
+                            <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8">
+                                </div>
+
+                            <button id="next-btn" onclick="nextQ()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl shadow-md disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-800 transition-all" disabled>
+                                다음 문제 <i class="ph-bold ph-arrow-right ml-2 inline-block align-middle"></i>
+                            </button>
+                        </div>
+
+                        <div id="q-result" class="p-16 text-center hidden relative z-10">
+                            <div class="w-24 h-24 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6 text-yellow-500 text-5xl">
+                                <i class="ph-fill ph-trophy"></i>
+                            </div>
+                            <h4 class="text-lg font-medium text-slate-500 mb-2">당신의 점수는?</h4>
+                            <h4 class="text-5xl font-black text-slate-900 mb-8 tracking-tight" id="score-text"></h4>
+                            <button onclick="location.reload()" class="bg-white border-2 border-slate-200 text-slate-700 hover:border-diskussion-500 hover:text-diskussion-600 px-8 py-3 rounded-xl font-bold transition-all">
+                                <i class="ph-bold ph-arrows-clockwise mr-2"></i> 다시 도전
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+            <div class="flex items-center gap-2 mb-4 md:mb-0">
+                <div class="w-6 h-6 rounded bg-slate-900 flex items-center justify-center text-white text-xs">D</div>
+                <span class="font-semibold text-slate-700">Deutsch Lernen</span>
+            </div>
+            <p>© 2026 . Essential Discussion Adjectives.</p>
+        </div>
+    </footer>
+
+    <div id="word-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" onclick="closeWordModal()">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity"></div>
+        <div class="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl p-8 md:p-10 transform transition-all scale-100" onclick="event.stopPropagation()">
+            <button class="absolute top-6 right-6 text-slate-300 hover:text-slate-600 transition-colors" onclick="closeWordModal()">
+                <i class="ph-bold ph-x text-2xl"></i>
+            </button>
+            
+            <div class="inline-block px-3 py-1 rounded-lg text-xs font-bold mb-4 uppercase tracking-wider bg-diskussion-50 text-diskussion-600">
+                Adjektiv (형용사)
+            </div>
+            
+            <h3 id="modal-word" class="text-3xl md:text-4xl font-bold text-slate-900 mb-6"></h3>
+            
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 mb-6">
+                <p id="modal-sentence" class="text-xl font-medium text-diskussion-700 leading-relaxed"></p>
+                <p id="modal-trans" class="text-sm text-slate-400 mt-2 block"></p>
+            </div>
+            
+            <div class="flex items-center gap-2 text-slate-500">
+                <i class="ph-fill ph-translate"></i>
+                <p id="modal-meaning" class="font-medium text-lg"></p>
+            </div>
+        </div>
     </div>
 
-    <a href="grammatik.html" class="back-link">&larr; 문법 목록으로 돌아가기</a>
+    <script>
+        /* 데이터 (사회/경제 토론 핵심 형용사) */
+        const adjektivData = [
+            // 1. 경제적 가치 및 성과
+            {id:1, w:"rentabel", m:"수익성이 있는", s:"Das Projekt ist auf lange Sicht nicht rentabel.", t:"그 프로젝트는 장기적으로 수익성이 없다."},
+            {id:2, w:"kostspielig", m:"돈이 많이 드는", s:"Die Umstellung auf E-Autos ist sehr kostspielig.", t:"전기차로의 전환은 비용이 매우 많이 든다."},
+            {id:3, w:"effizient", m:"효율적인", s:"Wir brauchen effizientere Methoden zur Energiegewinnung.", t:"우리는 더 효율적인 에너지 확보 방법이 필요하다."},
+            {id:4, w:"konkurrenzfähig", m:"경쟁력 있는", s:"Deutsche Firmen müssen weltweit konkurrenzfähig bleiben.", t:"독일 기업들은 세계적으로 경쟁력을 유지해야 한다."},
+            {id:5, w:"lukrativ", m:"돈이 되는/유리한", s:"Der Handel mit Daten ist ein lukratives Geschäft.", t:"데이터 거래는 수익성이 좋은 사업이다."},
+            {id:6, w:"produktiv", m:"생산적인", s:"Homeoffice kann die Mitarbeiter produktiver machen.", t:"재택근무는 직원들을 더 생산적으로 만들 수 있다."},
+            {id:7, w:"stagnierend", m:"정체된", s:"Die Wirtschaft leidet unter stagnierenden Löhnen.", t:"경제가 정체된 임금으로 인해 고통받고 있다."},
+            {id:8, w:"marode", m:"노후한/파산 직전의", s:"Der Staat muss die marode Infrastruktur sanieren.", t:"국가는 무너져가는 사회 기반 시설을 보수해야 한다."},
+            {id:9, w:"marktgerecht", m:"시장 상황에 맞는", s:"Wir brauchen marktgerechte Lösungen für die Krise.", t:"우리는 위기에 대응하는 시장 적합한 해결책이 필요하다."},
+            {id:10, w:"verschuldet", m:"빚을 진", s:"Viele Haushalte sind extrem hoch verschuldet.", t:"많은 가계가 매우 높은 부채를 안고 있다."},
 
+            // 2. 사회적 갈등 및 문제점
+            {id:11, w:"umstritten", m:"논란이 되는", s:"Die neue Steuerreform ist politisch sehr umstritten.", t:"새로운 세제 개혁은 정치적으로 매우 논란이 많다."},
+            {id:12, w:"kontrovers", m:"논쟁적인", s:"Über dieses Thema wurde sehr kontrovers diskutiert.", t:"이 주제에 대해 매우 논쟁적인 토론이 이루어졌다."},
+            {id:13, w:"benachteiligt", m:"소외된/불이익 받는", s:"Kinder aus benachteiligten Familien brauchen Hilfe.", t:"소외 계층의 아이들은 도움이 필요하다."},
+            {id:14, w:"diskriminierend", m:"차별적인", s:"Solche Regeln wirken oft diskriminierend.", t:"그런 규칙들은 종종 차별적인 효과를 낸다."},
+            {id:15, w:"problematisch", m:"문제가 있는", s:"Der hohe Fleischkonsum ist ökologisch problematisch.", t:"높은 육류 소비는 환경적으로 문제가 있다."},
+            {id:16, w:"ungerecht", m:"불공평한", s:"Die Einkommensverteilung ist weltweit ungerecht.", t:"소득 분배는 전 세계적으로 불공평하다."},
+            {id:17, w:"privilegiert", m:"특권을 가진", s:"Privilegierte Gruppen haben besseren Zugang zu Bildung.", t:"특권층은 교육에 더 나은 접근권을 가진다."},
+            {id:18, w:"oberflächlich", m:"피상적인", s:"Die Diskussion blieb leider sehr oberflächlich.", t:"토론이 아쉽게도 매우 피상적인 수준에 머물렀다."},
+            {id:19, w:"besorgniserregend", m:"걱정스러운", s:"Die Jugendarbeitslosigkeit ist besorgniserregend.", t:"청년 실업률이 걱정스러운 수준이다."},
+            {id:20, w:"überfordert", m:"감당 못 하는/버거운", s:"Das Gesundheitssystem ist völlig überfordert.", t:"보건 의료 체계가 완전히 과부하 상태다."},
+
+            // 3. 변화와 영향
+            {id:21, w:"gravierend", m:"심각한/중대한", s:"Der Klimawandel hat gravierende Folgen.", t:"기후 변화는 심각한 결과를 초래한다."},
+            {id:22, w:"erheblich", m:"상당한", s:"Die Kosten sind erheblich gestiegen.", t:"비용이 상당히 상승했다."},
+            {id:23, w:"rasant", m:"급격한", s:"Die Technik entwickelt sich rasant weiter.", t:"기술이 급격하게 발전하고 있다."},
+            {id:24, w:"nachhaltig", m:"지속 가능한", s:"Wir müssen nachhaltiger mit Ressourcen umgehen.", t:"우리는 자원을 더 지속 가능하게 사용해야 한다."},
+            {id:25, w:"drastisch", m:"급격한/철저한", s:"Die Regierung plant drastische Kürzungen.", t:"정부는 대대적인 감축을 계획하고 있다."},
+            {id:26, w:"langfristig", m:"장기적인", s:"Wir brauchen eine langfristige Strategie.", t:"우리는 장기적인 전략이 필요하다."},
+            {id:27, w:"kurzfristig", m:"단기적인", s:"Das ist nur eine kurzfristige Lösung.", t:"그것은 단지 단기적인 해결책일 뿐이다."},
+            {id:28, w:"fatal", m:"치명적인", s:"Eine Fehlentscheidung hätte fatale Auswirkungen.", t:"잘못된 결정은 치명적인 영향을 미칠 것이다."},
+            {id:29, w:"absehbar", m:"예견 가능한", s:"Ein Ende der Krise ist noch nicht absehbar.", t:"위기의 끝이 아직 보이지 않는다."},
+            {id:30, w:"kontinuierlich", m:"지속적인", s:"Die Preise steigen kontinuierlich.", t:"물가가 지속적으로 오르고 있다."},
+
+             // 4. 구조 및 성격
+            {id:31, w:"komplex", m:"복잡한", s:"Das Steuersystem ist viel zu komplex.", t:"조세 제도가 너무 복잡하다."},
+            {id:32, w:"wesentlich", m:"본질적인/핵심적인", s:"Das ist ein wesentlicher Punkt der Debatte.", t:"그것이 토론의 핵심적인 지점이다."},
+            {id:33, w:"relevant", m:"유의미한/관련 있는", s:"Diese Daten sind für uns nicht relevant.", t:"이 데이터들은 우리에게 유의미하지 않다."},
+            {id:34, w:"grundlegend", m:"근본적인", s:"Wir brauchen grundlegende Reformen.", t:"우리는 근본적인 개혁이 필요하다."},
+            {id:35, w:"innovativ", m:"혁신적인", s:"Das Unternehmen ist für seine innovativen Ideen bekannt.", t:"그 회사는 혁신적인 아이디어로 유명하다."},
+            {id:36, w:"erforderlich", m:"필요한/요구되는", s:"Massive Investitionen sind erforderlich.", t:"막대한 투자가 요구된다."},
+            {id:37, w:"transparent", m:"투명한", s:"Politische Entscheidungen müssen transparent sein.", t:"정치적 결정은 투명해야 한다."},
+            {id:38, w:"bürokratisch", m:"관료적인", s:"Die Prozesse sind zu bürokratisch und langsam.", t:"절차가 지나치게 관료적이고 느리다."},
+            {id:39, w:"vielfältig", m:"다양한", s:"Die Gründe für die Krise sind vielfältig.", t:"위기의 원인은 다양하다."},
+            {id:40, w:"unverzichtbar", m:"필수불가결한", s:"Internet ist heute unverzichtbar.", t:"오늘날 인터넷은 필수불가결하다."},
+
+            // 5. 태도 및 관점
+            {id:41, w:"skeptisch", m:"회의적인", s:"Viele Bürger sind gegenüber KI skeptisch.", t:"많은 시민이 AI에 대해 회의적이다."},
+            {id:42, w:"optimistisch", m:"낙관적인", s:"Ich bin optimistisch, was die Zukunft angeht.", t:"나는 미래에 대해 낙관적이다."},
+            {id:43, w:"pessimistisch", m:"비관적인", s:"Er hat eine pessimistische Weltsicht.", t:"그는 비관적인 세계관을 가지고 있다."},
+            {id:44, w:"überzeugt", m:"확신하는", s:"Ich bin davon überzeugt, dass wir Erfolg haben.", t:"나는 우리가 성공할 것이라고 확신한다."},
+            {id:45, w:"objektiv", m:"객관적인", s:"Wir brauchen eine objektive Berichterstattung.", t:"우리는 객관적인 보도가 필요하다."},
+            {id:46, w:"subjektiv", m:"주관적인", s:"Das ist nur meine subjektive Meinung.", t:"그것은 단지 나의 주관적인 의견일 뿐이다."},
+            {id:47, w:"glaubwürdig", m:"신뢰할 수 있는", s:"Seine Argumente klingen nicht glaubwürdig.", t:"그의 논거는 신뢰할 수 있게 들리지 않는다."},
+            {id:48, w:"eindeutig", m:"명확한", s:"Das Ergebnis der Studie ist eindeutig.", t:"연구 결과는 명확하다."},
+            {id:49, w:"realistisch", m:"현실적인", s:"Man muss realistische Ziele setzen.", t:"현실적인 목표를 세워야 한다."},
+            {id:50, w:"utopisch", m:"비현실적인", s:"Vollbeschäftigung ist momentan utopisch.", t:"완전 고용은 현재로서 비현실적이다."},
+            
+            // 6. 이슈
+            {id:51, w:"digital", m:"디지털의", s:"Die digitale Transformation verändert alles.", t:"디지털 전환이 모든 것을 바꾸고 있다."},
+            {id:52, w:"demografisch", m:"인구학적인", s:"Der demografische Wandel ist eine Gefahr.", t:"인구학적 변화는 위협이다."},
+            {id:53, w:"vielversprechend", m:"유망한", s:"Das ist ein vielversprechender Ansatz.", t:"그것은 유망한 접근 방식이다."},
+            {id:54, w:"konstruktiv", m:"건설적인", s:"Wir führen eine konstruktive Diskussion.", t:"우리는 건설적인 토론을 하고 있다."},
+            {id:55, w:"zwingend", m:"피할 수 없는/강제적인", s:"Reformen sind zwingend notwendig.", t:"개혁은 반드시 필요하다."},
+            {id:56, w:"paradox", m:"역설적인", s:"Es ist paradox, dass die Preise trotz Krise steigen.", t:"위기에도 불구하고 물가가 오르는 것은 역설적이다."},
+            {id:57, w:"vernünftig", m:"합리적인", s:"Wir müssen eine vernünftige Lösung finden.", t:"우리는 합리적인 해결책을 찾아야 한다."},
+            {id:58, w:"vorbildlich", m:"모범적인", s:"Die Firma verhält sich ökologisch vorbildlich.", t:"그 회사는 환경적으로 모범적인 행보를 보인다."},
+            {id:59, w:"flexibel", m:"유연한", s:"Arbeitszeiten müssen flexibler werden.", t:"근로 시간은 더 유연해져야 한다."},
+            {id:60, w:"effektiv", m:"효과적인", s:"Das ist die effektivste Methode gegen Armut.", t:"그것이 빈곤에 대항하는 가장 효과적인 방법이다."}
+        ];
+
+        // 렌더링 로직
+        const container = document.getElementById('word-list-container');
+        adjektivData.forEach(item => {
+            container.innerHTML += `
+                <div class="group bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col justify-between h-40" onclick="openWordModal('${item.id}', '${item.w}', '${item.s.replace(/'/g, "\\'")}', '${item.m}', '${item.t}')">
+                    <div class="flex justify-between items-start">
+                        <span class="text-[10px] font-bold text-slate-300">NO.${item.id}</span>
+                        <span class="text-[10px] font-bold px-2 py-1 rounded-md border bg-diskussion-50 text-diskussion-600 border-diskussion-100">
+                            Adj
+                        </span>
+                    </div>
+                    <div class="text-center">
+                        <div class="font-bold text-slate-800 text-lg group-hover:text-diskussion-600 transition-colors mb-1 leading-tight truncate px-1">${item.w}</div>
+                        <div class="text-xs text-slate-400 font-medium truncate px-1">${item.m}</div>
+                    </div>
+                    <div class="text-center opacity-0 group-hover:opacity-100 transition-opacity">
+                         <i class="ph-bold ph-magnifying-glass-plus text-diskussion-400"></i>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Modal Logic
+        function openWordModal(id, w, s, m, t) {
+            document.getElementById('modal-word').innerText = w;
+            document.getElementById('modal-sentence').innerText = s;
+            document.getElementById('modal-meaning').innerText = m;
+            document.getElementById('modal-trans').innerText = t; // 번역 추가
+            
+            document.getElementById('word-modal').classList.remove('hidden');
+            document.getElementById('word-modal').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeWordModal() { 
+            document.getElementById('word-modal').classList.add('hidden'); 
+            document.getElementById('word-modal').classList.remove('flex');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // Quiz Logic
+        let pool = []; 
+        let currIdx = 0; 
+        let score = 0;
+
+        function startQuiz() {
+            pool = [...adjektivData].sort(() => 0.5 - Math.random()).slice(0, 10);
+            document.getElementById('q-init').classList.add('hidden');
+            document.getElementById('q-play').classList.remove('hidden');
+            score = 0;
+            currIdx = 0;
+            showQ();
+        }
+
+        function showQ() {
+            const item = pool[currIdx];
+            document.getElementById('q-status').innerText = `Question ${currIdx + 1} / 10`;
+            
+            // Progress Bar
+            const percent = ((currIdx + 1) / 10) * 100;
+            document.getElementById('q-progress-bar').style.width = `${percent}%`;
+
+            document.getElementById('q-meaning-hint').innerText = `뜻: ${item.m}`;
+            // 형용사 빈칸 처리 (대소문자 무시)
+            const questionText = item.s.replace(new RegExp(item.w, 'gi'), "_______");
+            document.getElementById('q-text').innerText = questionText;
+            
+            const optsDiv = document.getElementById('q-options'); 
+            optsDiv.innerHTML = '';
+            
+            let choices = [item.w];
+            while(choices.length < 4) {
+                let randomAdj = adjektivData[Math.floor(Math.random()*adjektivData.length)].w;
+                if(!choices.includes(randomAdj)) choices.push(randomAdj);
+            }
+            
+            choices.sort(() => 0.5 - Math.random()).forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-5 rounded-xl border border-slate-200 font-bold text-slate-600 hover:border-diskussion-500 hover:text-diskussion-600 hover:bg-diskussion-50 transition-all cursor-pointer bg-white shadow-sm";
+                btn.innerText = choice;
+                btn.onclick = () => {
+                    document.querySelectorAll('#q-options button').forEach(b => b.disabled = true);
+                    
+                    if(choice === item.w) { 
+                        btn.className = "w-full text-left p-5 rounded-xl border border-green-500 bg-green-50 text-green-700 font-bold shadow-md";
+                        score++; 
+                    } else { 
+                        btn.className = "w-full text-left p-5 rounded-xl border border-red-500 bg-red-50 text-red-700 font-bold shadow-md";
+                    }
+                    document.getElementById('next-btn').disabled = false;
+                };
+                optsDiv.appendChild(btn);
+            });
+        }
+
+        function nextQ() {
+            currIdx++;
+            if(currIdx < 10) { 
+                showQ(); 
+                document.getElementById('next-btn').disabled = true; 
+            } else { 
+                document.getElementById('q-play').classList.add('hidden'); 
+                document.getElementById('q-result').classList.remove('hidden'); 
+                document.getElementById('score-text').innerText = `${score} / 10`; 
+            }
+        }
+    </script>
 </body>
 </html>
