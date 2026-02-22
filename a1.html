@@ -1,238 +1,100 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Deutsch Lernen - A1 Kurs</title>
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A1 TELC 핵심 정리</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' },
+                        teal: { 50: '#f0fdfa', 100: '#ccfbf1', 400: '#2dd4bf', 500: '#14b8a6', 600: '#0d9488', 900: '#134e4a' }
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body { font-family: 'Open Sans', sans-serif; background-color: #f8f9fa; color: #333; }
-        h1, h2, h3, h4, .serif-font { font-family: 'Merriweather', serif; }
-        .german-line { height: 4px; background: linear-gradient(90deg, #000 33.3%, #d00 33.3%, #d00 66.6%, #fc0 66.6%); }
-        .sidebar-item.active { background-color: #000; color: #fff; font-weight: bold; }
-        .bubble { padding: 1rem; border-radius: 1.2rem; margin-bottom: 1rem; border: 1px solid #e5e7eb; line-height: 1.6; }
-        .teacher { background-color: #fffbeb; border-left: 5px solid #fbbf24; }
-        .student-a { background-color: #eff6ff; border-left: 5px solid #3b82f6; }
-        .student-b { background-color: #f0fdf4; border-left: 5px solid #22c55e; }
-        .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0.75rem; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
+        .nav-link { color: #64748b; font-weight: 500; transition: color 0.2s; }
+        .nav-link:hover { color: #0d9488; }
+        .nav-link.active { color: #0d9488; font-weight: 700; }
+        
+        /* 모바일 스크롤바 숨기기 (깔끔한 UI) */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
-<body>
-    <div id="root"></div>
+<body class="flex flex-col min-h-screen selection:bg-teal-100 selection:text-teal-900">
 
-    <script type="text/babel">
-        const { useState } = React;
-
-        // --- 1단원 전체 단어 데이터 ---
-        const LEKTION_1_VOCAB = [
-            { cat: "인사 및 작별 (15개)", words: [["Hallo", "안녕"], ["Guten Morgen", "좋은 아침"], ["Guten Tag", "안녕하세요 (낮)"], ["Guten Abend", "안녕하세요 (저녁)"], ["Gute Nacht", "안녕히 주무세요"], ["Tschüss", "안녕 (비격식)"], ["Auf Wiedersehen", "안녕히 가세요 (격식)"], ["Bis bald", "곧 봐요"], ["Willkommen", "환영합니다"], ["Wie geht es Ihnen?", "어떻게 지내세요? (격식)"], ["Wie geht’s?", "잘 지내? (비격식)"], ["Danke", "감사합니다"], ["Gut", "좋은 / 잘"], ["Sehr gut", "아주 좋은"], ["Es geht", "그저 그래요"]] },
-            { cat: "자기소개 및 인적사항 (20개)", words: [["der Name (-n)", "이름"], ["der Vorname (-n)", "이름(First)"], ["der Nachname (-n)", "성(Last)"], ["das Alter", "나이"], ["die Herkunft", "출신"], ["der Wohnort (-e)", "거주지"], ["die Adresse (-n)", "주소"], ["die Telefonnummer (-n)", "전화번호"], ["die E-Mail-Adresse (-n)", "이메일"], ["der Familienstand", "혼인 상태"], ["ledig", "미혼의"], ["verheiratet", "기혼의"], ["das Land", "나라"], ["die Stadt", "도시"], ["die Sprache (-n)", "언어"], ["Deutsch", "독일어"], ["Koreanisch", "한국어"], ["Englisch", "영어"], ["Herr", "~씨 (남성)"], ["Frau", "~씨 (여성)"]] },
-            { cat: "필수 동사 (15개)", words: [["sein", "~이다"], ["heißen", "~라고 불리다"], ["kommen", "오다"], ["wohnen", "거주하다"], ["leben", "살다"], ["sprechen", "말하다"], ["lernen", "배우다"], ["schreiben", "쓰다"], ["lesen", "읽다"], ["hören", "듣다"], ["fragen", "묻다"], ["항상 대답하다", "antworten"], ["buchstabieren", "철자를 말하다"], ["verstehen", "이해하다"], ["machen", "하다/만들다"]] },
-            { cat: "의문사 및 대명사 (15개)", words: [["wer", "누구"], ["wie", "어떻게"], ["wo", "어디"], ["woher", "어디로부터"], ["was", "무엇"], ["welche", "어떤"], ["ich", "나"], ["du", "너"], ["er", "그"], ["sie", "그녀/그들"], ["es", "그것"], ["wir", "우리"], ["ihr", "너희들"], ["Sie", "당신(존칭)"], ["mein / meine", "나의"]] },
-            { cat: "숫자 0-20 (21개)", words: [["null", "0"], ["eins", "1"], ["zwei", "2"], ["drei", "3"], ["vier", "4"], ["fünf", "5"], ["sechs", "6"], ["sieben", "7"], ["acht", "8"], ["neun", "9"], ["zehn", "10"], ["elf", "11"], ["zwölf", "12"], ["dreizehn", "13"], ["vierzehn", "14"], ["fünfzehn", "15"], ["sechzehn", "16"], ["siebzehn", "17"], ["achtzehn", "18"], ["neunzehn", "19"], ["zwanzig", "20"]] },
-            { cat: "기타 필수 표현 (14개)", words: [["ja", "네"], ["ne인", "아니오"], ["bitte", "부탁합니다"], ["Genau", "맞아요"], ["ein bisschen", "조금"], ["zusammen", "함께"], ["jetzt", "지금"], ["aber", "하지만"], ["und", "그리고"], ["auch", "또한"], ["sehr", "매우"], ["nicht", "아니"], ["die Seite", "페이지"], ["heute", "오늘"]] }
-        ];
-
-        function App() {
-            const [lektion, setLektion] = useState(1);
-            const [quizAns, setQuizAns] = useState({});
-
-            return (
-                <div className="flex flex-col min-h-screen">
-                    <header className="bg-white shadow-sm sticky top-0 z-50">
-                        <div className="german-line w-full"></div>
-                        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-gray-900 text-yellow-400 flex items-center justify-center font-bold text-xl rounded">A1</div>
-                                <h1 className="text-xl font-bold serif-font">Deutsch Lernen Portal</h1>
-                            </div>
-                            <a href="index.html" className="text-sm font-bold text-gray-400 hover:text-black">← 홈으로</a>
-                        </div>
-                    </header>
-
-                    <div className="container mx-auto flex flex-col lg:flex-row flex-grow">
-                        {/* 사이드바 메뉴 */}
-                        <aside className="w-full lg:w-64 bg-white border-r border-gray-100 p-6 space-y-2">
-                            <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Lektionen</p>
-                            {[...Array(12)].map((_, i) => (
-                                <button 
-                                    key={i+1} 
-                                    onClick={() => {setLektion(i+1); setQuizAns({});}}
-                                    className={`w-full text-left px-4 py-3 rounded-xl text-sm transition-all ${lektion === i+1 ? 'active sidebar-item' : 'hover:bg-gray-50'}`}
-                                >
-                                    Lektion {i+1} {i+1 === 1 ? '어학원 첫날' : ''}
-                                </button>
-                            ))}
-                        </aside>
-
-                        {/* 메인 학습 콘텐츠 */}
-                        <main className="flex-grow p-6 lg:p-12 max-w-4xl mx-auto w-full">
-                            {lektion === 1 ? (
-                                <div className="space-y-16">
-                                   <section>
-                                        <h2 className="text-3xl font-black serif-font mb-2">Lektion 1: 어학원 첫날</h2>
-                                        <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-8">Dialogue: Der erste Tag im Sprachkurs</p>
-                                        
-                                        <div className="dialogue-box space-y-6">
-                                            <div>
-                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
-                                                Guten Morgen! Willkommen im Deutschkurs. Ich bin Frau Bauer. Wie heißen Sie?
-                                                <span className="translation">좋은 아침입니다! 독일어 코스에 오신 걸 환영해요. 저는 바우어 선생님입니다. 성함이 어떻게 되시죠?</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Minjun">Minjun:</span>
-                                                Guten Morgen, Frau Bauer. Mein Name ist Minjun Kim.
-                                                <span className="translation">좋은 아침이에요, 바우어 선생님. 제 이름은 김민준입니다.</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
-                                                Entschuldigung, wie buchstabieren Sie Ihren Nachnamen?
-                                                <span className="translation">(실례지만, 성의 철자가 어떻게 되나요?)</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Minjun">Minjun:</span>
-                                                K-I-M. Genau.
-                                                <span className="translation">K-I-M입니다. 맞아요.</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
-                                                Danke, Minjun. Woher kommen Sie?
-                                                <span className="translation">고마워요, 민준 씨. 어디서 오셨나요?</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Minjun">Minjun:</span>
-                                                Ich komme aus Korea. Ich lebe jetzt in Berlin.
-                                                <span className="translation">한국에서 왔습니다. 지금은 베를린에 살고 있어요.</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
-                                                Und wer bist du?
-                                                <span className="translation">그리고 너는 누구니?</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Elena">Elena:</span>
-                                                Hallo, ich heiße Elena. Ich bin ledig und einundzwanzig (21) Jahre alt.
-                                                <span className="translation">안녕하세요, 저는 엘레나라고 해요. 저는 미혼이고 21살입니다.</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Minjun">Minjun:</span>
-                                                Elena, welche Sprachen sprichst du?
-                                                <span className="translation">엘레나, 너는 어떤 언어들을 하니?</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Elena">Elena:</span>
-                                                Ich spreche Spanisch, Englisch und ein bisschen Deutsch. Und du?
-                                                <span className="translation">나는 스페인어, 영어 그리고 독일어를 조금 해. 너는?</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Minjun">Minjun:</span>
-                                                Ich spreche Koreanisch und Englisch. Ich lerne jetzt Deutsch.
-                                                <span className="translation">나는 한국어와 영어를 해. 지금은 독일어를 배우고 있어.</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Elena">Elena:</span>
-                                                Wie ist deine Telefonnummer? Wir können zusammen lernen.
-                                                <span className="translation">네 전화번호가 뭐니? 우리 같이 공부할 수 있겠다.</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Minjun">Minjun:</span>
-                                                Ja, meine Nummer ist null-eins-sieben... (017...). Schreib bitte!
-                                                <span className="translation">응, 내 번호는 017...이야. 적어줘!</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
-                                                Gut. Bitte lesen Sie jetzt das Beispiel auf Seite zehn (10).
-                                                <span className="translation">좋아요. 이제 10페이지에 있는 예시를 읽어보세요.</span>
-                                            </div>
-                                            {/* --- 추가된 대화 내용 --- */}
-                                            <div>
-                                                <span className="speaker speaker-Minjun">Minjun:</span>
-                                                Frau Bauer, noch einmal, bitte. Sprechen Sie bitte langsam. Ich verstehe nicht.
-                                                <span className="translation">바우어 선생님, 한 번 더 부탁드려요. 천천히 말씀해 주세요. 이해를 못 했어요.</span>
-                                            </div>
-                                            <div>
-                                                <span className="speaker speaker-Bauer">Frau Bauer:</span>
-                                                Kein Problem, Minjun. Wir machen die Übung zusammen.
-                                                <span className="translation">문제없어요, 민준 씨. 우리 연습문제를 같이 해봐요.</span>
-                                            </div>
-                                        </div>
-                                    </section>
-
-                                    {/* 2. 독해 영역 */}
-                                    <section className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
-                                        <h3 className="text-xl font-bold serif-font mb-6 border-l-4 border-black pl-4">Lesetext: Mein Deutschkurs</h3>
-                                        <div className="text-lg leading-relaxed text-gray-700 space-y-4 mb-10">
-                                            <p>Hallo! Ich heiße Minjun Kim. Ich komme aus Korea, aber ich lebe jetzt in Berlin. Ich lerne Deutsch im Sprachkurs. Meine Lehrerin heißt Frau Bauer.</p>
-                                            <p>Heute ist der erste Tag. Elena ist auch im Kurs. Sie kommt aus Spanien. Sie ist 21 Jahre alt. Wir lernen zusammen.</p>
-                                        </div>
-                                        <div className="bg-gray-900 text-white p-6 rounded-2xl">
-                                            <h4 className="text-yellow-400 font-bold mb-4 text-xs uppercase tracking-widest">Review Quiz</h4>
-                                            {[
-                                                {q: "Minjun kommt aus Spanien.", a: "Falsch"},
-                                                {q: "Frau Bauer ist die Lehrerin.", a: "Richtig"}
-                                            ].map((item, idx) => (
-                                                <div key={idx} className="flex justify-between items-center text-sm py-2 border-b border-gray-800">
-                                                    <span>{item.q}</span>
-                                                    <div className="flex gap-2">
-                                                        {['Richtig', 'Falsch'].map(btn => (
-                                                            <button 
-                                                                key={btn}
-                                                                onClick={() => setQuizAns({...quizAns, [idx]: btn === item.a})}
-                                                                className={`px-3 py-1 rounded-full border border-gray-600 text-[10px] ${quizAns[idx] !== undefined && (btn === item.a ? 'bg-green-600' : '')}`}
-                                                            >
-                                                                {btn}
-                                                            </button>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </section>
-
-                                    {/* 3. 단어장 영역 */}
-                                    <section>
-                                        <h3 className="text-2xl font-bold serif-font mb-8">필수 단어 100</h3>
-                                        <div className="space-y-12">
-                                            {LEKTION_1_VOCAB.map((group, gIdx) => (
-                                                <div key={gIdx}>
-                                                    <h4 className="text-[10px] font-black text-indigo-500 uppercase tracking-widest mb-4 border-b pb-1">{group.cat}</h4>
-                                                    <div className="vocab-grid">
-                                                        {group.words.map((w, wIdx) => (
-                                                            <div key={wIdx} className="bg-white p-3 rounded-xl border border-gray-50 shadow-sm">
-                                                                <div className="text-sm font-bold text-gray-800">{w[0]}</div>
-                                                                <div className="text-[10px] text-gray-400">{w[1]}</div>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </section>
-                                </div>
-                            ) : (
-                                <div className="text-center py-20 text-gray-300">
-                                    <span className="material-symbols-outlined text-6xl mb-4">construction</span>
-                                    <p className="font-bold">Lektion {lektion} 내용은 준비 중입니다.</p>
-                                </div>
-                            )}
-                        </main>
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="location.href='index.html'">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-500/30">
+                        <span class="font-bold text-lg">D</span>
                     </div>
-
-                    <footer className="bg-white border-t py-12 text-center text-[10px] text-gray-300 font-bold uppercase tracking-widest">
-                        © 2024 DEUTSCH LERNEN PORTAL
-                    </footer>
+                    <div>
+                        <h1 class="font-bold text-xl tracking-tight text-slate-900 leading-none">Deutsch Lernen</h1>
+                        <span class="text-[10px] text-teal-600 font-bold uppercase tracking-wider">A1 Beginner</span>
+                    </div>
                 </div>
-            );
-        }
+                <div class="hidden md:flex items-center space-x-8 text-sm">
+                    <a href="index.html" class="nav-link">Alle</a>
+                    <a href="a1.html" class="nav-link active">A1</a>
+                    <a href="a2.html" class="nav-link">A2</a>
+                    <a href="grammatik/grammatik.html" class="nav-link">Grammatik</a> 
+                    <a href="notification.html" class="nav-link">Notification</a>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
 
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+    <main class="flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto">
+            
+            <div class="mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">A1 TELC 핵심 정리</h2>
+                <p class="text-slate-500 max-w-2xl">
+                    왼쪽 테마를 클릭하여 A1 합격을 위한 12가지 핵심 요소들을 학습해 보세요.
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <div class="w-full lg:w-1/3 xl:w-1/4">
+                    <div id="sidebar-menu" class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible hide-scrollbar pb-4 lg:pb-0 gap-3 lg:gap-0 sticky top-32">
+                        </div>
+                </div>
+
+                <div class="w-full lg:w-2/3 xl:w-3/4">
+                    <div id="content-area" class="bg-white rounded-[2rem] shadow-xl border border-slate-100 p-8 md:p-12 min-h-[600px]">
+                        </div>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <script src="js/a1_data.js"></script> 
+    <script src="app/a1_app.js"></script>
 </body>
 </html>
