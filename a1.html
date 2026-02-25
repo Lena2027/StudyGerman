@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A1 TELC 핵심 정리</title>
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <script>
@@ -23,31 +25,86 @@
         }
     </script>
     <style>
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; color: #1e293b; }
-        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
-        .nav-link { color: #64748b; font-weight: 500; transition: color 0.2s; }
-        .nav-link:hover { color: #0d9488; }
-        .nav-link.active { color: #0d9488; font-weight: 700; }
-        
-        /* 모바일 스크롤바 숨기기 (깔끔한 UI) */
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        html {
+            scroll-behavior: smooth;
+        }
 
-        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .nav-link {
+            color: #64748b;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: #0d9488;
+        }
+
+        .nav-link.active {
+            color: #0d9488;
+            font-weight: 700;
+        }
+
+        /* 모바일 스크롤바 숨기기 (깔끔한 UI) */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .interactive-sentence {
+            cursor: pointer;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            border-radius: 0.25rem;
+            padding: 0 2px;
+        }
+
+        .interactive-sentence:hover {
+            background-color: #fef08a;
+            /* amber-200 */
+            color: #1e293b;
         }
     </style>
 </head>
+
 <body class="flex flex-col min-h-screen selection:bg-teal-100 selection:text-teal-900">
 
     <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <div class="flex items-center gap-2 cursor-pointer" onclick="location.href='index.html'">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-500/30">
+                    <div
+                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white shadow-lg shadow-teal-500/30">
                         <span class="font-bold text-lg">D</span>
                     </div>
                     <div>
@@ -59,7 +116,7 @@
                     <a href="index.html" class="nav-link">Alle</a>
                     <a href="a1.html" class="nav-link active">A1</a>
                     <a href="a2.html" class="nav-link">A2</a>
-                    <a href="grammatik/grammatik.html" class="nav-link">Grammatik</a> 
+                    <a href="grammatik/grammatik.html" class="nav-link">Grammatik</a>
                     <a href="notification.html" class="nav-link">Notification</a>
                 </div>
                 <div></div>
@@ -69,7 +126,7 @@
 
     <main class="flex-grow pt-32 pb-20 px-6">
         <div class="max-w-7xl mx-auto">
-            
+
             <div class="mb-12">
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">A1 TELC 핵심 정리</h2>
                 <p class="text-slate-500 max-w-2xl">
@@ -78,15 +135,17 @@
             </div>
 
             <div class="flex flex-col lg:flex-row gap-8">
-                
+
                 <div class="w-full lg:w-1/3 xl:w-1/4">
-                    <div id="sidebar-menu" class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible hide-scrollbar pb-4 lg:pb-0 gap-3 lg:gap-0 sticky top-32">
-                        </div>
+                    <div id="sidebar-menu"
+                        class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible hide-scrollbar pb-4 lg:pb-0 gap-3 lg:gap-0 sticky top-32">
+                    </div>
                 </div>
 
                 <div class="w-full lg:w-2/3 xl:w-3/4">
-                    <div id="content-area" class="bg-white rounded-[2rem] shadow-xl border border-slate-100 p-8 md:p-12 min-h-[600px]">
-                        </div>
+                    <div id="content-area"
+                        class="bg-white rounded-[2rem] shadow-xl border border-slate-100 p-8 md:p-12 min-h-[600px]">
+                    </div>
                 </div>
 
             </div>
@@ -94,7 +153,170 @@
         </div>
     </main>
 
-    <script src="js/a1_data.js"></script> 
-    <script src="app/a1_app.js"></script>
+    <!-- ① 각 Step 데이터 파일 (내용 수정은 여기서!) -->
+    <script src="js/a1_step01.js"></script>
+    <script src="js/a1_step02.js"></script>
+    <script src="js/a1_step03.js"></script>
+    <script src="js/a1_step04.js"></script>
+    <script src="js/a1_step05.js"></script>
+    <script src="js/a1_step06.js"></script>
+    <script src="js/a1_step07.js"></script>
+    <script src="js/a1_step08.js"></script>
+    <script src="js/a1_step09.js"></script>
+    <script src="js/a1_step10.js"></script>
+    <script src="js/a1_step11.js"></script>
+    <script src="js/a1_step12.js"></script>
+
+    <!-- ② 앱 로직 -->
+    <script>
+        const a1Topics = [
+            STEP_01, STEP_02, STEP_03, STEP_04,
+            STEP_05, STEP_06, STEP_07, STEP_08,
+            STEP_09, STEP_10, STEP_11, STEP_12,
+        ];
+
+        const colorMap = {
+            teal: { bg: 'bg-teal-50', border: 'border-teal-200', icon: 'bg-teal-500', text: 'text-teal-700', badge: 'bg-teal-100 text-teal-700', active: 'bg-teal-500 text-white shadow-teal-200' },
+            blue: { bg: 'bg-blue-50', border: 'border-blue-200', icon: 'bg-blue-500', text: 'text-blue-700', badge: 'bg-blue-100 text-blue-700', active: 'bg-blue-500 text-white shadow-blue-200' },
+            amber: { bg: 'bg-amber-50', border: 'border-amber-200', icon: 'bg-amber-500', text: 'text-amber-700', badge: 'bg-amber-100 text-amber-700', active: 'bg-amber-500 text-white shadow-amber-200' },
+            violet: { bg: 'bg-violet-50', border: 'border-violet-200', icon: 'bg-violet-500', text: 'text-violet-700', badge: 'bg-violet-100 text-violet-700', active: 'bg-violet-500 text-white shadow-violet-200' },
+            rose: { bg: 'bg-rose-50', border: 'border-rose-200', icon: 'bg-rose-500', text: 'text-rose-700', badge: 'bg-rose-100 text-rose-700', active: 'bg-rose-500 text-white shadow-rose-200' },
+            sky: { bg: 'bg-sky-50', border: 'border-sky-200', icon: 'bg-sky-500', text: 'text-sky-700', badge: 'bg-sky-100 text-sky-700', active: 'bg-sky-500 text-white shadow-sky-200' },
+            green: { bg: 'bg-green-50', border: 'border-green-200', icon: 'bg-green-500', text: 'text-green-700', badge: 'bg-green-100 text-green-700', active: 'bg-green-500 text-white shadow-green-200' },
+            orange: { bg: 'bg-orange-50', border: 'border-orange-200', icon: 'bg-orange-500', text: 'text-orange-700', badge: 'bg-orange-100 text-orange-700', active: 'bg-orange-500 text-white shadow-orange-200' },
+            yellow: { bg: 'bg-yellow-50', border: 'border-yellow-200', icon: 'bg-yellow-400', text: 'text-yellow-700', badge: 'bg-yellow-100 text-yellow-700', active: 'bg-yellow-400 text-white shadow-yellow-200' },
+            pink: { bg: 'bg-pink-50', border: 'border-pink-200', icon: 'bg-pink-500', text: 'text-pink-700', badge: 'bg-pink-100 text-pink-700', active: 'bg-pink-500 text-white shadow-pink-200' },
+            indigo: { bg: 'bg-indigo-50', border: 'border-indigo-200', icon: 'bg-indigo-500', text: 'text-indigo-700', badge: 'bg-indigo-100 text-indigo-700', active: 'bg-indigo-500 text-white shadow-indigo-200' },
+        };
+
+        let currentId = 1;
+
+        function renderSidebar() {
+            const sidebar = document.getElementById('sidebar-menu');
+            sidebar.innerHTML = a1Topics.map(t => {
+                const c = colorMap[t.color];
+                const isActive = t.id === currentId;
+                return `
+            <button onclick="selectTopic(${t.id})"
+                class="flex-shrink-0 lg:flex-shrink w-40 lg:w-full flex lg:flex-row items-center gap-3 p-3 lg:p-4 rounded-2xl border-2 transition-all duration-200 text-left
+                       ${isActive ? `${c.active} border-transparent shadow-lg` : `bg-white border-slate-100 hover:${c.bg} hover:border-${t.color}-200 text-slate-600 hover:${c.text}`}">
+                <div class="flex-shrink-0 w-9 h-9 rounded-xl ${isActive ? 'bg-white/25' : c.icon} flex items-center justify-center shadow-sm">
+                    <i class="${t.icon} text-white text-lg"></i>
+                </div>
+                <div class="min-w-0">
+                    <div class="text-[10px] font-bold ${isActive ? 'text-white/70' : 'text-slate-400'}">STEP ${String(t.id).padStart(2, '0')}</div>
+                    <div class="font-bold text-sm leading-tight truncate ${isActive ? 'text-white' : ''}">${t.title}</div>
+                    <div class="text-[10px] truncate ${isActive ? 'text-white/70' : 'text-slate-400'}">${t.subtitle}</div>
+                </div>
+            </button>`;
+            }).join('');
+        }
+
+        function renderContent(topic) {
+            const c = colorMap[topic.color];
+            const content = topic.content;
+            const sectionsHtml = content.sections.map(sec => `
+            <div class="mb-8">
+                <h4 class="font-bold text-slate-700 mb-3 flex items-center gap-2">
+                    <span class="w-1.5 h-5 rounded-full ${c.icon} inline-block"></span>
+                    ${sec.title}
+                </h4>
+                <ul class="space-y-2">
+                    ${sec.items.map(item => `
+                        <li class="flex items-start gap-3 p-3 rounded-xl ${c.bg} border ${c.border}">
+                            <span class="mt-0.5 w-5 h-5 flex-shrink-0 rounded-full ${c.icon} flex items-center justify-center">
+                                <i class="ph-check text-white text-xs font-bold"></i>
+                            </span>
+                            <span class="text-slate-700 text-sm leading-relaxed">${item}</span>
+                        </li>`).join('')}
+                </ul>
+            </div>`).join('');
+
+            document.getElementById('content-area').innerHTML = `
+            <div class="animate-fade-in">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-14 h-14 rounded-2xl ${c.icon} flex items-center justify-center shadow-lg">
+                        <i class="${topic.icon} text-white text-2xl"></i>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${c.badge} mb-1">STEP ${String(topic.id).padStart(2, '0')} / 12</span>
+                        <h3 class="text-2xl font-bold text-slate-900">${content.heading}</h3>
+                    </div>
+                </div>
+                <p class="text-slate-500 mb-8 text-sm leading-relaxed">${content.description}</p>
+                ${sectionsHtml}
+                <div class="flex justify-between mt-10 pt-6 border-t border-slate-100">
+                    ${topic.id > 1
+                    ? `<button onclick="selectTopic(${topic.id - 1})" class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold text-sm transition-all"><i class="ph-arrow-left"></i> 이전 단계</button>`
+                    : '<div></div>'}
+                    ${topic.id < 12
+                    ? `<button onclick="selectTopic(${topic.id + 1})" class="flex items-center gap-2 px-5 py-2.5 rounded-xl ${c.icon} hover:opacity-90 text-white font-semibold text-sm transition-all shadow-md">다음 단계 <i class="ph-arrow-right"></i></button>`
+                    : `<div class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-teal-500 text-white font-semibold text-sm"><i class="ph-check-circle"></i> 완료!</div>`}
+                </div>
+            </div>`;
+        }
+
+        function selectTopic(id) {
+            currentId = id;
+            renderSidebar();
+            renderContent(a1Topics.find(t => t.id === id));
+            const sidebar = document.getElementById('sidebar-menu');
+            const btn = sidebar.querySelector(`button:nth-child(${id})`);
+            if (btn && window.innerWidth < 1024) btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSidebar();
+            renderContent(a1Topics[0]);
+
+            // 번역 툴팁(커서 설명란) 생성
+            const tooltip = document.createElement('div');
+            tooltip.id = 'translation-tooltip';
+            tooltip.className = 'fixed hidden bg-slate-800 text-white text-sm px-4 py-3 rounded-xl shadow-2xl z-[100] max-w-sm transition-opacity duration-200 pointer-events-none border border-light font-medium leading-relaxed';
+            document.body.appendChild(tooltip);
+
+            let tooltipHideTimeout;
+
+            // 클릭 이벤트 위임 (interactive-sentence 클릭 시 번역 표시)
+            document.addEventListener('click', (e) => {
+                const sentence = e.target.closest('.interactive-sentence');
+                if (sentence) {
+                    const ko = sentence.getAttribute('data-ko');
+                    if (ko) {
+                        tooltip.innerHTML = ko;
+                        tooltip.classList.remove('hidden');
+
+                        // 커서 위치 근처로 이동
+                        let x = e.clientX + 15;
+                        let y = e.clientY + 15;
+
+                        // 화면 밖으로 나가지 않게 조정
+                        // 툴팁의 대략적인 너비를 300px, 높이를 60px로 가정하고 화면을 넘어갈 경우 위치 조정
+                        if (x + 300 > window.innerWidth) {
+                            x = window.innerWidth - 320;
+                        }
+                        if (y + 60 > window.innerHeight) {
+                            y = window.innerHeight - 80;
+                        }
+
+                        tooltip.style.left = x + 'px';
+                        tooltip.style.top = y + 'px';
+
+                        // 기존 타이머 클리어
+                        if (tooltipHideTimeout) clearTimeout(tooltipHideTimeout);
+                        // 4초 후 자동 숨김
+                        tooltipHideTimeout = setTimeout(() => {
+                            tooltip.classList.add('hidden');
+                        }, 4000);
+                    }
+                } else {
+                    // 문장 외 영역 클릭 시 즉시 숨김
+                    tooltip.classList.add('hidden');
+                    if (tooltipHideTimeout) clearTimeout(tooltipHideTimeout);
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>

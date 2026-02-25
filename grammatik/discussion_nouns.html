@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2 Diskussion Nomen 70</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 900: '#1e3a8a' },
+                        /* 토론 테마: Indigo */
+                        indigo: { 
+                            50: '#eef2ff', 
+                            100: '#e0e7ff', 
+                            400: '#818cf8',
+                            500: '#6366f1', 
+                            600: '#4f46e5', 
+                            900: '#312e81' 
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Pretendard', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(226, 232, 240, 0.6); }
+        .side-nav { position: fixed; left: 2rem; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 1.5rem; z-index: 40; }
+        .side-btn { position: relative; width: 3.5rem; height: 3.5rem; background: white; border: 1px solid #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #64748b; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .side-btn:hover { background: #4f46e5; color: white; border-color: #4f46e5; transform: translateY(-3px); box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4); }
+        .side-tooltip { position: absolute; left: 100%; top: 50%; transform: translateY(-50%) translateX(10px); background: #1e293b; color: white; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; white-space: nowrap; opacity: 0; visibility: hidden; transition: all 0.2s ease; pointer-events: none; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .side-tooltip::before { content: ''; position: absolute; left: -4px; top: 50%; transform: translateY(-50%); border-width: 4px; border-style: solid; border-color: transparent #1e293b transparent transparent; }
+        .side-btn:hover .side-tooltip { opacity: 1; visibility: visible; transform: translateY(-50%) translateX(15px); }
+        @media (max-width: 1350px) { .side-nav { display: none; } }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen selection:bg-indigo-100 selection:text-indigo-900">
+
+   <div class="side-nav">
+        <div onclick="document.getElementById('list-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-list-dashes text-xl"></i>
+            <div class="side-tooltip">명사 리스트</div>
+        </div>
+        <div onclick="document.getElementById('quiz-start').scrollIntoView()" class="side-btn group">
+            <i class="ph-bold ph-pencil-simple text-xl"></i>
+            <div class="side-tooltip">실전 퀴즈</div>
+        </div>
+        <div onclick="window.scrollTo(0,0)" class="side-btn group">
+            <i class="ph-bold ph-arrow-up text-xl"></i>
+            <div class="side-tooltip">맨 위로</div>
+        </div>
+    </div>
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-2 cursor-pointer" onclick="location.href='../index.html'">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center text-white shadow-lg shadow-brand-500/30">
+                        <span class="font-bold text-lg">D</span>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-xl tracking-tight text-slate-900 leading-none">Deutsch Lernen</h1>
+                        <span class="text-[10px] text-brand-600 font-bold uppercase tracking-wider">B2 Professional</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm">
+                    <a href="../index.html" class="nav-link">Alle</a>
+                    <a href="../a1.html" class="nav-link">A1</a>
+                    <a href="../a2.html" class="nav-link">A2</a>
+                    <a href="grammatik.html" class="nav-link active">Grammatik</a> 
+                    <a href="../notification.html" class="nav-link">Notification</a>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            
+            <div id="list-start" class="scroll-mt-32">
+                <div class="text-center mb-12">
+                    <span class="inline-block px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs font-bold mb-3 border border-indigo-100">
+                        <i class="ph-bold ph-chats"></i> B2 Nomen
+                    </span>
+                    <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 mb-4">Diskussion Nomen 70</h2>
+                    <p class="text-slate-500 mb-8 max-w-2xl mx-auto">
+                        사회, 경제, 환경 등 B2 토론 단골 주제의 뼈대를 구성하는 핵심 명사 70선입니다. [cite: 57]<br>
+                        반드시 <span class="text-indigo-600 font-bold">성(der/die/das)</span>과 함께 학습하세요. [cite: 58]
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4" id="word-list-container">
+                    </div>
+            </div>
+
+            <div class="mt-16 bg-indigo-50 rounded-3xl p-8 border border-indigo-100 text-center relative overflow-hidden">
+                 <h3 class="text-xl font-bold text-indigo-700 mb-4">💡 B2 명사 정복 꿀팁</h3>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-slate-600 max-w-4xl mx-auto">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm">
+                        <div class="text-indigo-600 font-bold mb-2">동사와 짝꿍 맺기</div>
+                        Maßnahmen(조치) + <span class="underline">ergreifen</span>(취하다)처럼 짝꿍 동사를 함께 외우세요. [cite: 80]
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm">
+                        <div class="text-indigo-600 font-bold mb-2">복수형 체크</div>
+                        die Schulden(빚)처럼 주로 복수로 쓰이는 단어에 주의하세요. [cite: 81]
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm">
+                        <div class="text-indigo-600 font-bold mb-2">반대말 짝짓기</div>
+                        Vorteil(장점) ↔ Nachteil(단점) 식으로 외우면 사고 회로가 빨라집니다. [cite: 82]
+                    </div>
+                 </div>
+            </div>
+
+            <section id="quiz-start" class="mt-40 mb-20 scroll-mt-32">
+                <div class="max-w-3xl mx-auto">
+                    <div class="bg-white rounded-[2.5rem] shadow-xl border border-slate-100 overflow-hidden relative">
+                        <div id="q-init" class="p-16 text-center">
+                            <div class="w-20 h-20 bg-indigo-50 rounded-2xl flex items-center justify-center mx-auto mb-6 text-indigo-500">
+                                <i class="ph-duotone ph-student text-4xl"></i>
+                            </div>
+                            <h4 class="text-xl font-bold text-slate-900 mb-6">토론 명사 퀴즈</h4>
+                            <button onclick="startQuiz()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-10 py-4 rounded-xl shadow-lg transition-all">
+                                퀴즈 시작하기
+                            </button>
+                        </div>
+
+                        <div id="q-play" class="p-8 md:p-12 hidden">
+                            <div class="flex justify-between items-center mb-8">
+                                <div id="q-status" class="text-xs font-bold text-indigo-600">Question 1 / 10</div>
+                                <div class="w-24 h-2 bg-slate-100 rounded-full"><div id="q-progress-bar" class="h-full bg-indigo-500 w-0 transition-all"></div></div>
+                            </div>
+                            <div class="text-center mb-8">
+                                <div class="text-sm text-slate-400 font-medium mb-2" id="q-meaning-hint"></div>
+                                <h4 id="q-text" class="text-2xl font-bold text-slate-800"></h4>
+                            </div>
+                            <div id="q-options" class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-8"></div>
+                            <button id="next-btn" onclick="nextQ()" class="w-full bg-slate-900 text-white font-bold py-4 rounded-xl disabled:opacity-50" disabled>다음 문제</button>
+                        </div>
+
+                        <div id="q-result" class="p-16 text-center hidden">
+                            <h4 class="text-5xl font-black text-slate-900 mb-8" id="score-text"></h4>
+                            <button onclick="location.reload()" class="bg-indigo-600 text-white px-8 py-3 rounded-xl font-bold">다시 도전</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div id="word-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4" onclick="closeWordModal()">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm"></div>
+        <div class="relative w-full max-w-lg bg-white rounded-3xl p-10" onclick="event.stopPropagation()">
+            <h3 id="modal-word" class="text-3xl font-bold text-indigo-600 mb-4"></h3>
+            <div class="bg-slate-50 p-6 rounded-2xl mb-6">
+                <p id="modal-sentence" class="text-xl font-medium text-slate-700"></p>
+                <p id="modal-trans" class="text-sm text-slate-400 mt-2"></p>
+            </div>
+            <p id="modal-meaning" class="text-lg font-medium"></p>
+        </div>
+    </div>
+
+    <script src="../js/discussion_nouns_data.js"></script> 
+    <script src="../app/discussion_nouns_app.js"></script>
+</body>
+</html>

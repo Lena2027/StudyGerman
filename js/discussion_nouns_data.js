@@ -1,0 +1,85 @@
+const discussionNounsData = [
+    // 1. 경제 및 시장 (1-12)
+    {id:1, w:"der Fachkräftemangel", m:"전문 인력 부족", s:"Der Fachkräftemangel bremst das Wachstum.", t:"전문 인력 부족이 성장을 가로막고 있다."},
+    {id:2, w:"die Wirtschaftskrise", m:"경제 위기", s:"Wir müssen uns auf die Wirtschaftskrise vorberieten.", t:"우리는 경제 위기에 대비해야 한다."},
+    {id:3, w:"die Inflation", m:"인플레이션", s:"Die Inflation mindert die Kaufkraft der Bürger.", t:"인플레이션은 시민들의 구매력을 저하시킨다."},
+    {id:4, w:"der Wettbewerb", m:"경쟁", s:"Ein gesunder Wettbewerb belebt den Markt.", t:"건강한 경쟁은 시장을 활성화한다."},
+    {id:5, w:"die Globalisierung", m:"세계화", s:"Die Globalisierung hat viele Vorteile, aber auch Schattenseiten.", t:"세계화는 많은 장점이 있지만 어두운 면도 있다."},
+    {id:6, w:"die Subvention", m:"보조금", s:"Der Staat zahlt Subventionen für Solaranlagen.", t:"국가는 태양광 시설에 보조금을 지급한다."},
+    {id:7, w:"das Bruttoinlandsprodukt", m:"국내총생산 (BIP)", s:"Das Bruttoinlandsprodukt ist leicht gesunken.", t:"국내총생산이 약간 하락했다."},
+    {id:8, w:"die Investition", m:"투자", s:"Investitionen in Bildung sind entscheidend.", t:"교육에 대한 투자가 결정적이다."},
+    {id:9, w:"der Konsum", m:"소비", s:"Unser Konsum schadet oft der Umwelt.", t:"우리의 소비는 종종 환경에 해를 끼친다."},
+    {id:10, w:"die Steuerreform", m:"조세 개혁", s:"Die Regierung plant eine umfassende Steuerreform.", t:"정부는 포괄적인 조세 개혁을 계획 중이다."},
+    {id:11, w:"die Kaufkraft", m:"구매력", s:"Durch Lohnerhöhungen steigt die Kaufkraft.", t:"임금 인상을 통해 구매력이 상승한다."},
+    {id:12, w:"die Verschuldung", m:"채무/부채", s:"Die hohe Verschuldung der Kommunen ist ein Problem.", t:"지방자치단체의 높은 부채가 문제다."},
+
+    // 2. 사회 및 복지 (13-24)
+    {id:13, w:"die soziale Ungleichheit", m:"사회적 불평등", s:"Wir müssen die soziale Ungleichheit bekämpfen.", t:"우리는 사회적 불평등과 싸워야 한다."},
+    {id:14, w:"der demografische Wandel", m:"인구학적 변화", s:"Der demografische Wandel belastet die Rentenkasse.", t:"인구 변화가 연금 기금에 부담을 준다."},
+    {id:15, w:"die Integration", m:"통합/융합", s:"Die Integration von Geflüchteten ist eine Aufgabe.", t:"난민 통합은 하나의 과제이다."},
+    {id:16, w:"die Chancengleichheit", m:"기회 균등", s:"Bildung ist die Basis für Chancengleichheit.", t:"교육은 기회 균등의 기초이다."},
+    {id:17, w:"die Diskriminierung", m:"차별", s:"Diskriminierung am Arbeitsplatz ist verboten.", t:"직장 내 차별은 금지되어 있다."},
+    {id:18, w:"die Altersarmut", m:"노인 빈곤", s:"Immer mehr Menschen leiden unter Altersarmut.", t:"점점 더 많은 사람이 노인 빈곤으로 고통받는다."},
+    {id:19, w:"die Solidarität", m:"연대/결속", s:"In Krisenzeiten ist Solidarität gefragt.", t:"위기 시기에는 연대가 요구된다."},
+    {id:20, w:"das Vorurteil", m:"편견", s:"Wir müssen Vorurteile abbauen.", t:"우리는 편견을 타파해야 한다."},
+    {id:21, w:"die Meinungsfreiheit", m:"표현의 자유", s:"Meinungsfreiheit ist ein hohes Gut.", t:"표현의 자유는 고귀한 가치이다."},
+    {id:22, w:"die Zuwanderung", m:"이주/이민", s:"Deutschland ist auf Zuwanderung angewiesen.", t:"독일은 이민에 의존하고 있다."},
+    {id:23, w:"die soziale Ausgrenzung", m:"사회적 배제", s:"Armut führt oft zu sozialer Ausgrenzung.", t:"가난은 종종 사회적 배제로 이어진다."},
+    {id:24, w:"der Generationenkonflikt", m:"세대 갈등", s:"Der Generationenkonflikt verschärft sich.", t:"세대 갈등이 악화되고 있다."},
+
+    // 3. 환경 및 지속 가능성 (25-34)
+    {id:25, w:"der Klimawandel", m:"기후 변화", s:"Der Klimawandel erfordert schnelles Handeln.", t:"기후 변화는 신속한 행동을 요구한다."},
+    {id:26, w:"die Nachhaltigkeit", m:"지속 가능성", s:"Nachhaltigkeit sollte oberste Priorität haben.", t:"지속 가능성은 최우선 순위가 되어야 한다."},
+    {id:27, w:"der Umweltschutz", m:"환경 보호", s:"Der Umweltschutz geht uns alle an.", t:"환경 보호는 우리 모두의 문제다."},
+    {id:28, w:"die erneuerbaren Energien", m:"재생 에너지", s:"Wir setzen auf erneuerbare Energien.", t:"우리는 재생 에너지에 주력하고 있다."},
+    {id:29, w:"der CO2-Ausstoß", m:"이산화탄소 배출", s:"Wir müssen den CO2-Ausstoß reduzieren.", t:"우리는 탄소 배출을 줄여야 한다."},
+    {id:30, w:"die Ressourcenknappheit", m:"자원 부족", s:"Ressourcenknappheit führt zu höheren Preisen.", t:"자원 부족은 가격 상승을 초래한다."},
+    {id:31, w:"das Artensterben", m:"종의 멸종", s:"Das Artensterben ist eine stille Katastrophe.", t:"종의 멸종은 조용한 재앙이다."},
+    {id:32, w:"die ökologische Bilanz", m:"환경 지수", s:"Plastik hat eine schlechte ökologische Bilanz.", t:"플라스틱은 환경 지수가 나쁘다."},
+    {id:33, w:"der Atomausstieg", m:"탈원전", s:"Der Atomausstieg war ein langer Prozess.", t:"탈원전은 긴 과정이었다."},
+    {id:34, w:"der Naturschutz", m:"자연 보호", s:"Naturschutz ist wichtig für die Zukunft.", t:"자연 보호는 미래를 위해 중요하다."},
+
+    // 4. 노동 및 디지털화 (35-45)
+    {id:35, w:"die Digitalisierung", m:"디지털화", s:"Die Digitalisierung verändert die Arbeitswelt.", t:"디지털화가 노동계를 바꾸고 있다."},
+    {id:36, w:"die Künstliche Intelligenz", m:"인공지능 (KI)", s:"Künstliche Intelligenz birgt Chancen und Risiken.", t:"인공지능은 기회와 위험을 동시에 품고 있다."},
+    {id:37, w:"der Arbeitsmarkt", m:"노동 시장", s:"Der Arbeitsmarkt braucht mehr Flexibilität.", t:"노동 시장은 더 많은 유연성을 필요로 한다."},
+    {id:38, w:"die Arbeitslosigkeit", m:"실업", s:"Die Arbeitslosigkeit ist auf einem Tiefstand.", t:"실업률이 최저치이다."},
+    {id:39, w:"die Work-Life-Balance", m:"워라밸", s:"Viele junge Leute achten auf die Work-Life-Balance.", t:"많은 젊은이가 워라밸을 중시한다."},
+    {id:40, w:"der Mindestlohn", m:"최저 임금", s:"Der gesetzliche Mindestlohn wurde erhöht.", t:"법정 최저 임금이 인상되었다."},
+    {id:41, w:"die Gewerkschaft", m:"노동조합", s:"Die Gewerkschaft verhandelt über neue Löhne.", t:"노조가 새로운 임금에 대해 협상 중이다."},
+    {id:42, w:"das Homeoffice", m:"재택근무", s:"Homeoffice spart Zeit und Fahrtkosten.", t:"재택근무는 시간과 교통비를 아껴준다."},
+    {id:43, w:"der Strukturwandel", m:"구조적 변화", s:"Die Region befindet sich im Strukturwandel.", t:"그 지역은 구조적 변화 과정에 있다."},
+    {id:44, w:"die Automatisierung", m:"자동화", s:"Automatisierung ersetzt einfache Tätigkeiten.", t:"자동화가 단순 업무들을 대체한다."},
+    {id:45, w:"die Qualifikation", m:"자격/역량", s:"Ständige Qualifikation ist heute Pflicht.", t:"지속적인 역량 강화는 오늘날 의무이다."},
+
+    // 5. 정치 및 행정 (46-55)
+    {id:46, w:"die Demokratie", m:"민주주의", s:"Wir müssen unsere Demokratie schützen.", t:"우리는 우리의 민주주의를 보호해야 한다."},
+    {id:47, w:"die Opposition", m:"야당", s:"Die Opposition kritisiert die Regierung scharf.", t:"야당은 정부를 날카롭게 비판한다."},
+    {id:48, w:"die Gesetzgebung", m:"입법", s:"Die Gesetzgebung braucht oft zu viel Zeit.", t:"입법 과정은 종종 너무 많은 시간이 걸린다."},
+    {id:49, w:"das Grundrecht", m:"기본권", s:"Datenschutz ist ein wichtiges Grundrecht.", t:"데이터 보호는 중요한 기본권이다."},
+    {id:50, w:"der Kompromiss", m:"타협", s:"In der Politik muss man Kompromisse schließen.", t:"정치에서는 타협을 해야만 한다."},
+    {id:51, w:"die Verhandlung", m:"협상", s:"Die Verhandlungen verliefen ergebnislos.", t:"협상은 성과 없이 끝났다."},
+    {id:52, w:"die Transparenz", m:"투명성", s:"Bürger fordern mehr Transparenz vom Staat.", t:"시민들은 국가에 더 많은 투명성을 요구한다."},
+    {id:53, w:"die Bürokratie", m:"관료주의", s:"Zu viel Bürokratie hindert Innovationen.", t:"지나친 행정 절차는 혁신을 방해한다."},
+    {id:54, w:"die Subsidiarität", m:"보충성", s:"Das Prinzip der Subsidiarität ist wichtig.", t:"보충성의 원칙은 중요하다."},
+    {id:55, w:"das öffentliche Interesse", m:"공공의 이익", s:"Das liegt im öffentlichen Interesse.", t:"그것은 공익에 부합한다."},
+
+    // 6. 건강 및 교육 (56-61)
+    {id:56, w:"das Bildungssystem", m:"교육 제도", s:"Unser Bildungssystem ist veraltet.", t:"우리의 교육 제도는 낡았다."},
+    {id:57, w:"die Studiengebühren", m:"등록금", s:"Über Studiengebühren wird oft gestritten.", t:"대학 등록금에 대해 자주 논쟁이 벌어진다."},
+    {id:58, w:"der Analphabetismus", m:"문맹", s:"Funktionaler Analphabetismus ist ein Problem.", t:"기능적 문맹은 하나의 문제이다."},
+    {id:59, w:"das Gesundheitssystem", m:"의료 체계", s:"Das Gesundheitssystem ist an seiner Grenze.", t:"의료 체계가 한계에 다다랐다."},
+    {id:60, w:"die Vorsorge", m:"예방/대비", s:"Medizinische Vorsorge spart Kosten.", t:"의료 예방은 비용을 절감해준다."},
+    {id:61, w:"der Pflegenotstand", m:"간호 인력난", s:"Der Pflegenotstand wird immer schlimmer.", t:"간호 인력 부족난이 점점 심각해지고 있다."},
+
+    // 7. 논리 전개 (62-70)
+    {id:62, w:"die Ursache", m:"원인", s:"Wir müssen die Ursache des Problems finden.", t:"우리는 문제의 원인을 찾아야 한다."},
+    {id:63, w:"die Auswirkung / Folge", m:"영향 / 결과", s:"Die Auswirkungen sind noch unklar.", t:"그 영향은 아직 불분명하다."},
+    {id:64, w:"die Herausforderung", m:"도전 과제", s:"Das ist eine große Herausforderung.", t:"그것은 큰 도전 과제이다."},
+    {id:65, w:"die Tendenz", m:"경향 / 추세", s:"Es gibt eine Tendenz zur Teilzeitarbeit.", t:"파트타임 근무로의 추세가 있다."},
+    {id:66, w:"das Argument", m:"논거 / 근거", s:"Dein Argument ist nicht überzeugend.", t:"네 논거는 설득력이 없다."},
+    {id:67, w:"der Standpunkt", m:"관점 / 입장", s:"Aus meinem Standpunkt sieht das anders aus.", t:"내 관점에서는 그것이 다르게 보인다."},
+    {id:68, w:"die Maßnahme", m:"조치 / 대책", s:"Wir brauchen sofortige Maßnahmen.", t:"우리는 즉각적인 조치가 필요하다."},
+    {id:69, w:"das Fazit", m:"결론", s:"Mein Fazit fällt positiv aus.", t:"나의 결론은 긍정적이다."},
+    {id:70, w:"der Kompromiss", m:"타협점", s:"Wir haben einen Kompromiss gefunden.", t:"우리는 타협점을 찾았다."}
+];
